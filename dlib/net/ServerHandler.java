@@ -7,5 +7,5 @@ package dlib.net;
  */
 public interface ServerHandler
 {
-	public Object handle( LanServer s, Object o );
+	public void handle( LanServer s, Object o );
 }

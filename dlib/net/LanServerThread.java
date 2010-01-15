@@ -44,6 +44,7 @@ public class LanServerThread extends Thread
 		    	Object oin;
 		    	if( (oin = in.readObject() ) != null )
 		    	{
+		    		System.out.println( "serv rec" );
 		    		serv.handler.handle( serv, oin );
 		    	}
 		    	Object oout = toSend.poll();

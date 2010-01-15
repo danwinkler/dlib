@@ -19,6 +19,7 @@ public class LanClient
 	public LanClient( String host, int port, ClientHandler handler ) throws IOException
 	{
 		thread = new LanClientThread( this, host, port );
+		thread.start();
 		this.handler = handler;
 	}
 	
@@ -62,6 +63,7 @@ public class LanClient
 		    	{
 			    	if( (oin = in.readObject() ) != null )
 			    	{
+			    		System.out.println( "serv rec" );
 			    		c.handler.handle( c, oin );
 			    	}
 			    	Object oout = toSend.poll();
