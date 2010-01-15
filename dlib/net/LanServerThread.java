@@ -35,22 +35,26 @@ public class LanServerThread extends Thread
 
     public void run() 
     {
+    	System.out.println( "1" );
 		try {
 		    ObjectOutputStream out = new ObjectOutputStream( socket.getOutputStream() );
 		    ObjectInputStream in = new ObjectInputStream( socket.getInputStream() );
-		    
+		    System.out.println( "2" );
 		    while( !timedOut() )
 		    {
+		    	System.out.println( "3" );
 		    	Object oin;
 		    	if( (oin = in.readObject() ) != null )
 		    	{
-		    		System.out.println( "serv rec" );
+		    		System.out.println( oin );
+		    		System.out.println( "4" );
 		    		serv.handler.handle( serv, oin );
 		    	}
 		    	Object oout = toSend.poll();
 		    	if( oout != null )
 		    	{
 		    		out.writeObject( oout );
+		    		System.out.println( "5" );
 		    	}
 		    }
 		    serv.clients.remove( this );
@@ -59,11 +63,13 @@ public class LanServerThread extends Thread
 		{
 		    e.printStackTrace();
 		    serv.clients.remove( this );
+		    System.out.println( "6" );
 		} 
 		catch( ClassNotFoundException e )
 		{
 			e.printStackTrace();
 			serv.clients.remove( this );
+			System.out.println( "7" );
 		}
     }
     

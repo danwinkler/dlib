@@ -20,14 +20,19 @@ public class LanServer
     {
         ServerSocket serverSocket = null;
         boolean listening = true;
-
+        System.out.println( "S1" );
         serverSocket = new ServerSocket( port );
-
+        System.out.println( "S2" );
         while (listening)
         {
-        	LanServerThread n = new LanServerThread(this, serverSocket.accept() );
+        	System.out.println( "S3" );
+        	LanServerThread n = new LanServerThread( this, serverSocket.accept() );
+        	System.out.println( "S4" );
+        	System.out.println( "S5" );
         	clients.add( n );
+        	System.out.println( "S6" );
         	n.start();
+        	System.out.println( "S7" );
         }
 
         serverSocket.close();

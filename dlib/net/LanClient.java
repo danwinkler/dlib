@@ -44,18 +44,30 @@ public class LanClient
 		
 		long timeOut;
 		
-		public LanClientThread( LanClient c, String host, int port ) throws IOException
+		String host;
+		int port;
+		
+		public LanClientThread( LanClient c, String host, int port )
 		{
 			super( "LanClientThread" );
 			this.c = c;
-			socket = new Socket( host, port );
-			out = new ObjectOutputStream( socket.getOutputStream() );
-			in = new ObjectInputStream( socket.getInputStream() );
+			this.host = host;
+			this.port = port;
 			timeOut = System.currentTimeMillis();
 		}
 		
 		public void run()
 		{
+			try
+			{
+				socket = new Socket( host, port );
+				out = new ObjectOutputStream( socket.getOutputStream() );
+				in = new ObjectInputStream( socket.getInputStream() );
+			}
+			catch( IOException e )
+			{
+				
+			}
 			while( !timedOut() )
 		    {
 		    	Object oin;
@@ -63,7 +75,6 @@ public class LanClient
 		    	{
 			    	if( (oin = in.readObject() ) != null )
 			    	{
-			    		System.out.println( "serv rec" );
 			    		c.handler.handle( c, oin );
 			    	}
 			    	Object oout = toSend.poll();
@@ -81,6 +92,16 @@ public class LanClient
 					break;
 				}
 		    }
+			try
+			{
+			out.close();
+			in.close();
+			socket.close();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			
 		}
 		
 		public boolean timedOut()
