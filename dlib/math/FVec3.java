@@ -18,4 +18,13 @@ public class FVec3 extends FVec
 	public void sub( float x, float y, float z ) { this.x -= x; this.y -= y; this.z -= z; }
 	public void mul( float x, float y, float z ) { this.x *= x; this.y *= y; this.z *= z; }
 	public void div( float x, float y, float z ) { this.x /= x; this.y /= y; this.z /= z; }
+	
+	public FVec3 cross( FVec3 v )
+	{
+		FVec3 r = new FVec3();
+		r.x = this.y*v.z - this.z*v.y;
+		r.y = v.x*this.z - v.z*this.x;
+		r.z = this.x*v.y - this.y*v.x;
+		return r;
+	}
 }
