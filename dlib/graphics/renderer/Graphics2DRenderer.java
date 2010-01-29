@@ -18,9 +18,7 @@ import dlib.graphics.Renderer;
 import dlib.util.DGraphics;
 
 public class Graphics2DRenderer implements Renderer
-{
-	RenderUpdate ru;
-	
+{	
 	JFrame container;
 	JPanel panel;
 	Canvas canvas;
@@ -35,17 +33,15 @@ public class Graphics2DRenderer implements Renderer
 	Color stroke = new Color( 0, 0, 0 );
 	//End Draw vars
 	
-	public Graphics2DRenderer( String title, int width, int height, RenderUpdate ru )
-	{
-		this.ru = ru;
-		
-		container = new JFrame( title );
+	public Graphics2DRenderer()
+	{	
+		container = new JFrame( "Graphics2DRenderer Window" );
 		panel = (JPanel) container.getContentPane();
-		panel.setPreferredSize( new Dimension( width, height ) );
+		panel.setPreferredSize( new Dimension( 50, 50 ) );
 		panel.setLayout(null);
 		canvas = new Canvas();
 		
-		canvas.setBounds(0,0,width,height);
+		canvas.setBounds(0,0,50,50);
 		panel.add( canvas );
 		
 		container.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -62,16 +58,24 @@ public class Graphics2DRenderer implements Renderer
 		bs = canvas.getBufferStrategy();
 	}
 	
-	public void start()
+	public void size( int x, int y )
 	{
-		ru.setup();
+		canvas.setBounds( 0, 0, x, y );
+		panel.setPreferredSize( new Dimension( x, y ) );
+		container.setSize( x, y );
+		container.pack();
+	}
+	
+	public void start( Renderer r )
+	{
+		setup();
 		while( true )
 		{
 			long startTime = System.nanoTime();
 			g = (Graphics2D) bs.getDrawGraphics();
 			mat.clear();
 			mat.push( g.getTransform() );
-			ru.draw();
+			draw();
 			
 			g.dispose();
 			bs.show();
@@ -91,7 +95,10 @@ public class Graphics2DRenderer implements Renderer
 
 	public void ellipse( float x, float y, float width, float height )
 	{
-		
+		g.setColor( fill );
+		g.fillOval( (int)x, (int)y, (int)width, (int)height );
+		g.setColor( stroke );
+		g.drawOval( (int)x, (int)y, (int)width, (int)height );
 	}
 
 	public void endShape()
@@ -208,6 +215,18 @@ public class Graphics2DRenderer implements Renderer
 	public void vertex( float x, float y, float z )
 	{
 		
+		
+	}
+	
+	public void frameRate( float r )
+	{
+		frameTime = (long) (1000000 / r);
+	}
+
+	public void draw() {
+	}
+
+	public void setup() {
 		
 	}
 

@@ -7,6 +7,9 @@ import dlib.math.FVec;
 public interface Renderer
 {
 	//TODO: create interface so renderer can be chosen independently
+	public void start( Renderer r );
+	public void size( int x, int y );
+	public void frameRate( float r );
 	
 	public void fill( int c );
 	public void fill( float r, float g, float b );
@@ -45,5 +48,8 @@ public interface Renderer
 	
 	public void pushMatrix();
 	public void popMatrix();
+	
+	public void setup();
+	public void draw();
 	
 }

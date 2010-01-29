@@ -3,14 +3,14 @@ package dlib.tests;
 import dlib.graphics.RenderUpdate;
 import dlib.graphics.renderer.Graphics2DRenderer;
 
-public class Graphics2DRendererTest implements RenderUpdate
+public class Graphics2DRendererTest extends Graphics2DRenderer
 {
 	static Graphics2DRenderer r;
 	
 	public static void main( String[] args )
 	{
-		r = new Graphics2DRenderer( "test", 800, 600, new Graphics2DRendererTest() );
-		r.start();
+		r = new Graphics2DRenderer();
+		r.start( r );
 	}
 
 	public void draw()

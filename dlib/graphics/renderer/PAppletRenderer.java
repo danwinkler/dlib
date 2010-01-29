@@ -12,7 +12,12 @@ import processing.core.PImage;
 public class PAppletRenderer extends PApplet implements Renderer
 {
 	private HashMap<Image, PImage> imageMap = new HashMap<Image,PImage>();
-
+	
+	public void start( Renderer r )
+	{
+		main( new String[] { r.getClass().getCanonicalName() } );
+	}
+	
 	public void beginShape( ShapeType type )
 	{
 		if( type == ShapeType.POINTS )
@@ -45,6 +50,14 @@ public class PAppletRenderer extends PApplet implements Renderer
 			imageMap.put( img, pimg );
 			texture( pimg );
 		}
+		
+	}
+
+	public void render() {
+		
+	}
+
+	public void update() {
 		
 	}
 }
