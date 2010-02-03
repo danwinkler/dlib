@@ -4,9 +4,11 @@ package dlib.graphics;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Tuple3f;
+import javax.vecmath.Vector3f;
 
 import dlib.graphics.Renderer.ShapeType;
 
@@ -18,13 +20,14 @@ public class Model implements Renderable, Serializable
 	Matrix4f mat = new Matrix4f();
 	
 	ArrayList<Point3f> points = new ArrayList<Point3f>();
-	boolean finalized = true;
+	boolean finalized = false;
 	
 	ShapeType type;
 	
 	public Model( ShapeType type )
 	{
 		this.type = type;
+		mat.setIdentity();
 	}
 	
 	public void add( Point3f point )
@@ -80,12 +83,50 @@ public class Model implements Renderable, Serializable
 	
 	public void translate( float x, float y, float z )
 	{
-		
+		Matrix4f opMat = new Matrix4f();
+		opMat.set( new Vector3f( x, y, z ) );
+		mat.mul( opMat );
 	}
 	
-	public void translate( Tuple3f t )
+	public void translate( Vector3f t )
 	{
-		
+		Matrix4f opMat = new Matrix4f();
+		opMat.set( t );
+		mat.mul( opMat );
 	}
-
+	
+	public void rotate( Vector3f axis, float angle )
+	{
+		Matrix4f opMat = new Matrix4f();
+		opMat.set( new AxisAngle4f( axis, angle ) );
+		mat.mul( opMat );
+	}
+	
+	public void rotateX( float angle )
+	{
+		Matrix4f opMat = new Matrix4f();
+		opMat.rotX( angle );
+		mat.mul( opMat );
+	}
+	
+	public void rotateY( float angle )
+	{
+		Matrix4f opMat = new Matrix4f();
+		opMat.rotY( angle );
+		mat.mul( opMat );
+	}
+	
+	public void rotateZ( float angle )
+	{
+		Matrix4f opMat = new Matrix4f();
+		opMat.rotZ( angle );
+		mat.mul( opMat );
+	}
+	
+	public void clear()
+	{
+		finalized = false;
+		points = new ArrayList<Point3f>();
+		mat.setIdentity();
+	}
 }
