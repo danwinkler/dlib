@@ -17,4 +17,13 @@ public abstract class FVec
 	public float mag2() { return x*x + y*y + z*z; }
 	public float mag() { return (float)Math.sqrt( x*x + y*y + z*z ); }
 	public void norm() { div( mag() ); };
+	public void set( FVec v ) { this.x = v.x; this.y = v.x; this.z = v.z; }
+	
+	public float dist( FVec v )
+	{
+		FVec dist = new FVec3();
+		dist.set( v );
+		dist.sub( this );
+		return dist.mag();
+	}
 }
