@@ -27,4 +27,9 @@ public class FVec3 extends FVec
 		r.z = this.x*v.y - this.y*v.x;
 		return r;
 	}
+	
+	public void transform( FMat4 tx )
+	{
+		
+	}
 }

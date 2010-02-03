@@ -6,6 +6,7 @@ import java.util.HashMap;
 import dlib.graphics.Renderer;
 import dlib.math.FVec;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 
 @SuppressWarnings("serial")
@@ -50,14 +51,6 @@ public class PAppletRenderer extends PApplet implements Renderer
 			imageMap.put( img, pimg );
 			texture( pimg );
 		}
-		
-	}
-
-	public void render() {
-		
-	}
-
-	public void update() {
 		
 	}
 }

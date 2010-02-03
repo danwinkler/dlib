@@ -1,18 +1,23 @@
 package dlib.graphics;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Point3f;
+import javax.vecmath.Tuple3f;
+
 import dlib.graphics.Renderer.ShapeType;
-import dlib.math.FVec3;
 
 public class Model implements Renderable, Serializable
 {
 	float[] x;
 	float[] y;
 	float[] z;
+	Matrix4f mat = new Matrix4f();
 	
-	ArrayList<FVec3> points = new ArrayList<FVec3>();
+	ArrayList<Point3f> points = new ArrayList<Point3f>();
 	boolean finalized = true;
 	
 	ShapeType type;
@@ -22,15 +27,19 @@ public class Model implements Renderable, Serializable
 		this.type = type;
 	}
 	
-	public void add( FVec3 point )
+	public void add( Point3f point )
 	{
-		points.add( point );
+		Point3f pt = new Point3f();
+		mat.transform( point, pt );
+		points.add( pt );
 		finalized = false;
 	}
 	
 	public void add( float x, float y, float z )
 	{
-		points.add( new FVec3( x, y, z ) );
+		Point3f pt = new Point3f( x, y, z);
+		mat.transform( pt );
+		points.add( pt );
 		finalized = false;
 	}
 	
@@ -62,11 +71,21 @@ public class Model implements Renderable, Serializable
 		{
 			for( int i = 0; i < points.size(); i++ )
 			{
-				FVec3 p = points.get(i);
+				Point3f p = points.get(i);
 				r.vertex( p.x, p.y, p.z );
 			}
 		}
 		r.endShape();
+	}
+	
+	public void translate( float x, float y, float z )
+	{
+		
+	}
+	
+	public void translate( Tuple3f t )
+	{
+		
 	}
 
 }

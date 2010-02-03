@@ -1,27 +1,26 @@
 package dlib.game.tilemap;
 
+import javax.vecmath.Point3f;
+
 import dlib.graphics.Renderable;
-import dlib.math.FVec;
-import dlib.math.FVec2;
-import dlib.math.FVec3;
 
 public class Tile
 {
-	public FVec bounds;
+	public Point3f bounds;
 	public Renderable r;
 	
 	public Tile()
 	{
-		bounds = new FVec2();
+		bounds = new Point3f();
 	}
 	
 	public Tile( float x, float y )
 	{
-		bounds = new FVec2( x, y );
+		bounds = new Point3f( x, y, 0 );
 	}
 	
 	public Tile( float x, float y, float z )
 	{
-		bounds = new FVec3( x, y, z );
+		bounds = new Point3f( x, y, z );
 	}
 }

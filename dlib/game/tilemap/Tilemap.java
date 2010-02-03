@@ -1,11 +1,14 @@
 package dlib.game.tilemap;
 
+import javax.vecmath.Point2f;
+import javax.vecmath.Point3f;
+
 import dlib.graphics.Renderer;
 import dlib.math.FVec;
 
 public class Tilemap
 {
-	FVec tileSize;
+	Point3f tileSize;
 	Tile[][] tiles;
 	Tilebank tb = new Tilebank();
 	
