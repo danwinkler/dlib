@@ -66,7 +66,7 @@ public class Graphics2DRenderer implements Renderer
 		container.pack();
 	}
 	
-	public void start( Renderer r )
+	public void begin()
 	{
 		setup();
 		while( true )

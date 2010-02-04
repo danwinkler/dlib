@@ -7,7 +7,7 @@ import dlib.math.FVec;
 public interface Renderer
 {
 	//TODO: create interface so renderer can be chosen independently
-	public void start( Renderer r );
+	public void begin();
 	public void size( int x, int y );
 	public void frameRate( float r );
 	

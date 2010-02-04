@@ -10,7 +10,7 @@ public class Graphics2DRendererTest extends Graphics2DRenderer
 	public static void main( String[] args )
 	{
 		r = new Graphics2DRenderer();
-		r.start( r );
+		r.begin();
 	}
 
 	public void draw()

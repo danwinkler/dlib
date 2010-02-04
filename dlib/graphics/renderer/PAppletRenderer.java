@@ -14,9 +14,9 @@ public class PAppletRenderer extends PApplet implements Renderer
 {
 	private HashMap<Image, PImage> imageMap = new HashMap<Image,PImage>();
 	
-	public void start( Renderer r )
+	public void begin()
 	{
-		main( new String[] { r.getClass().getCanonicalName() } );
+		main( new String[] { this.getClass().getCanonicalName() } );
 	}
 	
 	public void beginShape( ShapeType type )
