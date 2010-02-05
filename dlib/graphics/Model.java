@@ -3,6 +3,7 @@ package dlib.graphics;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Matrix4f;
@@ -17,7 +18,8 @@ public class Model implements Renderable, Serializable
 	float[] x;
 	float[] y;
 	float[] z;
-	Matrix4f mat = new Matrix4f();
+	Stack<Matrix4f> mats = new Stack<Matrix4f>();
+	Matrix4f mat = new Matrix4f();;
 	
 	ArrayList<Point3f> points = new ArrayList<Point3f>();
 	boolean finalized = false;
@@ -33,7 +35,7 @@ public class Model implements Renderable, Serializable
 	public void add( Point3f point )
 	{
 		Point3f pt = new Point3f();
-		mat.transform( point, pt );
+		mats.peek().transform( point, pt );
 		points.add( pt );
 		finalized = false;
 	}
@@ -41,7 +43,7 @@ public class Model implements Renderable, Serializable
 	public void add( float x, float y, float z )
 	{
 		Point3f pt = new Point3f( x, y, z);
-		mat.transform( pt );
+		mats.peek().transform( pt );
 		points.add( pt );
 		finalized = false;
 	}
@@ -123,10 +125,58 @@ public class Model implements Renderable, Serializable
 		mat.mul( opMat );
 	}
 	
+	public void pushMatrix()
+	{
+		mats.push( new Matrix4f( mat ) );
+	}
+	
+	public void popMatrix()
+	{
+		mat = mats.pop();
+	}
+	
+	public void box( float x, float y, float z )
+	{
+		float x2 = x/2;
+		float y2 = y/2;
+		float z2 = z/2;
+		//TOP
+		add( x2, y2, z2 );
+		add( x2, -y2, z2 );
+		add( -x2, -y2, z2 );
+		add( -x2, y2, z2 );
+		//BOTTOM
+		add( x2, y2, -z2 );
+		add( x2, -y2, -z2 );
+		add( -x2, -y2, -z2 );
+		add( -x2, y2, -z2 );
+		//FRONT
+		add( x2, y2, z2 );
+		add( x2, y2, -z2 );
+		add( -x2, y2, -z2 );
+		add( -x2, y2, z2 );
+		//BACK
+		add( x2, -y2, z2 );
+		add( x2, -y2, -z2 );
+		add( -x2, -y2, -z2 );
+		add( -x2, -y2, z2 );
+		//LEFT
+		add( x2, y2, z2 );
+		add( x2, y2, -z2 );
+		add( x2, -y2, -z2 );
+		add( x2, -y2, z2 );
+		//RIGHT
+		add( -x2, y2, z2 );
+		add( -x2, y2, -z2 );
+		add( -x2, -y2, -z2 );
+		add( -x2, -y2, z2 );
+	}
+	
 	public void clear()
 	{
 		finalized = false;
 		points = new ArrayList<Point3f>();
+		mats.clear();
 		mat.setIdentity();
 	}
 }
