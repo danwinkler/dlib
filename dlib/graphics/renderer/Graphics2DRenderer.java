@@ -68,14 +68,14 @@ public class Graphics2DRenderer implements Renderer
 	
 	public void begin()
 	{
-		setup();
+		initialize();
 		while( true )
 		{
 			long startTime = System.nanoTime();
 			g = (Graphics2D) bs.getDrawGraphics();
 			mat.clear();
 			mat.push( g.getTransform() );
-			draw();
+			update();
 			
 			g.dispose();
 			bs.show();
@@ -123,12 +123,12 @@ public class Graphics2DRenderer implements Renderer
 
 	public void line( float x1, float y1, float x2, float y2 )
 	{
-				
+		g.drawLine( (int)x1, (int)y1, (int)x2, (int)y2 );
 	}
 
 	public void line( float x1, float y1, float z1, float x2, float y2, float z2 )
 	{
-		
+		g.drawLine( (int)x1, (int)y1, (int)x2, (int)y2 );
 	}
 
 	public void popMatrix()
@@ -222,11 +222,11 @@ public class Graphics2DRenderer implements Renderer
 	{
 		frameTime = (long) (1000000 / r);
 	}
-
-	public void draw() {
+	
+	public void update() {
 	}
 
-	public void setup() {
+	public void initialize() {
 		
 	}
 

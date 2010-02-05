@@ -53,4 +53,23 @@ public class PAppletRenderer extends PApplet implements Renderer
 		}
 		
 	}
+	
+	public void setup()
+	{
+		initialize();
+		this.ellipseMode( PConstants.CORNER );
+	}
+	
+	public void draw()
+	{
+		update();
+	}
+
+	public void initialize() {
+		
+	}
+
+	public void update() {
+		
+	}
 }

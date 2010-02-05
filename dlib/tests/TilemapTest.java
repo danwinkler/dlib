@@ -12,7 +12,7 @@ public class TilemapTest extends PAppletRenderer
 {
 	Tilemap tm;
 	
-	public void setup()
+	public void initialize()
 	{
 		size( 800, 600 );
 		tm = new Tilemap( 20, 20 );
@@ -20,7 +20,7 @@ public class TilemapTest extends PAppletRenderer
 		tm.fill( "cooltile");
 	}
 	
-	public void draw()
+	public void update()
 	{
 		tm.render( this );
 	}

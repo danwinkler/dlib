@@ -49,7 +49,7 @@ public interface Renderer
 	public void pushMatrix();
 	public void popMatrix();
 	
-	public void setup();
-	public void draw();
+	public void initialize();
+	public void update();
 	
 }

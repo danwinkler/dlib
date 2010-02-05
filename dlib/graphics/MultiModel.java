@@ -6,11 +6,10 @@ import java.util.ArrayList;
 import dlib.util.DGraphics;
 
 //TODO: Think about making MultiModels with movements
-public class MultiModel 
+public class MultiModel implements Renderable
 {
 	ArrayList<Model> models = new ArrayList<Model>();
 	ArrayList<Integer> colors = new ArrayList<Integer>();
-	ArrayList<Image> textures = new ArrayList<Image>();
 	
 	public MultiModel()
 	{
@@ -21,7 +20,6 @@ public class MultiModel
 	{
 		models.add( m );
 		colors.add( color );
-		textures.add( null );
 	}
 	
 	public void add( Model m, int r, int g, int b )
@@ -33,11 +31,13 @@ public class MultiModel
 	{
 		add( m, DGraphics.rgba( r, g, b, a) );
 	}
-	
-	public void add( Model m, Image t )
+
+	public void render(Renderer r) 
 	{
-		models.add( m );
-		colors.add( null );
-		textures.add( t );
+		for( int i = 0; i < models.size(); i++ )
+		{
+			r.fill( colors.get(i) );
+			models.get(i).render( r );
+		}
 	}
 }

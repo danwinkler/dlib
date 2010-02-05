@@ -1,6 +1,7 @@
 package dlib.graphics;
 
 
+import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -34,16 +35,16 @@ public class Model implements Renderable, Serializable
 	
 	public void add( Point3f point )
 	{
-		Point3f pt = new Point3f();
-		mats.peek().transform( point, pt );
+		Point3f pt = new Point3f( point );
+		mat.transform( point, pt );
 		points.add( pt );
 		finalized = false;
 	}
 	
 	public void add( float x, float y, float z )
 	{
-		Point3f pt = new Point3f( x, y, z);
-		mats.peek().transform( pt );
+		Point3f pt = new Point3f( x, y, z );
+		mat.transform( pt );
 		points.add( pt );
 		finalized = false;
 	}
@@ -62,9 +63,31 @@ public class Model implements Renderable, Serializable
 		finalized = true;
 	}
 	
-	public void render(Renderer r) 
+	public void render( Renderer r ) 
 	{
 		r.beginShape(type);
+		if( finalized )
+		{
+			for( int i = 0; i < x.length; i++ )
+			{
+				r.vertex( x[i], y[i], z[i] );
+			}
+		}
+		else
+		{
+			for( int i = 0; i < points.size(); i++ )
+			{
+				Point3f p = points.get(i);
+				r.vertex( p.x, p.y, p.z );
+			}
+		}
+		r.endShape();
+	}
+	
+	public void render( Renderer r, Image texture ) 
+	{
+		r.beginShape(type);
+		r.texture( texture );
 		if( finalized )
 		{
 			for( int i = 0; i < x.length; i++ )

@@ -13,7 +13,7 @@ public class Graphics2DRendererTest extends Graphics2DRenderer
 		r.begin();
 	}
 
-	public void draw()
+	public void update()
 	{
 		r.stroke( 255.f, 0.f, 0.f );
 		r.rect( 50, 50, 700, 500 );
@@ -23,7 +23,7 @@ public class Graphics2DRendererTest extends Graphics2DRenderer
 		r.text( "Dans", 100, 100 );
 	}
 
-	public void setup()
+	public void initialize()
 	{
 		
 	}

@@ -7,7 +7,7 @@ public class ModelTest extends PAppletRenderer
 {
 	Model model = new Model( ShapeType.QUAD_STRIP );
 	
-	public void setup()
+	public void initialize()
 	{
 		size( 800, 600, P3D );
 		frameRate( 30 );
@@ -21,7 +21,7 @@ public class ModelTest extends PAppletRenderer
 		model.finalize();
 	}
 	
-	public void draw()
+	public void update()
 	{
 		lights(); 
 		  background(200, 200, 200); 
