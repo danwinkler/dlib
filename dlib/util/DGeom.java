@@ -62,6 +62,6 @@ public class DGeom
 		Vector3f dist = new Vector3f();
 		dist.set(pos);
 		pos.add( ray.loc );
-		return new Intersection( pos, dist.length(), tri );
+		return new Intersection( pos, ray, tri );
 	}
 }
