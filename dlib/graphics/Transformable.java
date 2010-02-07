@@ -18,6 +18,13 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	public void translate( float x, float y )
+	{
+		Matrix4f opMat = new Matrix4f();
+		opMat.set( new Vector3f( x, y, 0 ) );
+		mat.mul( opMat );
+	}
+	
 	public void translate( Vector3f t )
 	{
 		Matrix4f opMat = new Matrix4f();

@@ -16,6 +16,20 @@ public class RayTracer extends Transformable implements Renderer
 	{
 		
 	}
+	
+	
+	public void vertex( float x, float y )
+	{
+		
+		
+	}
+
+	
+	public void vertex( float x, float y, float z )
+	{
+		
+		
+	}
 
 	
 	public void beginShape( ShapeType type )
@@ -151,40 +165,10 @@ public class RayTracer extends Transformable implements Renderer
 		
 		
 	}
-
-	
-	public void translate( float x, float y )
-	{
-		
-		
-	}
-
-	
-	public void translate( float x, float y, float z )
-	{
-		
-		
-	}
-
 	
 	public void update()
 	{
 		
 		
 	}
-
-	
-	public void vertex( float x, float y )
-	{
-		
-		
-	}
-
-	
-	public void vertex( float x, float y, float z )
-	{
-		
-		
-	}
-
 }
