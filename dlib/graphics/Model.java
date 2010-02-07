@@ -20,7 +20,7 @@ public class Model implements Renderable, Serializable
 	float[] y;
 	float[] z;
 	Stack<Matrix4f> mats = new Stack<Matrix4f>();
-	Matrix4f mat = new Matrix4f();;
+	Matrix4f mat = new Matrix4f();
 	
 	ArrayList<Point3f> points = new ArrayList<Point3f>();
 	boolean finalized = false;

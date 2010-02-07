@@ -9,7 +9,7 @@ import dlib.math.Trianglef;
 
 public class DGeom
 {
-	public static Intersection RayTriCol(Rayf ray, Trianglef tri)
+	public static Intersection rayTriagleIntersect(Rayf ray, Trianglef tri)
 	{
 		float epsilon = .00001f;
 

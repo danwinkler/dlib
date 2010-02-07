@@ -14,4 +14,9 @@ public class Intersection
 		this.g = g;
 		this.loc = loc;
 	}
+	
+	public float getDist()
+	{
+		return loc.distance( ray.loc );
+	}
 }
