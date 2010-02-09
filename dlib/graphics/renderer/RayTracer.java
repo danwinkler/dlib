@@ -11,6 +11,7 @@ import dlib.math.Trianglef;
 public class RayTracer extends Transformable implements Renderer
 {
 	ArrayList<Trianglef> tris = new ArrayList<Trianglef>();
+	ShapeType mode;
 	
 	public void begin()
 	{
@@ -44,29 +45,22 @@ public class RayTracer extends Transformable implements Renderer
 	}
 
 	
-	public void ellipse( float x, float y, float width, float height )
-	{
-		
-	}
-
 	
+
 	public void endShape()
 	{
-		
 		
 	}
 
 	
 	public void fill( int c )
 	{
-		
-		
+			
 	}
 
 	
 	public void fill( float r, float g, float b )
 	{
-		
 		
 	}
 
@@ -74,101 +68,36 @@ public class RayTracer extends Transformable implements Renderer
 	public void fill( float r, float g, float b, float a )
 	{
 		
-		
 	}
 
-	
-	public void frameRate( float r )
-	{
-		
-		
-	}
-
-	
 	public void initialize()
 	{
 		
 		
 	}
-
 	
-	public void line( float x1, float y1, float x2, float y2 )
-	{
-		
-		
-	}
-
-	
-	public void line( float x1, float y1, float z1, float x2, float y2, float z2 )
-	{
-		
-		
-	}
-	
-	public void rect( float x, float y, float width, float height )
-	{
-		
-		
-	}
-
-	
-	public void rotate( float angle, float vx, float vy, float vz )
-	{
-		
-		
-	}
-
-	
-	public void scale( float x, float y )
-	{
-		
-		
-	}
-
 	public void size( int x, int y )
 	{
 		
-		
 	}
-
-	
-	public void stroke( int c )
-	{
-		
-		
-	}
-
-	
-	public void stroke( float r, float g, float b )
-	{
-		
-		
-	}
-
-	
-	public void stroke( float r, float g, float b, float a )
-	{
-		
-		
-	}
-
-	
-	public void text( String text, float x, float y )
-	{
-		
-		
-	}
-
 	
 	public void texture( Image img )
-	{
-		
+	{	
 		
 	}
 	
 	public void update()
 	{
-		
-		
+			
 	}
+	
+	public void ellipse( float x, float y, float width, float height ){}
+	public void frameRate( float r ){}
+	public void line( float x1, float y1, float x2, float y2 ){}
+	public void line( float x1, float y1, float z1, float x2, float y2, float z2 ){}
+	public void stroke( int c ){}
+	public void stroke( float r, float g, float b ){}
+	public void stroke( float r, float g, float b, float a ){}
+	public void text( String text, float x, float y ){}
+	public void rect( float x, float y, float width, float height ){}
 }

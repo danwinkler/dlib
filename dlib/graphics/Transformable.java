@@ -39,6 +39,13 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	public void rotate( float x, float y, float z, float angle )
+	{
+		Matrix4f opMat = new Matrix4f();
+		opMat.set( new AxisAngle4f( x, y, z, angle ) );
+		mat.mul( opMat );
+	}
+	
 	public void rotateX( float angle )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -61,6 +68,13 @@ public class Transformable
 	}
 	
 	public void scale( float x, float y, float z )
+	{
+		Matrix4f opMat = new Matrix4f();
+		opMat.setScale( x );
+		mat.mul( opMat );
+	}
+	
+	public void scale( float x, float y )
 	{
 		Matrix4f opMat = new Matrix4f();
 		opMat.setScale( x );
