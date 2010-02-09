@@ -13,8 +13,12 @@ public class DLuaTest
 		l.nl( "return 10" );
 		l.nl( "end" );
 		l.nl( "x = returnten()^2 + math.sqrt( 25 )" );
+		l.nl( "print( x )" );
+		
+		l.nl( "g2drt = luajava.bindClass(\"dlib.tests.Graphics2DRendererTest\")");
+		l.nl( "g2 = luajava.new( g2drt )" );
+		l.nl( "g2:main( {} )" );
 		
 		l.run();
-		System.out.println( l.get( "x" ) );
 	}
 }
