@@ -17,7 +17,7 @@ import dlib.graphics.RenderUpdate;
 import dlib.graphics.Renderer;
 import dlib.util.DGraphics;
 
-public class Graphics2DRenderer implements Renderer
+public abstract class Graphics2DRenderer implements Renderer
 {	
 	JFrame container;
 	JPanel panel;
@@ -191,6 +191,11 @@ public class Graphics2DRenderer implements Renderer
 		g.setColor( stroke );
 		g.drawString( text, x, y );
 	}
+	
+	public void drawImage( Image im, float x, float y )
+	{
+		g.drawImage( im, (int)x, (int)y, null );
+	}
 
 	public void texture( Image img )
 	{	
@@ -223,11 +228,8 @@ public class Graphics2DRenderer implements Renderer
 		frameTime = (long) (1000000 / r);
 	}
 	
-	public void update() {
-	}
+	public abstract void initialize();
 
-	public void initialize() {
-		
-	}
+	public abstract void update();
 
 }

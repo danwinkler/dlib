@@ -19,4 +19,9 @@ public class Intersection
 	{
 		return loc.distance( ray.loc );
 	}
+	
+	public Geom getGeom()
+	{
+		return g;
+	}
 }

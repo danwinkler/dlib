@@ -52,4 +52,6 @@ public interface Renderer
 	public void initialize();
 	public void update();
 	
+	public void drawImage( Image img, float x, float y );
+	
 }

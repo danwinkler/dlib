@@ -10,7 +10,7 @@ import processing.core.PConstants;
 import processing.core.PImage;
 
 @SuppressWarnings("serial")
-public class PAppletRenderer extends PApplet implements Renderer
+public abstract class PAppletRenderer extends PApplet implements Renderer
 {
 	private HashMap<Image, PImage> imageMap = new HashMap<Image,PImage>();
 	
@@ -54,6 +54,19 @@ public class PAppletRenderer extends PApplet implements Renderer
 		
 	}
 	
+	public void drawImage( Image im, float x, float y )
+	{
+		PImage pimg = imageMap.get( im );
+		if( pimg != null )
+			image( pimg, x, y );
+		else
+		{
+			pimg = new PImage( im );
+			imageMap.put( im, pimg );
+			image( pimg, x, y );
+		}
+	}
+	
 	public void setup()
 	{
 		initialize();
@@ -65,11 +78,7 @@ public class PAppletRenderer extends PApplet implements Renderer
 		update();
 	}
 
-	public void initialize() {
-		
-	}
+	public abstract void initialize();
 
-	public void update() {
-		
-	}
+	public abstract void update();
 }

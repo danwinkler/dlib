@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Matrix4f;
+import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
 public class Transformable
@@ -96,5 +97,10 @@ public class Transformable
 	public void popMatrix()
 	{
 		mat = mats.pop();
+	}
+	
+	protected void transform( Point3f v )
+	{
+		mat.transform( v );
 	}
 }
