@@ -28,7 +28,7 @@ public class RayTracer extends Transformable implements Renderer
 	
 	int color;
 	
-	Point3f cameraLoc = new Point3f( 0, 0, -100 );
+	Point3f cameraLoc = new Point3f( 0, 0, 0 );
 	Point3f cameraLook = new Point3f();
 	float viewAngleY = 30.f;
 	float viewAngleX;
@@ -68,18 +68,19 @@ public class RayTracer extends Transformable implements Renderer
 		Intersection point = null;
 		for( int i = 0; i < tris.size(); i++ )
 		{
-			Intersection temp = DGeom.rayTriagleIntersect( ray, tris.get(i) );
+			Intersection temp = DGeom.rayTriangleIntersect( ray, tris.get(i) );
 			if( point != null && temp != null )
 			{
-				System.out.println( "COLLISION" );
 				if( temp.getDist() < point.getDist() )
 					point = temp;
 			}
-			else
+			else if( point == null )
 				point = temp;
 		}
 		if( point != null )
+		{
 			return point.getGeom().getColor(0,0);
+		}
 		else 
 			return DGraphics.rgb( 0, 0, 0 );
 	}
@@ -88,7 +89,7 @@ public class RayTracer extends Transformable implements Renderer
 	{
 		float xNorm = (float)x / (float)width;
 		float yNorm = (float)y / (float)height;
-		Vector3f vec = new Vector3f( (lift * xNorm) - (lift/2), (breadth * yNorm) - (breadth/2), 1 );
+		Vector3f vec = new Vector3f( (breadth * xNorm) - (breadth/2), (lift * yNorm) - (lift/2), 1 );
 		return vec;
 	}
 	
@@ -153,6 +154,7 @@ public class RayTracer extends Transformable implements Renderer
 		vertex( -x2, y2, -z2 );
 		vertex( -x2, -y2, -z2 );
 		vertex( -x2, -y2, z2 );
+		endShape();
 	}
 
 	public void endShape()

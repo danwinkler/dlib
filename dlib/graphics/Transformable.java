@@ -11,6 +11,9 @@ public class Transformable
 {
 	Stack<Matrix4f> mats = new Stack<Matrix4f>();
 	Matrix4f mat = new Matrix4f();
+	{
+		mat.setIdentity();
+	}
 	
 	public void translate( float x, float y, float z )
 	{

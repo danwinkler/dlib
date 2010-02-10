@@ -9,7 +9,9 @@ import dlib.math.Trianglef;
 
 public class DGeom
 {
-	public static Intersection rayTriagleIntersect(Rayf ray, Trianglef tri)
+	public static final float EPSILON = .00001f;
+	
+	public static Intersection rayTriangleIntersect(Rayf ray, Trianglef tri)
 	{
 		float epsilon = .00001f;
 
@@ -63,5 +65,71 @@ public class DGeom
 		dist.set(pos);
 		pos.add( ray.loc );
 		return new Intersection( pos, ray, tri );
+	}
+	
+	
+	public static Intersection rayTriangleIntersect2( Rayf ray, Trianglef tri )
+	{
+		Point3f vert0 = tri.p1;
+		Point3f vert1 = tri.p2;
+		Point3f vert2 = tri.p3;
+		Vector3f dir = ray.dir;
+		Point3f orig = ray.loc;
+		
+		float u, v, t;
+		
+		Vector3f edge1 = new Vector3f();
+		Vector3f edge2 = new Vector3f();
+		Vector3f tvec = new Vector3f();
+		Vector3f pvec = new Vector3f();
+		Vector3f qvec = new Vector3f();
+		float det,inv_det;
+
+		/* find vectors for two edges sharing vert0 */
+		edge1.sub( vert1, vert0 );
+		edge2.sub( vert2, vert0 );
+		
+		/* begin calculating determinant - also used to calculate U parameter */
+		pvec.cross( dir, edge2 );
+		
+		/* if determinant is near zero, ray lies in plane of triangle */
+		det = edge1.dot( pvec );
+		
+		if (det < EPSILON)
+			return null;
+		
+		/* calculate distance from vert0 to ray origin */
+		tvec.sub( orig, vert0 );
+		
+		/* calculate U parameter and test bounds */
+		u = tvec.dot( pvec );
+		if (u < 0.0 || u > det)
+			return null;
+		
+		/* prepare to test V parameter */
+		qvec.cross( tvec, edge1 );
+		
+		/* calculate V parameter and test bounds */
+		v = dir.dot( qvec );
+		if (v < 0.0 || u + v > det)
+			return null;
+		/* calculate t, scale parameters, ray intersects triangle */
+		t = edge2.dot( qvec );
+		inv_det = 1.f / det;
+		t *= inv_det;
+		u *= inv_det;
+		v *= inv_det;
+		   
+		Point3f pos = new Point3f();
+		pos.set(ray.dir);
+		pos.scale(t);
+		
+		Vector3f dist = new Vector3f();
+		dist.set(pos);
+		pos.add( ray.loc );
+		if( t < 0 )
+			return null;
+		return new Intersection( pos, ray, tri );
+
 	}
 }
