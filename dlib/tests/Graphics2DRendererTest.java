@@ -5,14 +5,6 @@ import dlib.graphics.renderer.Graphics2DRenderer;
 
 public class Graphics2DRendererTest extends Graphics2DRenderer
 {
-	static Graphics2DRendererTest r;
-	
-	public static void main( String[] args )
-	{
-		r = new Graphics2DRendererTest();
-		r.begin();
-	}
-
 	public void update()
 	{
 		stroke( 255.f, 0.f, 0.f );
@@ -26,5 +18,11 @@ public class Graphics2DRendererTest extends Graphics2DRenderer
 	public void initialize()
 	{
 		size( 800, 600 );
+	}
+	
+	public static void main( String[] args )
+	{
+		Graphics2DRendererTest r = new Graphics2DRendererTest();
+		r.begin();
 	}
 }
