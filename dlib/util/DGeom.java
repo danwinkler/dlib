@@ -56,7 +56,7 @@ public class DGeom
 		{
 			return null;
 		}
-		t *= .9999999999;
+		t *= .99999;
 		Point3f pos = new Point3f();
 		pos.set(ray.dir);
 		pos.scale(t);

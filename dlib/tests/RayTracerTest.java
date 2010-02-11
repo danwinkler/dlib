@@ -2,11 +2,11 @@ package dlib.tests;
 
 import javax.vecmath.Point3f;
 
-import dlib.DMath;
 import dlib.graphics.renderer.Graphics2DRenderer;
 import dlib.graphics.renderer.PAppletRenderer;
 import dlib.graphics.renderer.RayTracer;
 import dlib.util.DGraphics;
+import dlib.util.DMath;
 
 public class RayTracerTest extends Graphics2DRenderer
 {
@@ -16,8 +16,8 @@ public class RayTracerTest extends Graphics2DRenderer
 	{
 		size( 800, 600 );
 		frameRate( 1 );
-		
 		rt = new RayTracer( 800, 600 );
+		rt.addLight( 1000, 1000, 500 );
 		rt.fill( DGraphics.rgb(0, 255, 0) );
 		for( int i = 0; i < 10; i++ )
 		{
@@ -28,8 +28,6 @@ public class RayTracerTest extends Graphics2DRenderer
 			rt.popMatrix();
 		}
 		rt.begin();
-		
-		
 	}
 
 	public void update() 

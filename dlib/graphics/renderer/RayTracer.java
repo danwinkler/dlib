@@ -20,6 +20,7 @@ public class RayTracer extends Transformable implements Renderer
 {
 	ArrayList<Trianglef> tris = new ArrayList<Trianglef>();
 	ArrayList<Point3f> vertexBuffer = new ArrayList<Point3f>();
+	ArrayList<Point3f> lights = new ArrayList<Point3f>();
 	
 	ShapeType mode;
 	BufferedImage im;
@@ -27,6 +28,8 @@ public class RayTracer extends Transformable implements Renderer
 	int height;
 	
 	int color;
+	
+	int backgroundColor = DGraphics.rgb( 0, 0, 0 );
 	
 	Point3f cameraLoc = new Point3f( 0, 0, 0 );
 	Point3f cameraLook = new Point3f();
@@ -54,6 +57,8 @@ public class RayTracer extends Transformable implements Renderer
 	{
 		for( int x = 0; x < width; x++ )
 		{
+			if( x % 10 == 0 )
+				System.out.println( x );
 			for( int y = 0; y < height; y++ )
 			{
 				Rayf ray = new Rayf( cameraLoc, getLookVector( x, y ) );
@@ -65,6 +70,29 @@ public class RayTracer extends Transformable implements Renderer
 	public int trace( Rayf ray )
 	{
 		//For all triangles
+		Intersection point = collideWithObject( ray );
+		if( point != null )
+		{
+			//If object is found
+			int col = point.getGeom().getColor(0,0);
+			for( int i = 0; i < lights.size(); i++ )
+			{
+				Vector3f lightVec = new Vector3f();
+				lightVec.sub( lights.get(i) );
+				Intersection light = collideWithObject( new Rayf( point.getLoc(), lightVec ) );
+				if( light == null )
+					col = DGraphics.brighten( col );
+				else 
+					col = DGraphics.darken( col );
+			}
+			return col;
+		}
+		else 
+			return backgroundColor;
+	}
+	
+	public Intersection collideWithObject( Rayf ray )
+	{
 		Intersection point = null;
 		for( int i = 0; i < tris.size(); i++ )
 		{
@@ -77,12 +105,7 @@ public class RayTracer extends Transformable implements Renderer
 			else if( point == null )
 				point = temp;
 		}
-		if( point != null )
-		{
-			return point.getGeom().getColor(0,0);
-		}
-		else 
-			return DGraphics.rgb( 0, 0, 0 );
+		return point;
 	}
 	
 	public Vector3f getLookVector( int x, int y )
@@ -182,6 +205,18 @@ public class RayTracer extends Transformable implements Renderer
 	public void addTriangle( Point3f p1, Point3f p2, Point3f p3 )
 	{
 		tris.add( new Trianglef( p1, p2, p3 ) );
+	}
+	
+	public void addTriangle( float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3 )
+	{
+		tris.add( new Trianglef( new Point3f( x1, y1, z1 ),  new Point3f( x2, y2, z2 ),  new Point3f( x3, y3, z3 ) ) );
+	}
+	
+	public void addLight( float x, float y, float z )
+	{
+		Point3f v = new Point3f( x, y, z );
+		transform( v );
+		lights.add( v );
 	}
 	
 	public void clear()

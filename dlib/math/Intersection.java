@@ -24,4 +24,9 @@ public class Intersection
 	{
 		return g;
 	}
+	
+	public Point3f getLoc()
+	{
+		return loc;
+	}
 }
