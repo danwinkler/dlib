@@ -1,8 +1,8 @@
 package dlib.tests;
 
-import dlib.DMath;
 import dlib.learning.GARunner;
 import dlib.learning.GAUnit;
+import dlib.util.DMath;
 
 public class GATest
 {
