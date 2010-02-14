@@ -5,8 +5,10 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 /**
- * Use to run one-off lua scripts during runtime. Uses luaj.
+ * Use to run lua scripts during runtime. Uses luaj.
  * lua scripts can call static java methods and fields using Luajava syntax.
+ * 
+ * Note: ALL SCRIPTS RUN IN THE SAME RUNTIME.
  * 
  * @author Daniel Winkler
  *
