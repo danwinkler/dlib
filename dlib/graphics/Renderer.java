@@ -4,6 +4,8 @@ import java.awt.Image;
 
 import dlib.math.FVec;
 
+//Wow this is ridiculous. JavaDoc comments reduce the readability of the code so much. 
+
 /**
  * All Renderers implement the Renderer interface. The Renderer methods are both for 
  * 2D and 3D drawing. 
@@ -191,18 +193,45 @@ public interface Renderer
 	 */
 	public void translate( float x, float y, float z );
 	
-	
+	//TODO: Scaling in multiple dimensions? Necessary? 
 	public void scale( float x, float y );
 	public void scale( float x, float y, float z );
 	
+	/**
+	 * Rotates the current space about a vector through the origin.
+	 * @param angle the angle to rotate in radians
+	 * @param vx x component of the vector to rotate around
+	 * @param vy y component of the vector to rotate around
+	 * @param vz z component of the vector to rotate around
+	 */
 	public void rotate( float angle, float vx, float vy, float vz );
 	
+	/**
+	 * Pushes the current transformation matrix onto the stack.
+	 */
 	public void pushMatrix();
+	
+	/**
+	 * Pops a transformation matrix off the stack and sets it as the current transformation matrix.
+	 */
 	public void popMatrix();
 	
+	/**
+	 * Called once if game loop is used.
+	 */
 	public void initialize();
+	
+	/**
+	 * Called every frame if game loop is used.
+	 */
 	public void update();
 	
+	/**
+	 * Draws the image at the specified coordinates in two-space.
+	 * @param img the Image to render
+	 * @param x the x location of the upper left corner of the image
+	 * @param y the y location of the upper left corner of the image
+	 */
 	public void drawImage( Image img, float x, float y );
 	
 }
