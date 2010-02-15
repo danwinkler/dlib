@@ -11,6 +11,12 @@ public class DGeom
 {
 	public static final float EPSILON = .00001f;
 	
+	/**
+	 * Calculates the intersection of a ray an a triangle
+	 * @param ray the Rayf 
+	 * @param tri the Trianglef
+	 * @return returns If there exists an intersection, a Intersection object is returned, otherwise null
+	 */
 	public static Intersection rayTriangleIntersect(Rayf ray, Trianglef tri)
 	{
 		float epsilon = .00001f;
@@ -67,7 +73,12 @@ public class DGeom
 		return new Intersection( pos, ray, tri );
 	}
 	
-	
+	/**
+	 * Yuck.
+	 * @param ray
+	 * @param tri
+	 * @return
+	 */
 	public static Intersection rayTriangleIntersect2( Rayf ray, Trianglef tri )
 	{
 		Point3f vert0 = tri.p1;
