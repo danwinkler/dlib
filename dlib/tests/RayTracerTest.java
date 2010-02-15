@@ -16,10 +16,8 @@ public class RayTracerTest extends Graphics2DRenderer
 	{
 		size( 800, 600 );
 		frameRate( 1 );
-		rt = new RayTracer( 100, 100 );
+		rt = new RayTracer( 400, 400 );
 		rt.addLight( 0, 0, 50 );
-		rt.fill( DGraphics.rgb(255, 255, 255) );
-		rt.box( 600, 600, 1800);
 		int boxsize = 25;
 		for( int i = 0; i < 100; i++ )
 		{
@@ -29,6 +27,10 @@ public class RayTracerTest extends Graphics2DRenderer
 			rt.box( 25, 25, 25 );
 			rt.popMatrix();
 		}
+		rt.translate( 0, 0, 3200 );
+		rt.rotateY( (float) (Math.PI / 4.f) );
+		rt.fill( DGraphics.rgb(255, 255, 255) );
+		rt.box( 600, 600, 1800);
 		rt.begin();
 	}
 

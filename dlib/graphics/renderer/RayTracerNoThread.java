@@ -16,7 +16,7 @@ import dlib.math.Trianglef;
 import dlib.util.DGeom;
 import dlib.util.DGraphics;
 
-public class RayTracer extends Transformable implements Renderer
+public class RayTracerNoThread extends Transformable implements Renderer
 {
 	ArrayList<Trianglef> tris = new ArrayList<Trianglef>();
 	ArrayList<Point3f> vertexBuffer = new ArrayList<Point3f>();
@@ -38,7 +38,7 @@ public class RayTracer extends Transformable implements Renderer
 	float lift = (float) Math.tan( Math.toRadians( viewAngleY ) );
 	float breadth = (float) Math.tan( Math.toRadians( viewAngleX ) );
 	
-	public RayTracer( int x, int y )
+	public RayTracerNoThread( int x, int y )
 	{
 		this.width = x;
 		this.height = y;
@@ -55,75 +55,40 @@ public class RayTracer extends Transformable implements Renderer
 	
 	public void begin()
 	{
-		int threadnum = 8;
-		for( threadnum = 8; threadnum <= width; threadnum++ )
+		for( int x = 0; x < width; x++ )
 		{
-			if( width % threadnum == 0 )
-				break;
-		}
-		int chunkwidth = width/threadnum;
-		for( int i = 0; i < threadnum; i++ )
-		{
-			TracerThread t = new TracerThread( i*chunkwidth, chunkwidth );
-			new Thread( t ).start();
+			if( x % 10 == 0 )
+				System.out.println( x );
+			for( int y = 0; y < height; y++ )
+			{
+				Rayf ray = new Rayf( cameraLoc, getLookVector( x, y ) );
+				im.setRGB( x, y, trace( ray ) );
+			}
 		}
 	}
 	
-	public class TracerThread implements Runnable
+	public int trace( Rayf ray )
 	{
-		int x1;
-		int x2;
-		public TracerThread()
+		//For all triangles
+		Intersection point = collideWithObject( ray );
+		if( point != null )
 		{
-			
-		}
-		
-		public TracerThread( int i, int j ) 
-		{
-			x1 = i;
-			x2 = j;
-		}
-
-		public void run() 
-		{
-			for( int i = x1; i < x1+x2; i++ )
+			//If object is found
+			int col = point.getGeom().getColor(0,0);
+			for( int i = 0; i < lights.size(); i++ )
 			{
-				for( int y = 0; y < height; y++ )
-				{
-					Rayf ray = new Rayf( cameraLoc, getLookVector( i, y ) );
-					int col = trace( ray );
-					synchronized( im )
-					{
-						im.setRGB( i, y,  col );
-					}
-				}
+				Vector3f lightVec = new Vector3f();
+				lightVec.sub( lights.get(i) );
+				Intersection light = collideWithObject( new Rayf( point.getLoc(), lightVec ) );
+				if( light == null )
+					col = DGraphics.brighten( col );
+				else 
+					col = DGraphics.darken( col );
 			}
-			
+			return col;
 		}
-		
-		public int trace( Rayf ray )
-		{
-			//For all triangles
-			Intersection point = collideWithObject( ray );
-			if( point != null )
-			{
-				//If object is found
-				int col = point.getGeom().getColor(0,0);
-				for( int i = 0; i < lights.size(); i++ )
-				{
-					Vector3f lightVec = new Vector3f();
-					lightVec.sub( lights.get(i) );
-					Intersection light = collideWithObject( new Rayf( point.getLoc(), lightVec ) );
-					if( light == null )
-						col = DGraphics.brighten( col );
-					else 
-						col = DGraphics.darken( col );
-				}
-				return col;
-			}
-			else 
-				return backgroundColor;
-		}
+		else 
+			return backgroundColor;
 	}
 	
 	public Intersection collideWithObject( Rayf ray )
