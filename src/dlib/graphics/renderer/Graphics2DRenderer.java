@@ -27,7 +27,7 @@ public abstract class Graphics2DRenderer implements Renderer
 	BufferStrategy bs;
 	
 	//Drawing vars
-	long frameTime = 1000000 / 30; //30 frames per second
+	long frameTime = 1000000000 / 30; //30 frames per second
 	Stack<AffineTransform> mat = new Stack<AffineTransform>();
 	Color fill = new Color( 255, 255, 255, 0 );
 	Color stroke = new Color( 0, 0, 0 );
@@ -79,7 +79,7 @@ public abstract class Graphics2DRenderer implements Renderer
 			
 			g.dispose();
 			bs.show();
-			try { Thread.sleep( Math.max( (frameTime - (System.nanoTime() - startTime)) / 1000, 0 ) ); } catch (InterruptedException e) {}
+			try { Thread.sleep( Math.max( (frameTime - (System.nanoTime() - startTime)) / 1000000, 0 ) ); } catch (InterruptedException e) {}
 		}
 	}
 	
@@ -95,10 +95,13 @@ public abstract class Graphics2DRenderer implements Renderer
 
 	public void ellipse( float x, float y, float width, float height )
 	{
+		pushMatrix();
+		translate( -width/2, -height/2 );
 		g.setColor( fill );
 		g.fillOval( (int)x, (int)y, (int)width, (int)height );
 		g.setColor( stroke );
 		g.drawOval( (int)x, (int)y, (int)width, (int)height );
+		popMatrix();
 	}
 
 	public void endShape()
@@ -223,9 +226,18 @@ public abstract class Graphics2DRenderer implements Renderer
 		
 	}
 	
+	public void rotateX( float angle ){}
+	public void rotateY( float angle ){}
+	public void rotateZ( float angle ){}
+	
+	public void rotate( float angle ) 
+	{ 
+		g.rotate( angle ); 
+	}
+	
 	public void frameRate( float r )
 	{
-		frameTime = (long) (1000000 / r);
+		frameTime = (long) (1000000000 / r);
 	}
 	
 	public abstract void initialize();

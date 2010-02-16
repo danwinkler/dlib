@@ -272,4 +272,5 @@ public class RayTracerNoThread extends Transformable implements Renderer
 	public void text( String text, float x, float y ){}
 	public void rect( float x, float y, float width, float height ){}
 	public void drawImage( Image im, float x, float y ){}
+	public void rotate( float angle ) {}
 }

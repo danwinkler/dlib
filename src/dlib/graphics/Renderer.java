@@ -206,6 +206,12 @@ public interface Renderer
 	 */
 	public void rotate( float angle, float vx, float vy, float vz );
 	
+	public void rotate( float angle );
+	
+	public void rotateX( float angle );
+	public void rotateY( float angle );
+	public void rotateZ( float angle );
+	
 	/**
 	 * Pushes the current transformation matrix onto the stack.
 	 */
