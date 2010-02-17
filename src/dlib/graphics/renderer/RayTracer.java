@@ -94,7 +94,7 @@ public class RayTracer extends Transformable implements Renderer
 					int col = trace( ray );
 					synchronized( im )
 					{
-						im.setRGB( i, y,  col );
+						im.setRGB( i, y, col );
 					}
 				}
 			}
