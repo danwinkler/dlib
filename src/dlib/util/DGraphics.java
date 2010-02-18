@@ -110,4 +110,9 @@ public class DGraphics
 		return rgb( r, g, b );
 		
 	}
+	
+	public static BufferedImage createBufferedImage( int x, int y )
+	{
+		return new BufferedImage( x, y, BufferedImage.TYPE_INT_ARGB );
+	}
 }
