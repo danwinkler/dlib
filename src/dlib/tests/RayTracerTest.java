@@ -2,9 +2,9 @@ package dlib.tests;
 
 import javax.vecmath.Point3f;
 
+import dlib.graphics.irenderer.RayTracer;
 import dlib.graphics.renderer.Graphics2DRenderer;
 import dlib.graphics.renderer.PAppletRenderer;
-import dlib.graphics.renderer.RayTracer;
 import dlib.util.DGraphics;
 import dlib.util.DMath;
 
@@ -14,9 +14,9 @@ public class RayTracerTest extends Graphics2DRenderer
 	
 	public void initialize() 
 	{
-		size( 800, 600 );
+		size( 1920, 1080 );
 		frameRate( 1 );
-		rt = new RayTracer( 400, 400 );
+		rt = new RayTracer( 1920, 1080 );
 		rt.addLight( 0, 0, 50 );
 		int boxsize = 25;
 		for( int i = 0; i < 100; i++ )
