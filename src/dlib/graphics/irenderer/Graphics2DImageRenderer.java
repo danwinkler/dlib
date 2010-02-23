@@ -13,7 +13,7 @@ import dlib.graphics.Transformable;
 import dlib.graphics.Renderer.ShapeType;
 import dlib.util.DGraphics;
 
-public class Graphics2DImageRenderer extends Transformable implements Renderer
+public class Graphics2DImageRenderer implements Renderer
 {
 	BufferedImage im;
 	Graphics2D g;

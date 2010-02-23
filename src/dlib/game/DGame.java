@@ -10,6 +10,8 @@ public class DGame
 	static int width;
 	static int height;
 	
+	static long frameTime;
+	
 	public static void start( int width, int height, Class<? extends GameState> c )
 	{
 		try {
@@ -19,7 +21,6 @@ public class DGame
 			DGame.height = height;
 			GameState g = c.newInstance();
 			g.start();
-			
 		} catch (InstantiationException e) {
 			System.err.println( "Not a valid GameState." );
 		} catch (IllegalAccessException e) {
@@ -30,5 +31,10 @@ public class DGame
 	public static void setPixelSize( int pixelSize )
 	{
 		DGame.pixelSize = pixelSize;
+	}
+	
+	public static void frameRate( float r )
+	{
+		frameTime = (long) (1000000000 / r);
 	}
 }

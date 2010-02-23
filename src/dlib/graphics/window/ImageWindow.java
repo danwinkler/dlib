@@ -5,8 +5,12 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import dlib.util.DGraphics;
 
 public class ImageWindow 
 {
@@ -16,10 +20,6 @@ public class ImageWindow
 	
 	Graphics2D g;
 	BufferStrategy bs;
-	
-	long frameTime = 1000000000 / 30; //30 frames per second
-	
-	Image im;
 	
 	public ImageWindow()
 	{	
@@ -59,36 +59,12 @@ public class ImageWindow
 		container.setTitle( str );
 	}
 	
-	public void begin()
+	public void draw( BufferedImage b )
 	{
-		new Thread( new ImageWindowThread() ).start();
-	}
-	
-	public void setFrameRate( int frameRate )
-	{
-		frameTime = (long) (1000000000 / frameRate);
-	}
-	
-	public void setImage( Image im )
-	{
-		this.im = im;
-	}
-	
-	public class ImageWindowThread implements Runnable
-	{
-		public void run() 
-		{
-			while( true )
-			{
-				long startTime = System.nanoTime();
-				g = (Graphics2D) bs.getDrawGraphics();
-				if( im != null )
-					g.drawImage( im, 0, 0, null );
-				
-				g.dispose();
-				bs.show();
-				try { Thread.sleep( Math.max( (frameTime - (System.nanoTime() - startTime)) / 1000000, 0 ) ); } catch (InterruptedException e) {}
-			}
-		}
+		g = (Graphics2D) bs.getDrawGraphics();
+		if( b != null )
+			g.drawImage( b, 0, 0, null );
+		g.dispose();
+		bs.show();
 	}
 }
