@@ -29,7 +29,6 @@ public class DFile
 		oos.close();
 	}
 	
-	/*
 	public String loadText( String filename ) throws FileNotFoundException
 	{
 		Scanner scanner = new Scanner( filename );
@@ -41,6 +40,7 @@ public class DFile
 		FileOutputStream fos = new FileOutputStream( filename );
 	}
 	
+	/**
 	public Image loadImage( String filename ) throws FileNotFoundException
 	{
 		FileInputStream fis = new FileInputStream( filename );
