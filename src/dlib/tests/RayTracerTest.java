@@ -14,12 +14,12 @@ public class RayTracerTest extends Graphics2DRenderer
 	
 	public void initialize() 
 	{
-		size( 1920, 1080 );
+		size( 800, 600 );
 		frameRate( 1 );
-		rt = new RayTracer( 1920, 1080 );
+		rt = new RayTracer( 800, 600 );
 		rt.addLight( 0, 0, 50 );
 		int boxsize = 25;
-		for( int i = 0; i < 100; i++ )
+		for( int i = 0; i < 10; i++ )
 		{
 			rt.pushMatrix();
 			rt.translate( DMath.randomf( -200/boxsize, 200/boxsize )*boxsize, DMath.randomf( -200/boxsize, 200/boxsize )*boxsize, DMath.randomf( 400/boxsize, 800/boxsize )*boxsize );

@@ -13,4 +13,9 @@ public abstract class IVec
 	
 	public abstract void div( int m );
 	public abstract void mul( int m );
+	
+	public boolean equal( IVec v )
+	{
+		return x == v.x && y == v.y && z == v.z;
+	}
 }
