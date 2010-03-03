@@ -3,6 +3,7 @@ package dlib.graphics.irenderer;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.EmptyStackException;
@@ -203,5 +204,10 @@ public class Graphics2DImageRenderer implements Renderer
 	public BufferedImage getImage()
 	{
 		return im;
+	}
+
+	public void addKeyListener(KeyListener listener) 
+	{
+		
 	}
 }

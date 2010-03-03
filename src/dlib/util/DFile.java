@@ -29,6 +29,7 @@ public class DFile
 		oos.close();
 	}
 	
+	/*
 	public String loadText( String filename ) throws FileNotFoundException
 	{
 		Scanner scanner = new Scanner( filename );

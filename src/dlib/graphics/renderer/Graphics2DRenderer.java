@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.util.EmptyStackException;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
 
 import dlib.graphics.RenderUpdate;
 import dlib.graphics.Renderer;
+import dlib.graphics.window.KeyHandler;
 import dlib.util.DGraphics;
 
 public abstract class Graphics2DRenderer implements Renderer
@@ -25,6 +27,8 @@ public abstract class Graphics2DRenderer implements Renderer
 	
 	Graphics2D g;
 	BufferStrategy bs;
+	
+	public KeyHandler k;
 	
 	//Drawing vars
 	long frameTime = 1000000000 / 30; //30 frames per second
@@ -56,6 +60,8 @@ public abstract class Graphics2DRenderer implements Renderer
 		
 		canvas.createBufferStrategy( 2 );
 		bs = canvas.getBufferStrategy();
+		
+		k = new KeyHandler( canvas );
 	}
 	
 	public void size( int x, int y )
@@ -243,5 +249,10 @@ public abstract class Graphics2DRenderer implements Renderer
 	public abstract void initialize();
 
 	public abstract void update();
+	
+	public void addKeyListener(KeyListener listener) 
+	{
+		canvas.addKeyListener( listener );
+	}
 
 }

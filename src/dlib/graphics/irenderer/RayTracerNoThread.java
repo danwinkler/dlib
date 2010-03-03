@@ -1,6 +1,7 @@
 package dlib.graphics.irenderer;
 
 import java.awt.Image;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -273,4 +274,9 @@ public class RayTracerNoThread extends Transformable implements Renderer
 	public void rect( float x, float y, float width, float height ){}
 	public void drawImage( Image im, float x, float y ){}
 	public void rotate( float angle ) {}
+	
+	public void addKeyListener(KeyListener listener) 
+	{
+		
+	}
 }

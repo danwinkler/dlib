@@ -1,6 +1,7 @@
 package dlib.graphics;
 
 import java.awt.Image;
+import java.awt.event.KeyListener;
 
 import dlib.math.FVec;
 
@@ -239,5 +240,7 @@ public interface Renderer
 	 * @param y the y location of the upper left corner of the image
 	 */
 	public void drawImage( Image img, float x, float y );
+	
+	public void addKeyListener( KeyListener listener );
 	
 }

@@ -1,6 +1,7 @@
 package dlib.graphics.renderer;
 
 import java.awt.Image;
+import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 import dlib.graphics.Renderer;
@@ -81,4 +82,9 @@ public abstract class PAppletRenderer extends PApplet implements Renderer
 	public abstract void initialize();
 
 	public abstract void update();
+	
+	public void addKeyListener(KeyListener listener) 
+	{
+		this.frame.addKeyListener( listener );
+	}
 }
