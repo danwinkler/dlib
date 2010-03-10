@@ -132,11 +132,13 @@ public abstract class Graphics2DRenderer implements Renderer
 
 	public void line( float x1, float y1, float x2, float y2 )
 	{
+		g.setColor( stroke );
 		g.drawLine( (int)x1, (int)y1, (int)x2, (int)y2 );
 	}
 
 	public void line( float x1, float y1, float z1, float x2, float y2, float z2 )
 	{
+		g.setColor( stroke );
 		g.drawLine( (int)x1, (int)y1, (int)x2, (int)y2 );
 	}
 
