@@ -30,6 +30,9 @@ public abstract class Graphics2DRenderer implements Renderer
 	
 	public KeyHandler k;
 	
+	public int width;
+	public int height;
+	
 	//Drawing vars
 	long frameTime = 1000000000 / 30; //30 frames per second
 	Stack<AffineTransform> mat = new Stack<AffineTransform>();
@@ -66,6 +69,8 @@ public abstract class Graphics2DRenderer implements Renderer
 	
 	public void size( int x, int y )
 	{
+		this.width = x;
+		this.height = y;
 		canvas.setBounds( 0, 0, x, y );
 		panel.setPreferredSize( new Dimension( x, y ) );
 		container.setSize( x, y );
@@ -255,6 +260,16 @@ public abstract class Graphics2DRenderer implements Renderer
 	public void addKeyListener(KeyListener listener) 
 	{
 		canvas.addKeyListener( listener );
+	}
+	
+	public int getWidth()
+	{
+		return width;
+	}
+	
+	public int getHeight()
+	{
+		return height;
 	}
 
 }
