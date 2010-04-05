@@ -45,7 +45,7 @@ public class DMath
 	
 	/**
 	 * Returns the maximum of a series of Comparables. 
-	 * If two are the same, the one occuring first is returned.
+	 * If two are the same, the one occurring first is returned.
 	 * @param c The comparables to compare
 	 * @return the maximum Comparable
 	 */
@@ -58,5 +58,13 @@ public class DMath
 				max = c[i];
 		}
 		return max;
+	}
+	
+	public static int mod( int n, int m )
+	{
+		int x = n % m;
+		if( x < 0 )
+			x += m;
+		return x;
 	}
 }
