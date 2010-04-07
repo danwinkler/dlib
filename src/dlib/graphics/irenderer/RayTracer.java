@@ -89,19 +89,13 @@ public class RayTracer extends Transformable implements Renderer
 		{
 			for( int i = x1; i < x1+x2; i++ )
 			{
-				int[] colors = new int[height];
 				for( int y = 0; y < height; y++ )
 				{
 					Rayf ray = new Rayf( cameraLoc, getLookVector( i, y ) );
-					colors[y] = trace( ray );
-					
-				}
-				synchronized( im )
-				{
-					for( int y = 0; y < height; y++ )
+					int col = trace( ray );
+					synchronized( im )
 					{
-						
-							im.setRGB( i, y, colors[y] );
+						im.setRGB( i, y, col );
 					}
 				}
 			}
