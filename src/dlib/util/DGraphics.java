@@ -1,5 +1,6 @@
 package dlib.util;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -114,5 +115,27 @@ public class DGraphics
 	public static BufferedImage createBufferedImage( int x, int y )
 	{
 		return new BufferedImage( x, y, BufferedImage.TYPE_INT_ARGB );
+	}
+	
+	public static BufferedImage[] cut( BufferedImage im, int width, int height )
+	{
+		int imageWidth = im.getWidth();
+		int imageHeight = im.getHeight();
+		int mapWidth = imageWidth/width;
+		int mapHeight = imageHeight/height;
+		
+		BufferedImage[] map = new BufferedImage[mapWidth*mapHeight];
+		for( int y = 0; y < mapHeight; y++ )
+		{
+			for( int x = 0; x < mapWidth; x++ )
+			{
+				BufferedImage temp = createBufferedImage( width, height );
+				Graphics g = temp.createGraphics();
+				g.drawImage( im, 0, 0, width, height, x*width, x*height, x*width+width, x*height+height, null );
+				g.dispose();
+				map[y*mapHeight + x] = temp;
+			}
+		}
+		return map;
 	}
 }
