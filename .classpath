@@ -5,5 +5,7 @@
 	<classpathentry kind="lib" path="core.jar"/>
 	<classpathentry kind="lib" path="luaj-j2se-1.0.1.jar"/>
 	<classpathentry kind="lib" path="vecmath.jar"/>
+	<classpathentry kind="lib" path="jogl/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="jogl/jogl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
