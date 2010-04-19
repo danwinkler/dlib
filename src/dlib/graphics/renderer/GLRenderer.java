@@ -1,221 +1,345 @@
 package dlib.graphics.renderer;
 
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.media.opengl.GL;
+import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLCanvas;
+import javax.media.opengl.GLEventListener;
+
+import com.sun.opengl.util.Animator;
 
 import dlib.graphics.Renderer;
+import dlib.util.DGraphics;
 
-public class GLRenderer implements Renderer 
+public abstract class GLRenderer implements Renderer, GLEventListener
 {
+	Frame frame;
+	GLCanvas canvas;
+	Animator animator;
 	
-	@Override
-	public void addKeyListener(KeyListener listener) {
-		// TODO Auto-generated method stub
+	private GL g;
+	
+	public void display( GLAutoDrawable g ) 
+	{
+		this.g = g.getGL();
+		render();
+		update();
+		this.g = null;
+	}
+
+	public void displayChanged( GLAutoDrawable g, boolean arg1, boolean arg2 ) 
+	{
+		this.g = g.getGL();
+		render();
+		this.g = null;
+	}
+
+	public void init( GLAutoDrawable g ) 
+	{
+		this.g = g.getGL();
+		initialize();
+		render();
+		this.g = null;
+	}
+
+	public void reshape( GLAutoDrawable g, int x, int y, int width, int height )
+	{
+		this.g = g.getGL();
+		render();
+		this.g = null;
+	}
+	
+	public void begin() 
+	{
+		frame = new Frame( "GLRenderer Window" );
+	    GLCanvas canvas = new GLCanvas();
+
+	    canvas.addGLEventListener( this );
+	    frame.add(canvas);
+	    frame.setSize(800, 600);
+	    final Animator animator = new Animator(canvas);
+	    frame.addWindowListener(new WindowAdapter() {
+	        public void windowClosing( WindowEvent e ) {
+	          new Thread(new Runnable() {
+	              public void run() {
+	                animator.stop();
+	                System.exit(0);
+	              }
+	            }).start();
+	        }
+	      });
+	    frame.setVisible(true);
+	    animator.start();
+	}
+
+	
+	
+	public void addKeyListener( KeyListener listener ) 
+	{
+		frame.addKeyListener( listener );
+	}
+	
+	public void beginShape( ShapeType type ) 
+	{
+		switch( type )
+		{
+		case LINE_STRIP: g.glBegin( GL.GL_LINE_STRIP ); break;
+		case LINES: g.glBegin( GL.GL_LINES ); break;
+		case POINTS: g.glBegin( GL.GL_POINTS ); break;
+		case QUADS: g.glBegin( GL.GL_QUADS ); break;
+		case QUAD_STRIP: g.glBegin( GL.GL_QUAD_STRIP ); break;
+		case TRIANGLE_FAN: g.glBegin( GL.GL_TRIANGLE_FAN ); break;
+		case TRIANGLE_STRIP: g.glBegin( GL.GL_TRIANGLE_STRIP ); break;
+		case TRIANGLES: g.glBegin( GL.GL_TRIANGLES ); break;
+		}
 		
 	}
 
-	@Override
-	public void begin() {
-		// TODO Auto-generated method stub
+	
+	public void box( float width, float height, float length )
+	{
+		g.glPushMatrix();
+		g.glScalef( width/2, height/2, length/2 );
+		g.glBegin( GL.GL_QUADS );
+		//FRONT FACE
+		g.glVertex3f( -1, -1, -1 );
+		g.glVertex3f( 1, -1, -1 );
+		g.glVertex3f( 1, 1, -1 );
+		g.glVertex3f( -1, 1, -1 );
+		
+		//BACK FACE
+		g.glVertex3f( -1, -1, 1 );
+		g.glVertex3f( 1, -1, 1 );
+		g.glVertex3f( 1, 1, 1 );
+		g.glVertex3f( -1, 1, 1 );
+		
+		//TOP
+		g.glVertex3f( -1, 1, -1 );
+		g.glVertex3f( 1, 1, -1 );
+		g.glVertex3f( 1, 1, 1 );
+		g.glVertex3f( -1, 1, 1 );
+		
+		//BOTTOM
+		g.glVertex3f( -1, -1, -1 );
+		g.glVertex3f( 1, -1, -1 );
+		g.glVertex3f( 1, -1, 1 );
+		g.glVertex3f( -1, -1, 1 );
+		
+		//RIGHT
+		g.glVertex3f( 1, -1, -1 );
+		g.glVertex3f( 1, -1, 1 );
+		g.glVertex3f( 1, 1, 1 );
+		g.glVertex3f( 1, 1, -1 );
+		
+		//LEFT
+		g.glVertex3f( -1, -1, -1 );
+		g.glVertex3f( -1, -1, 1 );
+		g.glVertex3f( -1, 1, 1 );
+		g.glVertex3f( -1, 1, -1 );
+		g.glEnd();
+		g.glPopMatrix();
 		
 	}
 
-	@Override
-	public void beginShape(ShapeType type) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void box(float width, float height, float length) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
+	
 	public void drawImage(Image img, float x, float y) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
-	public void ellipse(float x, float y, float width, float height) {
-		// TODO Auto-generated method stub
+	
+	public void ellipse( float x, float y, float width, float height ) 
+	{
+		
 		
 	}
 
-	@Override
-	public void endShape() {
-		// TODO Auto-generated method stub
+	
+	public void endShape() 
+	{
+		g.glEnd();	
+	}
+
+	
+	public void fill( int c ) 
+	{
+		g.glColor4i( DGraphics.getRed( c ), DGraphics.getGreen( c ), DGraphics.getBlue( c ), DGraphics.getAlpha( c ) );
+	}
+
+	
+	public void fill( float r, float g, float b ) {
+		
 		
 	}
 
-	@Override
-	public void fill(int c) {
-		// TODO Auto-generated method stub
+	
+	public void fill( float r, float g, float b, float a ) {
+		
 		
 	}
 
-	@Override
-	public void fill(float r, float g, float b) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void fill(float r, float g, float b, float a) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
+	
 	public void frameRate(float r) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	public abstract void initialize();
 
-	@Override
+	
 	public void line(float x1, float y1, float x2, float y2) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void line(float x1, float y1, float z1, float x2, float y2, float z2) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void popMatrix() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void pushMatrix() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
-	public void rect(float x, float y, float width, float height) {
-		// TODO Auto-generated method stub
-		
+	
+	public void rect(float x, float y, float width, float height) 
+	{
+		beginShape( ShapeType.QUADS );
+		vertex( x, y );
+		vertex( x + width, y );
+		vertex( x + width, y + height );
+		vertex( x, y + height );
+		endShape();
 	}
 
-	@Override
+	
 	public void rotate(float angle, float vx, float vy, float vz) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void rotate(float angle) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void rotateX(float angle) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void rotateY(float angle) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void rotateZ(float angle) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void scale(float x, float y) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void scale(float x, float y, float z) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void size(int x, int y) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void stroke(int c) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void stroke(float r, float g, float b) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void stroke(float r, float g, float b, float a) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void text(String text, float x, float y) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
-	public void texture(Image img) {
-		// TODO Auto-generated method stub
+	
+	public void texture( Image img ) {
+		
 		
 	}
 
-	@Override
+	
 	public void translate(float x, float y) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
+	
 	public void translate(float x, float y, float z) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
+	
+	public abstract void update();
+	
+	/**
+	 * Because rendering can happen at any time, its not a good idea to update game logic here
+	 */
+	public abstract void render();
+	
+	public void vertex( float x, float y ) 
+	{
+		g.glVertex2f( x, y );
 		
 	}
 
-	@Override
-	public void vertex(float x, float y) {
-		// TODO Auto-generated method stub
+	
+	public void vertex( float x, float y, float z ) 
+	{
+		g.glVertex3f( x, y, z );
 		
 	}
-
-	@Override
-	public void vertex(float x, float y, float z) {
-		// TODO Auto-generated method stub
-		
+	
+	public GL getGL()
+	{
+		return g;
 	}
-
 }

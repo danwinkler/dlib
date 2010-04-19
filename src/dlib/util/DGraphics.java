@@ -37,6 +37,11 @@ public class DGraphics
 	 * @param c the integer to extract the color from
 	 * @return an int containing the red value from 0-255
 	 */
+	public static int getAlpha( int c ) 
+	{
+		return (c >> 24) & 0xff;
+	}
+	
 	public static int getRed( int c )
 	{
 		return (c >> 16) & 0xff;
@@ -138,4 +143,6 @@ public class DGraphics
 		}
 		return map;
 	}
+
+	
 }
