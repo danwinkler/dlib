@@ -5,13 +5,16 @@ import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.Animator;
+import com.sun.opengl.util.texture.Texture;
 
 import dlib.graphics.Renderer;
 import dlib.util.DGraphics;
@@ -22,7 +25,15 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	GLCanvas canvas;
 	Animator animator;
 	
-	private GL g;
+	public GL g;
+	public GLU glu;
+	
+	float viewAngle = 30;
+	float aspectRatio = 800/600;
+	float nearZ = 1;
+	float farZ = 100;
+	
+	HashMap<Image,Integer> textures = new HashMap<Image,Integer>();
 	
 	public void display( GLAutoDrawable g ) 
 	{
@@ -42,6 +53,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	public void init( GLAutoDrawable g ) 
 	{
 		this.g = g.getGL();
+		glu = new GLU();
 		initialize();
 		render();
 		this.g = null;
@@ -57,7 +69,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	public void begin() 
 	{
 		frame = new Frame( "GLRenderer Window" );
-	    GLCanvas canvas = new GLCanvas();
+	    canvas = new GLCanvas();
 
 	    canvas.addGLEventListener( this );
 	    frame.add(canvas);
@@ -77,7 +89,16 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	    animator.start();
 	}
 
+	public void perspective()
+	{
+		aspectRatio = (float)canvas.getWidth()/(float)canvas.getHeight();
+		glu.gluPerspective( viewAngle, aspectRatio, nearZ, farZ );
+	}
 	
+	public void lookAt( float camX, float camY, float camZ, float x, float y, float z, float upX, float upY, float upZ )
+	{
+		glu.gluLookAt( camX, camY, camZ, x, y, z, upX, upY, upZ );
+	}
 	
 	public void addKeyListener( KeyListener listener ) 
 	{
@@ -147,16 +168,16 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	}
 
 	
-	public void drawImage(Image img, float x, float y) {
-		
+	public void drawImage( Image img, float x, float y ) 
+	{
+		//TODO create a quad with the img mapped onto it
 		
 	}
 
 	
 	public void ellipse( float x, float y, float width, float height ) 
 	{
-		
-		
+		//N/A
 	}
 
 	
@@ -172,19 +193,20 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	}
 
 	
-	public void fill( float r, float g, float b ) {
-		
-		
+	public void fill( float r, float g, float b ) 
+	{
+		this.g.glColor3f( r/255, g/255, b/255 );
 	}
 
 	
-	public void fill( float r, float g, float b, float a ) {
-		
-		
+	public void fill( float r, float g, float b, float a ) 
+	{
+		this.g.glColor4f( r/255, g/255, b/255, a/255 );
 	}
 
 	
-	public void frameRate(float r) {
+	public void frameRate( float r ) 
+	{
 		
 		
 	}
@@ -193,27 +215,33 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	public abstract void initialize();
 
 	
-	public void line(float x1, float y1, float x2, float y2) {
-		
-		
+	public void line( float x1, float y1, float x2, float y2 ) 
+	{
+		g.glBegin( GL.GL_LINE );
+		g.glVertex2f( x1, y1 );
+		g.glVertex2f( x2, y2 );
+		g.glEnd();
 	}
 
 	
-	public void line(float x1, float y1, float z1, float x2, float y2, float z2) {
-		
-		
+	public void line(float x1, float y1, float z1, float x2, float y2, float z2) 
+	{
+		g.glBegin( GL.GL_LINE );
+		g.glVertex3f( x1, y1, z1 );
+		g.glVertex3f( x2, y2, z2 );
+		g.glEnd();
 	}
 
 	
-	public void popMatrix() {
-		
-		
+	public void popMatrix()
+	{
+		g.glPopMatrix();	
 	}
 
 	
-	public void pushMatrix() {
-		
-		
+	public void pushMatrix()
+	{
+		g.glPushMatrix();
 	}
 
 	
@@ -228,93 +256,88 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	}
 
 	
-	public void rotate(float angle, float vx, float vy, float vz) {
-		
-		
-	}
-
-	
-	public void rotate(float angle) {
-		
+	public void rotate( float angle, float vx, float vy, float vz ) 
+	{
+		g.glRotatef( angle, vx, vy, vz );
 		
 	}
 
 	
-	public void rotateX(float angle) {
-		
-		
+	public void rotate( float angle )
+	{
+		g.glRotatef( angle, 0, 0, 1 );
 	}
 
 	
-	public void rotateY(float angle) {
-		
-		
+	public void rotateX( float angle )
+	{
+		g.glRotatef( angle, 1, 0, 0 );	
 	}
 
 	
-	public void rotateZ(float angle) {
-		
-		
+	public void rotateY(float angle) 
+	{
+		g.glRotatef( angle, 0, 1, 0 );
 	}
 
 	
-	public void scale(float x, float y) {
-		
-		
+	public void rotateZ(float angle) 
+	{
+		g.glRotatef( angle, 0, 0, 1 );
 	}
 
 	
-	public void scale(float x, float y, float z) {
-		
-		
+	public void scale( float x, float y ) 
+	{
+		g.glScalef( x, y, (x+y)/2 );	
+	}
+	
+	public void scale( float x, float y, float z ) 
+	{
+		g.glScalef( x, y, z );
+	}
+
+	public void size( int x, int y )
+	{
+		frame.setSize( x, y );
+	}
+	
+	public void stroke( int c )
+	{
+		g.glColor4i( DGraphics.getRed( c ), DGraphics.getGreen( c ), DGraphics.getBlue( c ), DGraphics.getAlpha( c ) );
 	}
 
 	
-	public void size(int x, int y) {
-		
-		
+	public void stroke(float r, float g, float b) 
+	{
+		this.g.glColor3f( r/255, g/255, b/255 );
+	}
+
+	public void stroke(float r, float g, float b, float a) 
+	{
+		this.g.glColor4f( r/255, g/255, b/255, a/255 );
+	}
+	
+	public void text( String text, float x, float y ) 
+	{	
+		//TODO
+	}
+
+	public void texture( Image img ) 
+	{
+		//TODO
 	}
 
 	
-	public void stroke(int c) {
-		
-		
+	public void translate( float x, float y ) 
+	{
+		g.glTranslatef( x, y, 0 );
 	}
 
 	
-	public void stroke(float r, float g, float b) {
-		
-		
-	}
-
-	
-	public void stroke(float r, float g, float b, float a) {
-		
-		
-	}
-
-	
-	public void text(String text, float x, float y) {
-		
-		
-	}
-
-	
-	public void texture( Image img ) {
-		
-		
-	}
-
-	
-	public void translate(float x, float y) {
-		
-		
-	}
-
-	
-	public void translate(float x, float y, float z) {
-		
-		
+	public void translate(float x, float y, float z) 
+	{
+		g.glTranslatef( x, y, z );
 	}
 
 	

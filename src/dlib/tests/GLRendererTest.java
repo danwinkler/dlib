@@ -12,7 +12,6 @@ public class GLRendererTest extends GLRenderer
 	public void initialize()
 	{
 		glu = new GLU();
-		glu.gluPerspective( 30, 800/600, 1, 100 );
 		glu.gluLookAt( 0, 0, 5, 0, 0, -10, 0, 1, 0 );
 		
 	}
@@ -34,11 +33,12 @@ public class GLRendererTest extends GLRenderer
 		r += 1f;
 		gl.glPushMatrix();
 			gl.glTranslatef( 0, 0, 0 );
-			gl.glScalef( .1f, .1f, .1f );
+			gl.glScalef( .5f, .5f, .5f );
 			gl.glColor3f( 1f, 0f, 0 );
 			gl.glRotatef( r, 0, 0, 1 );
 			gl.glRotatef( r, 0, 1, 0 );
 			gl.glRotatef( r, 1, 0, 0 );
+			box( 1, 1, 1 );
 		gl.glPopMatrix();
 	}
 	
