@@ -8,11 +8,10 @@ import dlib.util.DGLUtilities;
 
 public class GLRendererTest extends GLRenderer
 {
-	GLU glu;
 	public void initialize()
 	{
-		glu = new GLU();
-		glu.gluLookAt( 0, 0, 5, 0, 0, -10, 0, 1, 0 );
+		perspective();
+		lookAt( 0, 0, 5, 0, 0, -10, 0, 1, 0 );
 		
 	}
 	
@@ -25,21 +24,20 @@ public class GLRendererTest extends GLRenderer
 	
 	public void render() 
 	{
-		GL gl = getGL();
-		gl.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT );
-		gl.glEnable( GL.GL_DEPTH_TEST );
+		g.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT );
+		g.glEnable( GL.GL_DEPTH_TEST );
 		
 		
 		r += 1f;
-		gl.glPushMatrix();
-			gl.glTranslatef( 0, 0, 0 );
-			gl.glScalef( .5f, .5f, .5f );
-			gl.glColor3f( 1f, 0f, 0 );
-			gl.glRotatef( r, 0, 0, 1 );
-			gl.glRotatef( r, 0, 1, 0 );
-			gl.glRotatef( r, 1, 0, 0 );
+		pushMatrix();
+			translate( 0, 0, 0 );
+			scale( .5f, .5f, .5f );
+			fill( 255, 0, 0 );
+			rotateX( r );
+			rotateY( r );
+			rotateZ( r );
 			box( 1, 1, 1 );
-		gl.glPopMatrix();
+		popMatrix();
 	}
 	
 	
