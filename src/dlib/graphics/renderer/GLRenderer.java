@@ -89,9 +89,16 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	    animator.start();
 	}
 
+	public void setFarClip( float x )
+	{
+		farZ = x;
+		perspective();
+	}
+	
 	public void perspective()
 	{
 		aspectRatio = (float)canvas.getWidth()/(float)canvas.getHeight();
+		g.glLoadIdentity();
 		glu.gluPerspective( viewAngle, aspectRatio, nearZ, farZ );
 	}
 	
@@ -259,7 +266,6 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	public void rotate( float angle, float vx, float vy, float vz ) 
 	{
 		g.glRotatef( angle, vx, vy, vz );
-		
 	}
 
 	
@@ -351,14 +357,12 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	public void vertex( float x, float y ) 
 	{
 		g.glVertex2f( x, y );
-		
 	}
 
 	
 	public void vertex( float x, float y, float z ) 
 	{
 		g.glVertex3f( x, y, z );
-		
 	}
 	
 	public GL getGL()
