@@ -17,13 +17,16 @@ import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.texture.Texture;
 
 import dlib.graphics.Renderer;
+import dlib.graphics.window.KeyHandler;
 import dlib.util.DGraphics;
 
 public abstract class GLRenderer implements Renderer, GLEventListener
 {
-	Frame frame;
-	GLCanvas canvas;
+	public Frame frame;
+	public GLCanvas canvas;
 	Animator animator;
+	
+	public KeyHandler k;
 	
 	public GL g;
 	public GLU glu;
@@ -70,6 +73,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	{
 		frame = new Frame( "GLRenderer Window" );
 	    canvas = new GLCanvas();
+	    k = new KeyHandler( canvas );
 
 	    canvas.addGLEventListener( this );
 	    frame.add(canvas);
@@ -109,7 +113,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	
 	public void addKeyListener( KeyListener listener ) 
 	{
-		frame.addKeyListener( listener );
+		canvas.addKeyListener( listener );
 	}
 	
 	public void beginShape( ShapeType type ) 
@@ -196,7 +200,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	
 	public void fill( int c ) 
 	{
-		g.glColor4i( DGraphics.getRed( c ), DGraphics.getGreen( c ), DGraphics.getBlue( c ), DGraphics.getAlpha( c ) );
+		fill( DGraphics.getRed( c ), DGraphics.getGreen( c ), DGraphics.getBlue( c ), DGraphics.getAlpha( c ) );
 	}
 
 	
