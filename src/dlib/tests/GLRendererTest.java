@@ -23,9 +23,9 @@ public class GLRendererTest extends GLRenderer implements KeyListener
 	{
 		
 		g.glNewList( land, GL.GL_COMPILE );
-		for( int x = 0; x < 100; x++ )
+		for( int x = 0; x < 500; x++ )
 		{
-			for( int y = 0; y < 100; y++ )
+			for( int y = 0; y < 500; y++ )
 			{
 				beginShape( ShapeType.LINE_STRIP );
 				vertex( x, y, func( x, y ) );

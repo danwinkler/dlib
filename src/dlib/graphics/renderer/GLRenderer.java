@@ -92,6 +92,12 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	    frame.setVisible(true);
 	    animator.start();
 	}
+	
+	public void setNearClip( float x )
+	{
+		nearZ = x;
+		perspective();
+	}
 
 	public void setFarClip( float x )
 	{
