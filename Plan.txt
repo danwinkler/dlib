@@ -1,0 +1,10 @@
+Package renderer
+	interface Renderer
+	class Graphics2DRenderer implements Renderer
+	class PAppletRenderer extends PApplet implements Renderer
+	class GLRenderer implements Renderer
+	interface IRenderer extends Renderer
+	class Graphics2DImageRenderer implements IRenderer
+	class PAppletRenderer implements IRenderer
+	class RayTraceImageRenderer implements IRenderer
+	

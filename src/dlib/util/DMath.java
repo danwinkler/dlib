@@ -67,4 +67,10 @@ public class DMath
 			x += m;
 		return x;
 	}
+	
+	public static float lerp( float t, float a, float b) 
+	{ 
+		return a + t * (b - a); 
+	}
+
 }
