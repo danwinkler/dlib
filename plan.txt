@@ -1,0 +1,31 @@
+package dlib
+	package renderer
+		interface Renderer
+		class Graphics2DRenderer implements Renderer
+		class GLRenderer implements Renderer
+		interface IRenderer extends Renderer
+		class Graphics2DImageRenderer implements IRenderer
+		class RayTraceImageRenderer implements IRenderer
+		class GLImageRenderer implements IRenderer
+		enum ShapeType
+		class KeyHandler
+	package util
+		class DMath
+		class DGraphics
+		class DFile
+		class DTimer
+	package net
+		class LanClient
+		class LanServer
+	package math
+		interface Geom
+		class Trianglef implements Geom
+		class Spheref implements Geom
+		class Rayf implements Geom
+		class Intersection
+		class IVec2
+		class IVec3
+	package graphics
+		class Model
+		class ModelPiece
+		class PointGenerator //Currently called Transformable. Make standalone class.
