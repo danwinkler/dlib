@@ -70,7 +70,6 @@ public class DMath
 			x += m;
 		return x;
 	}
-<<<<<<< HEAD:src/dlib/util/DMath.java
 	
 	public static float lerp( float t, float a, float b) 
 	{ 
@@ -78,6 +77,3 @@ public class DMath
 	}
 
 }
-=======
-}
->>>>>>> fd34da9682a85acd4c2be8cc3b019d28fe860795:src/com/phyloa/dlib/util/DMath.java
