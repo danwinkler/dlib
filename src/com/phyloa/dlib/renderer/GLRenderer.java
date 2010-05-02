@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import javax.media.opengl.GL;
@@ -15,6 +16,8 @@ import javax.media.opengl.glu.GLU;
 
 import com.phyloa.dlib.util.DGraphics;
 import com.sun.opengl.util.Animator;
+import com.sun.opengl.util.texture.Texture;
+import com.sun.opengl.util.texture.TextureIO;
 
 public abstract class GLRenderer implements Renderer, GLEventListener
 {
@@ -32,7 +35,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	float nearZ = 1;
 	float farZ = 100;
 	
-	HashMap<Image,Integer> textures = new HashMap<Image,Integer>();
+	HashMap<BufferedImage,Texture> textures = new HashMap<BufferedImage,Texture>();
 	
 	public void display( GLAutoDrawable g ) 
 	{
@@ -92,6 +95,12 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	public void setFarClip( float x )
 	{
 		farZ = x;
+		perspective();
+	}
+	
+	public void setNearClip( float x )
+	{
+		nearZ = x;
 		perspective();
 	}
 	
@@ -322,7 +331,17 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 
 	public void texture( Image img ) 
 	{
-		//TODO
+		BufferedImage im = (BufferedImage)img;
+		if( textures.containsValue( im ) )
+		{
+			textures.get( im ).bind();
+		}
+		else
+		{
+			Texture t = TextureIO.newTexture( im, false );
+			textures.put( im, t );
+			t.bind();
+		}
 	}
 
 	
@@ -396,7 +415,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 
 	public void textureCoords( float u, float v ) 
 	{
-		
+		g.glTexCoord2f( u, v );
 	}
 }
 
