@@ -252,5 +252,10 @@ public abstract class Graphics2DRenderer implements Renderer
 	{
 		
 	}
+	
+	public void drawImage( Image im, float x, float y, float width, float height )
+	{
+		g.drawImage( im, (int)x, (int)y, (int)width, (int)height, Color.WHITE, null );
+	}
 
 }

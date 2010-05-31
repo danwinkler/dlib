@@ -14,7 +14,7 @@ import com.phyloa.dlib.math.Rayf;
 import com.phyloa.dlib.math.Trianglef;
 import com.phyloa.dlib.util.DGraphics;
 
-public class RayTraceImageRenderer extends Transformable implements Renderer
+public class RayTraceImageRenderer extends Transformable implements IRenderer
 {
 	ArrayList<Trianglef> tris = new ArrayList<Trianglef>();
 	ArrayList<Point3f> vertexBuffer = new ArrayList<Point3f>();
@@ -314,6 +314,7 @@ public class RayTraceImageRenderer extends Transformable implements Renderer
 	public void drawRect( float x, float y, float width, float height ){}
 	public void fillOval( float x, float y, float width, float height ){}
 	public void fillRect( float x, float y, float width, float height ){}
+	public void drawImage( Image im, float x, float y, float width, float height ){}
 	
 	public int getHeight()
 	{

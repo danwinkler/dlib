@@ -417,5 +417,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	{
 		g.glTexCoord2f( u, v );
 	}
+	
+	public void drawImage( Image im, float x, float y, float width, float height ){}
 }
 

@@ -236,6 +236,8 @@ public interface Renderer
 	 */
 	public void drawImage( Image img, float x, float y );
 	
+	public void drawImage( Image img, float x, float y, float width, float height );
+	
 	public void addKeyListener( KeyListener listener );
 	
 	public int getWidth();
