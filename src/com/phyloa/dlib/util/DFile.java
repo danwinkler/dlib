@@ -1,18 +1,18 @@
 package com.phyloa.dlib.util;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 public class DFile
 {
-	public Object loadObject( String filename ) throws IOException, ClassNotFoundException
+	public static Object loadObject( String filename ) throws IOException, ClassNotFoundException
 	{
 		FileInputStream fis = new FileInputStream( filename );
 		ObjectInputStream ois = new ObjectInputStream( fis );
@@ -21,7 +21,7 @@ public class DFile
 		return o;
 	}
 	
-	public void saveObject( String filename, Object file ) throws IOException
+	public static void saveObject( String filename, Object file ) throws IOException
 	{
 		FileOutputStream fos = new FileOutputStream( filename );
 		ObjectOutputStream oos = new ObjectOutputStream( fos );
@@ -29,28 +29,33 @@ public class DFile
 		oos.close();
 	}
 	
+	
 	/*
 	public String loadText( String filename ) throws FileNotFoundException
 	{
 		Scanner scanner = new Scanner( filename );
-		
+		while( scanner.hasNext() )
+		{
+			
+		}
 	}
 	
+	/*
 	public void saveText( String filename, String text ) throws FileNotFoundException
 	{
 		FileOutputStream fos = new FileOutputStream( filename );
 	}
 	
-	/**
-	public Image loadImage( String filename ) throws FileNotFoundException
+	*/
+	public static BufferedImage loadImage( String filename ) throws IOException
 	{
-		FileInputStream fis = new FileInputStream( filename );
+		return ImageIO.read( new File( filename ) );
 	}
 	
-	public void saveImage( String filename, Image image ) throws FileNotFoundException
+	public static void saveImage( String filename, String type, BufferedImage image ) throws IOException
 	{
-		FileOutputStream fos = new FileOutputStream( filename );
+		 File outputfile = new File( filename );
+		 ImageIO.write( image, type, outputfile );
 	}
-	*/
 }
 

@@ -419,5 +419,6 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	}
 	
 	public void drawImage( Image im, float x, float y, float width, float height ){}
+	public void drawImage( Image img, float dx1, float dy1, float dx2, float dy2, float sx1, float sy1, float sx2, float sy2 ){}
 }
 

@@ -1,93 +1,35 @@
 package com.phyloa.dlib.renderer;
 
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import com.phyloa.dlib.util.DGraphics;
 
-public abstract class Graphics2DRenderer implements Renderer, ComponentListener
+public class Graphics2DIRenderer implements IRenderer
 {
-	JFrame container;
-	JPanel panel;
-	Canvas canvas;
-
-	public Graphics2D g;
-	BufferStrategy bs;
-
-	public KeyHandler k;
-
-	//Drawing vars
-	long frameTime = 1000000000 / 30; //30 frames per second
+	BufferedImage im;
+	Graphics2D g;
+	
 	Stack<AffineTransform> mat = new Stack<AffineTransform>();
-	//End Draw vars
-
-	public Graphics2DRenderer()
+	
+	public Graphics2DIRenderer( int x, int y )
 	{
-		container = new JFrame( "Graphics2DRenderer Window" );
-		container.addComponentListener( this );
-		panel = (JPanel) container.getContentPane();
-		panel.setPreferredSize( new Dimension( 50, 50 ) );
-		panel.setLayout(null);
-		canvas = new Canvas();
+		im = DGraphics.createBufferedImage( x, y );
+		g = im.createGraphics();
+	}
 	
-		canvas.setBounds(0,0,50,50);
-		panel.add( canvas );
-	
-		container.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-	
-		container.setLocation( 50, 50 );
-	
-		container.pack();
-		container.setResizable( true );
-		container.setVisible( true );
-	
-		canvas.requestFocus();
-	
-		canvas.createBufferStrategy( 2 );
-		bs = canvas.getBufferStrategy();
-	
-		k = new KeyHandler( canvas );
+	public Image getImage()
+	{
+		return im;
 	}
 
-	public void size( int x, int y )
-	{
-		canvas.setBounds( 0, 0, x, y );
-		canvas.setSize( x, y );
-		panel.setPreferredSize( new Dimension( x, y ) );
-		container.setSize( x, y );
-		container.pack();
-	}
-
-	public void begin()
-	{
-		initialize();
-		while( true )
-		{
-			long startTime = System.nanoTime();
-			g = (Graphics2D) bs.getDrawGraphics();
-			mat.clear();
-			mat.push( g.getTransform() );
-			update();
-		
-			g.dispose();
-			bs.show();
-			try { Thread.sleep( Math.max( (frameTime - (System.nanoTime() - startTime)) / 1000000, 0 ) ); } catch (InterruptedException e) {}
-		}
-	}
-
+	
 	public void beginShape( ShapeType type )
 	{
 
@@ -229,28 +171,18 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 		g.rotate( angle );
 	}
 
-	public void frameRate( float r )
-	{
-		frameTime = (long) (1000000000 / r);
-	}
+	public void frameRate( float r ) {}
 
-	public abstract void initialize();
-
-	public abstract void update();
-
-	public void addKeyListener( KeyListener listener )
-	{
-		canvas.addKeyListener( listener );
-	}
+	public void addKeyListener( KeyListener listener ){}
 
 	public int getWidth()
 	{
-		return canvas.getWidth();
+		return im.getWidth();
 	}
 
 	public int getHeight()
 	{
-		return canvas.getHeight();
+		return im.getHeight();
 	}
 
 	public void textureCoords( float u, float v ) 
@@ -268,25 +200,12 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 		g.drawImage( img, (int)dx1, (int)dy1, (int)dx2, (int)dy2, (int)sx1, (int)sy1, (int)sx2, (int)sy2, null );
 	}
 
-	public void componentHidden( ComponentEvent arg0 )
-	{
-		
-	}
+	public void begin(){}
 
-	public void componentMoved( ComponentEvent arg0 )
-	{
-		
-	}
+	public void initialize(){}
+	
+	public void size( int x, int y ){}
 
-	public void componentResized( ComponentEvent e )
-	{
-		canvas.setBounds( 0, 0, container.getWidth(), container.getHeight() );
-		canvas.setSize( container.getWidth(), container.getHeight() );
-	}
-
-	public void componentShown( ComponentEvent arg0 )
-	{
-		
-	}
-
+	public void update(){}
+	
 }
