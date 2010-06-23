@@ -5,8 +5,19 @@ import java.util.Stack;
 import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Point3f;
+import javax.vecmath.Tuple3f;
 import javax.vecmath.Vector3f;
 
+/**
+ * Basically a layer over javax.vecmath.Matrix4f to include pushMatrix() and popMatrix().
+ * 
+ * Designed to be subclassed.
+ * 
+ * Allows various transformations to be done to the matrix, and then applied to a Point3f or Vector3f.
+ * 
+ * @author Daniel Winkler
+ * 
+ */
 public class Transformable
 {
 	Stack<Matrix4f> mats = new Stack<Matrix4f>();
@@ -15,6 +26,13 @@ public class Transformable
 		mat.setIdentity();
 	}
 	
+	/**
+	 * Translate the matrix in 3D.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public void translate( float x, float y, float z )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -22,6 +40,12 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	/**
+	 * Translate the matrix in 2D.
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void translate( float x, float y )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -29,6 +53,11 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	/**
+	 * Translate the matrix by a Vector3f.
+	 * 
+	 * @param t
+	 */
 	public void translate( Vector3f t )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -36,6 +65,12 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	/**
+	 * Rotate the matrix around an axis.
+	 * 
+	 * @param axis Vector3f to rotate around
+	 * @param angle angle in radians
+	 */
 	public void rotate( Vector3f axis, float angle )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -43,6 +78,14 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	/**
+	 * Rotate the matrix around an axis.
+	 * 
+	 * @param x x-coord of the vector to rotate around
+	 * @param y y-coord of the vector to rotate around
+	 * @param z z-coord of the vector to rotate around
+	 * @param angle angle in radians
+	 */
 	public void rotate( float x, float y, float z, float angle )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -50,6 +93,11 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	/**
+	 * Apply a rotation around the x-axis to the matrix.
+	 * 
+	 * @param angle angle in radians.
+	 */
 	public void rotateX( float angle )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -57,6 +105,11 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	/**
+	 * Apply a rotation around the y-axis to the matrix.
+	 * 
+	 * @param angle angle in radians.
+	 */
 	public void rotateY( float angle )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -64,6 +117,11 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	/**
+	 * Apply a rotation around the z-axis to the matrix.
+	 * 
+	 * @param angle angle in radians.
+	 */
 	public void rotateZ( float angle )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -71,6 +129,12 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	/**
+	 * Apply a scaling operation to the matrix.
+	 * @param x scale in x dimension.
+	 * @param y scale in y dimension.
+	 * @param z scale in z dimension.
+	 */
 	public void scale( float x, float y, float z )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -78,6 +142,12 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	/**
+	 *  Apply a scaling operation in 2D to the matrix.
+	 *  
+	 * @param x scale in x dimension.
+	 * @param y scale in y dimension.
+	 */
 	public void scale( float x, float y )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -85,6 +155,11 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	/**
+	 * Scale the matrix
+	 * 
+	 * @param s scale
+	 */
 	public void scale( float s )
 	{
 		Matrix4f opMat = new Matrix4f();
@@ -92,17 +167,38 @@ public class Transformable
 		mat.mul( opMat );
 	}
 	
+	/**
+	 * Push the current matrix onto the stack.
+	 */
 	public void pushMatrix()
 	{
 		mats.push( new Matrix4f( mat ) );
 	}
 	
+	/**
+	 * Pop a matrix off the stack to use as the current transformation matrix.
+	 */
 	public void popMatrix()
 	{
 		mat = mats.pop();
 	}
 	
+	/**
+	 * Transform a Point3f.
+	 * 
+	 * @param v reference to the Point3f to be transformed.
+	 */
 	protected void transform( Point3f v )
+	{
+		mat.transform( v );
+	}
+	
+	/**
+	 * Transform a Vector3f.
+	 * 
+	 * @param v reference to the Vector3f to be transformed.
+	 */
+	protected void transform( Vector3f v )
 	{
 		mat.transform( v );
 	}
