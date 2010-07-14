@@ -31,18 +31,18 @@ public class DFile
 		oos.close();
 	}
 	
-	public String loadText( String filename ) throws FileNotFoundException
+	public static String loadText( String filename ) throws FileNotFoundException
 	{
-		Scanner scanner = new Scanner( filename );
+		Scanner scanner = new Scanner( new File( filename ) );
 		StringBuilder sb = new StringBuilder();
 		while( scanner.hasNext() )
 		{
-			sb.append( scanner.next() + "/n" );
+			sb.append( scanner.nextLine() + "\n" );
 		}
 		return sb.toString();
 	}
 	
-	public void saveText( String filename, String text ) throws FileNotFoundException
+	public static void saveText( String filename, String text ) throws FileNotFoundException
 	{
 		FileOutputStream fos = new FileOutputStream( filename );
 	}
