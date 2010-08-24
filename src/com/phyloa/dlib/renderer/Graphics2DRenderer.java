@@ -20,14 +20,15 @@ import javax.swing.JPanel;
 
 public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 {
-	JFrame container;
-	JPanel panel;
-	Canvas canvas;
+	public JFrame container;
+	public JPanel panel;
+	public Canvas canvas;
 
 	public Graphics2D g;
 	BufferStrategy bs;
 
 	public KeyHandler k;
+	public MouseHandler m;
 
 	//Drawing vars
 	long frameTime = 1000000000 / 30; //30 frames per second
@@ -59,7 +60,8 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 		canvas.createBufferStrategy( 2 );
 		bs = canvas.getBufferStrategy();
 	
-		k = new KeyHandler( canvas );
+		k = KeyHandler.get( canvas );
+		m = MouseHandler.get( canvas );
 	}
 
 	public void size( int x, int y )

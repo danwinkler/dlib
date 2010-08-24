@@ -72,7 +72,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	{
 		frame = new Frame( "GLRenderer Window" );
 	    canvas = new GLCanvas();
-	    k = new KeyHandler( canvas );
+	    k = KeyHandler.get( canvas );
 
 	    canvas.addGLEventListener( this );
 	    frame.add(canvas);

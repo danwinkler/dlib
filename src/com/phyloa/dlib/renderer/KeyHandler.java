@@ -3,9 +3,12 @@ package com.phyloa.dlib.renderer;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 
 public class KeyHandler implements KeyListener
 {
+	static HashMap<Component, KeyHandler> keyHandlers = new HashMap<Component, KeyHandler>();
+	
 	public boolean k1 = false;
 	public boolean k2 = false;
 	public boolean k3 = false;
@@ -57,9 +60,20 @@ public class KeyHandler implements KeyListener
 	public int lastKeyCodeReleased;
 	public int lastModifiersExReleased;
 	
-	public KeyHandler( Component c )
+	private KeyHandler( Component c )
 	{
 		c.addKeyListener( this );
+	}
+	
+	public static KeyHandler get( Component c )
+	{
+		KeyHandler k = keyHandlers.get( c );
+		if( k == null )
+		{
+			k = new KeyHandler( c );
+			keyHandlers.put( c, k );
+		}
+		return k;
 	}
 	
 	public void keyPressed( KeyEvent ke )
