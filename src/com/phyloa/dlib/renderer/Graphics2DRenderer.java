@@ -3,6 +3,7 @@ package com.phyloa.dlib.renderer;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ComponentEvent;
@@ -11,12 +12,15 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferStrategy;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.vecmath.Point2f;
+import javax.vecmath.Vector2f;
 
 public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 {
@@ -289,6 +293,17 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 	public void componentShown( ComponentEvent arg0 )
 	{
 		
+	}
+
+	public Vector2f getStringSize( String text )
+	{
+		Rectangle2D rect = g.getFontMetrics().getStringBounds( text, g );
+		return new Vector2f( (float)rect.getWidth(), (float)rect.getY() );
+	}
+
+	public void setFont( Font font )
+	{
+		g.setFont( font );
 	}
 
 }

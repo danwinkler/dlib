@@ -1,6 +1,7 @@
 package com.phyloa.dlib.renderer;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyListener;
@@ -8,6 +9,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.EmptyStackException;
 import java.util.Stack;
+
+import javax.vecmath.Point2f;
+import javax.vecmath.Vector2f;
 
 import com.phyloa.dlib.util.DGraphics;
 
@@ -207,5 +211,16 @@ public class Graphics2DIRenderer implements IRenderer
 	public void size( int x, int y ){}
 
 	public void update(){}
+
+	public Vector2f getStringSize( String text )
+	{
+		return null;
+	}
+
+	@Override
+	public void setFont( Font font )
+	{
+		
+	}
 	
 }

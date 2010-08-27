@@ -1,7 +1,11 @@
 package com.phyloa.dlib.renderer;
 
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyListener;
+
+import javax.vecmath.Point2f;
+import javax.vecmath.Vector2f;
 
 /**
  * All Renderers implement the Renderer interface. The Renderer methods are both for 
@@ -245,5 +249,9 @@ public interface Renderer
 	public int getWidth();
 	
 	public int getHeight();
+	
+	public Vector2f getStringSize( String text );
+	
+	public void setFont( Font font );
 }
 

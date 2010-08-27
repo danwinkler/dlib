@@ -1,5 +1,6 @@
 package com.phyloa.dlib.renderer;
 
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.event.KeyListener;
@@ -13,6 +14,7 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
+import javax.vecmath.Vector2f;
 
 import com.phyloa.dlib.util.DGraphics;
 import com.sun.opengl.util.Animator;
@@ -420,5 +422,15 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	
 	public void drawImage( Image im, float x, float y, float width, float height ){}
 	public void drawImage( Image img, float dx1, float dy1, float dx2, float dy2, float sx1, float sy1, float sx2, float sy2 ){}
+	
+	public Vector2f getStringSize( String text )
+	{
+		return null;
+	}
+
+	public void setFont( Font font )
+	{
+		
+	}
 }
 
