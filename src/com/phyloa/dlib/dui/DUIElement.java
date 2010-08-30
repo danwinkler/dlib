@@ -9,6 +9,14 @@ public abstract class DUIElement
 	
 	boolean visible = true;
 	
+	public DUIElement( int x, int y, int width, int height )
+	{
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
+	
 	public abstract void render( Renderer r );
 	public abstract void update( DUI ui );
 	
@@ -42,5 +50,10 @@ public abstract class DUIElement
 	public void setVisible( boolean visible )
 	{
 		this.visible = visible;
+	}
+	
+	public boolean isInside( int mx, int my )
+	{
+		return mx >= x && my >= y && mx <= x + width && my <= y + height; 
 	}
 }

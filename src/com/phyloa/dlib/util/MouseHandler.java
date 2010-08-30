@@ -1,4 +1,4 @@
-package com.phyloa.dlib.renderer;
+package com.phyloa.dlib.util;
 
 import java.awt.Component;
 import java.awt.event.MouseEvent;

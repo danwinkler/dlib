@@ -15,8 +15,7 @@ public class DText extends DUIElement
 	
 	public DText( String text, int x, int y )
 	{
-		this.x = x;
-		this.y = y;
+		super( x, y, 0, 0 );
 		this.text = text;
 	}
 

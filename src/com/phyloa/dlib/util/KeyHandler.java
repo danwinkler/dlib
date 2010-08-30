@@ -1,4 +1,4 @@
-package com.phyloa.dlib.renderer;
+package com.phyloa.dlib.util;
 
 import java.awt.Component;
 import java.awt.event.KeyEvent;
@@ -59,6 +59,8 @@ public class KeyHandler implements KeyListener
 	
 	public int lastKeyCodeReleased;
 	public int lastModifiersExReleased;
+	
+	public int lastChar = 0;
 	
 	private KeyHandler( Component c )
 	{
@@ -164,6 +166,6 @@ public class KeyHandler implements KeyListener
 
 	public void keyTyped( KeyEvent e )
 	{
-	
+		lastChar = e.getKeyChar();
 	}
 }

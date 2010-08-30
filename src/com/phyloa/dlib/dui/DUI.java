@@ -10,25 +10,26 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 
-import com.phyloa.dlib.renderer.KeyHandler;
-import com.phyloa.dlib.renderer.MouseHandler;
 import com.phyloa.dlib.renderer.Renderer;
+import com.phyloa.dlib.util.KeyHandler;
+import com.phyloa.dlib.util.MouseHandler;
 
-public class DUI implements KeyListener, MouseWheelListener, MouseMotionListener, MouseListener
+public class DUI
 {
 	ArrayList<DUIElement> elements = new ArrayList<DUIElement>();
 	KeyHandler k;
 	MouseHandler m;
+	Component c;
 	
 	ArrayList<DUIListener> listeners = new ArrayList<DUIListener>();
 	
+	DUIElement focus = null;
+	
 	public DUI( Component c )
 	{
-		c.addMouseListener( this );
-		c.addMouseMotionListener( this );
-		c.addMouseWheelListener( this );
-		c.addKeyListener( this );
+		this.c = c;
 		m = MouseHandler.get( c );
+		k = KeyHandler.get( c );
 	}
 	
 	public void update()
@@ -65,64 +66,13 @@ public class DUI implements KeyListener, MouseWheelListener, MouseMotionListener
 		}
 	}
 
-	public void keyPressed(KeyEvent e) 
+	public DUIElement getFocus()
 	{
-		
+		return focus;
 	}
 
-
-	public void keyReleased( KeyEvent e ) 
+	public void setFocus( DUIElement focus )
 	{
-	
-	}
-
-
-	public void keyTyped( KeyEvent e )
-	{	
-		
-	}
-
-
-	public void mouseWheelMoved( MouseWheelEvent e ) 
-	{
-			
-	}
-
-
-	public void mouseDragged( MouseEvent e ) 
-	{
-		
-	}
-
-
-	public void mouseMoved( MouseEvent e ) 
-	{
-		
-	}
-
-
-	public void mouseClicked( MouseEvent e )
-	{
-		
-	}
-
-
-	public void mouseEntered( MouseEvent e ) {	
-		
-	}
-
-
-	public void mouseExited( MouseEvent e ) {
-			
-	}
-
-
-	public void mousePressed( MouseEvent e ) {	
-		
-	}
-
-
-	public void mouseReleased( MouseEvent e ) {
-		
+		this.focus = focus;
 	}
 }

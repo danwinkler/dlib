@@ -1,10 +1,6 @@
 package com.phyloa.dlib.dui;
 
 import java.awt.Color;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.Rectangle2D;
 
 import javax.vecmath.Vector2f;
 
@@ -27,11 +23,8 @@ public class DButton extends DUIElement
 	
 	public DButton( String text, int x, int y, int width, int height )
 	{
+		super( x, y, width, height );
 		this.text = text;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
 	}
 
 	public void render( Renderer r ) 
@@ -79,6 +72,7 @@ public class DButton extends DUIElement
 				if( state != PRESSED )
 				{
 					ui.event( new DUIEvent( this ) );
+					ui.setFocus( this );
 				}
 				state = PRESSED;
 				
@@ -92,11 +86,6 @@ public class DButton extends DUIElement
 		{
 			state = RELEASED;
 		}
-	}
-	
-	private boolean isInside( int mx, int my )
-	{
-		return mx >= x && my >= y && mx <= x + width && my <= y + height; 
 	}
 
 	public void setText( String text )

@@ -17,6 +17,7 @@ import javax.media.opengl.glu.GLU;
 import javax.vecmath.Vector2f;
 
 import com.phyloa.dlib.util.DGraphics;
+import com.phyloa.dlib.util.KeyHandler;
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureIO;

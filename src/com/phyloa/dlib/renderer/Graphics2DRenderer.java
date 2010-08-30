@@ -22,6 +22,9 @@ import javax.swing.JPanel;
 import javax.vecmath.Point2f;
 import javax.vecmath.Vector2f;
 
+import com.phyloa.dlib.util.KeyHandler;
+import com.phyloa.dlib.util.MouseHandler;
+
 public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 {
 	public JFrame container;
