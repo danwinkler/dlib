@@ -75,5 +75,28 @@ public class DMath
 	{ 
 		return a + t * (b - a); 
 	}
-
+	
+	public static float cosf( float a )
+	{
+		return (float)Math.cos( a );
+	}
+	
+	public static float sinf( float a )
+	{
+		return (float)Math.sin( a );
+	}
+	
+	public static int turnTowards( float heading, float desiredHeading )
+	{
+		double delta = heading - desiredHeading;
+		if( delta < -180 )
+			delta += 360;
+		if( delta > 180 )
+			delta -= 360;
+		if( delta < 0 )
+			return 1; //turn right
+		else
+			return -1; //turn left
+		
+	}
 }
