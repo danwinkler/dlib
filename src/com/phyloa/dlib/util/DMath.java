@@ -88,11 +88,19 @@ public class DMath
 	
 	public static int turnTowards( float heading, float desiredHeading )
 	{
+		while( heading < 0 )
+			heading += Math.PI*2;
+		while( desiredHeading < 0 )
+			desiredHeading += Math.PI*2;
+		while( heading > Math.PI*2 )
+			heading -= Math.PI*2;
+		while( desiredHeading > Math.PI*2 )
+			desiredHeading -= Math.PI*2;
 		double delta = heading - desiredHeading;
-		if( delta < -180 )
-			delta += 360;
-		if( delta > 180 )
-			delta -= 360;
+		if( delta < -Math.PI )
+			delta += Math.PI*2;
+		if( delta > Math.PI )
+			delta -= Math.PI*2;
 		if( delta < 0 )
 			return 1; //turn right
 		else

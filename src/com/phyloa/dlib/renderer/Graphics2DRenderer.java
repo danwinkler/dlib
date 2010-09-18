@@ -76,7 +76,6 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 		canvas.setBounds( 0, 0, x, y );
 		canvas.setSize( x, y );
 		panel.setPreferredSize( new Dimension( x, y ) );
-		container.setSize( x, y );
 		container.pack();
 	}
 
