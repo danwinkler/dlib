@@ -1,5 +1,8 @@
 package com.phyloa.dlib.util;
 
+import javax.vecmath.Point2f;
+import javax.vecmath.Vector2f;
+
 public class DMath
 {
 	/**
@@ -106,5 +109,32 @@ public class DMath
 		else
 			return -1; //turn left
 		
+	}
+	
+	public static Vector2f pointToLineSegment( Point2f p0, Vector2f dir, Point2f p ) 
+	{
+		p0 = new Point2f( p0 );
+		dir = new Vector2f( dir );
+		p = new Point2f( p );
+		Vector2f pMinusP0 = new Vector2f( p );
+		pMinusP0.sub( p0 );
+		float denom = dir.dot(dir);
+		float t = dir.dot( pMinusP0 ) / denom;
+
+		if( t < 0.f ) {
+			p.sub( p0 );
+			return new Vector2f( p );
+		}
+		else if( t > 1.f ) {
+			p0.add( dir );
+			p.sub( p0 );
+			return new Vector2f( p );
+		}
+
+		dir.scale( t );
+		dir.add( p0 );
+		p.sub( dir );
+
+		return new Vector2f( p );
 	}
 }
