@@ -32,7 +32,7 @@ public class DOptions
 			String[] parts = line.split( " ", 2 );
 			if( parts.length != 2 )
 			{
-				break;
+				continue;
 			}
 			options.put( parts[0].trim(), parts[1].trim() );
 		}

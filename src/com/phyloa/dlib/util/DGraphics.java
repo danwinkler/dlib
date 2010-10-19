@@ -136,7 +136,7 @@ public class DGraphics
 			{
 				BufferedImage temp = createBufferedImage( width, height );
 				Graphics g = temp.createGraphics();
-				g.drawImage( im, 0, 0, width, height, x*width, x*height, x*width+width, x*height+height, null );
+				g.drawImage( im, 0, 0, width, height, x*width, y*height, x*width+width, y*height+height, null );
 				g.dispose();
 				map[y*mapHeight + x] = temp;
 			}

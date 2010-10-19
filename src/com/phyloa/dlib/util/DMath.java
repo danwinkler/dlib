@@ -137,4 +137,9 @@ public class DMath
 
 		return new Vector2f( p );
 	}
+
+	public static int randomi( int min, int max )
+	{
+		return (int)DMath.randomf( min, max + 1 ); 
+	}
 }

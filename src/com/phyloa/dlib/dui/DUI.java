@@ -75,4 +75,16 @@ public class DUI
 	{
 		this.focus = focus;
 	}
+
+	public boolean isHover()
+	{
+		for( int i = 0; i < elements.size(); i++ )
+		{
+			if( elements.get( i ).isInside( m.x, m.y ) )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }
