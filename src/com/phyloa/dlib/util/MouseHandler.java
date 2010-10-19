@@ -15,6 +15,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
 	public int x;
 	public int y;
 	public boolean clicked = false;
+	public boolean inside = true;
 	
 	private MouseHandler( Component c )
 	{
@@ -41,12 +42,12 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
 
 	public void mouseEntered( MouseEvent e )
 	{
-		
+		inside = true;
 	}
 
 	public void mouseExited( MouseEvent e )
 	{
-		
+		inside = false;
 	}
 
 	public void mousePressed( MouseEvent e )
