@@ -25,6 +25,7 @@ public class DButton extends DUIElement
 	{
 		super( x, y, width, height );
 		this.text = text;
+		this.name = text;
 	}
 
 	public void render( Renderer r ) 

@@ -15,6 +15,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
 	public int x;
 	public int y;
 	public boolean clicked = false;
+	public boolean rightClicked = false;
 	public boolean inside = true;
 	
 	private MouseHandler( Component c )
@@ -52,12 +53,26 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
 
 	public void mousePressed( MouseEvent e )
 	{
-		clicked = true;
+		if( e.getButton() == MouseEvent.BUTTON1 )
+		{
+			clicked = true;
+		}
+		else if( e.getButton() == MouseEvent.BUTTON3 )
+		{
+			rightClicked = true;
+		}
 	}
 
 	public void mouseReleased( MouseEvent e )
 	{
-		clicked = false;
+		if( e.getButton() == MouseEvent.BUTTON1 )
+		{
+			clicked = false;
+		}
+		else if( e.getButton() == MouseEvent.BUTTON3 )
+		{
+			rightClicked = false;
+		}
 	}
 
 	public void mouseDragged( MouseEvent e )
