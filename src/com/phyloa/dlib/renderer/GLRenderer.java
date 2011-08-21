@@ -18,6 +18,7 @@ import javax.vecmath.Vector2f;
 
 import com.phyloa.dlib.util.DGraphics;
 import com.phyloa.dlib.util.KeyHandler;
+import com.phyloa.dlib.util.MouseHandler;
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureIO;
@@ -29,6 +30,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	Animator animator;
 	
 	public KeyHandler k;
+	public MouseHandler m;
 	
 	public GL g;
 	public GLU glu;
@@ -76,6 +78,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 		frame = new Frame( "GLRenderer Window" );
 	    canvas = new GLCanvas();
 	    k = KeyHandler.get( canvas );
+	    m = MouseHandler.get( canvas );
 
 	    canvas.addGLEventListener( this );
 	    frame.add(canvas);
