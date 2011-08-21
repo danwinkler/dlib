@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -44,7 +46,27 @@ public class DFile
 	
 	public static void saveText( String filename, String text ) throws FileNotFoundException
 	{
-		FileOutputStream fos = new FileOutputStream( filename );
+		FileWriter outFile = null;
+		try
+		{
+			outFile = new FileWriter( filename );
+		} catch( IOException e )
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		PrintWriter out = new PrintWriter( outFile );
+		out.print( text );
+		
+		out.close();
+		try
+		{
+			outFile.close();
+		} catch( IOException e )
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static BufferedImage loadImage( String filename ) throws IOException

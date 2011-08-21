@@ -17,8 +17,8 @@ import com.phyloa.dlib.util.DGraphics;
 
 public class Graphics2DIRenderer implements IRenderer
 {
-	BufferedImage im;
-	Graphics2D g;
+	public BufferedImage im;
+	public Graphics2D g;
 	
 	Stack<AffineTransform> mat = new Stack<AffineTransform>();
 	
