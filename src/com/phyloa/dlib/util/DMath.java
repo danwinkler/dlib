@@ -1,10 +1,14 @@
 package com.phyloa.dlib.util;
 
 import javax.vecmath.Point2f;
+import javax.vecmath.Tuple2f;
 import javax.vecmath.Vector2f;
 
 public class DMath
 {
+	public static final float PIF = (float)Math.PI;
+	public static final float PI2F = (float)(Math.PI*2);
+	public static final double PI2 = Math.PI*2;
 	/**
 	 * Returns a random float from 0 to 1. Casts Math.random() to a float.
 	 * 
@@ -136,6 +140,18 @@ public class DMath
 		p.sub( dir );
 
 		return new Vector2f( p );
+	}
+	
+	public static Point2f lineLineIntersection( Tuple2f a1, Tuple2f a2, Tuple2f b1, Tuple2f b2 )
+	{
+		float d = (a1.x-a2.x)*(b1.y-b2.y) - (a1.y-a2.y)*(b1.x-b2.x);
+		if( d == 0 )
+			return null;
+		
+		//SACRIFICING READABILITY...maybe find a slower, more readable version
+		float x1 = ((b1.x-b2.x)*(a1.x*a2.y-a1.y*a2.x)-(a1.x-a2.x)*(b1.x*b2.y-b1.y*b2.x))/d;
+		float y1 = ((b1.y-b2.y)*(a1.x*a2.y-a1.y*a2.x)-(a1.y-a2.y)*(b1.x*b2.y-b1.y*b2.x))/d;
+		return new Point2f( x1, y1 );
 	}
 
 	public static int randomi( int min, int max )
