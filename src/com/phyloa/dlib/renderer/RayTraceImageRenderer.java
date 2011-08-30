@@ -1,5 +1,6 @@
 package com.phyloa.dlib.renderer;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyListener;
@@ -344,6 +345,25 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	public void setFont( Font font )
 	{
 		
+	}
+
+	@Override
+	public void color( Color color )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drawRoundedRect( float x, float y, float width, float height, float arcWidth, float arcHeight )
+	{
+		//g.drawRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
+	}
+
+	@Override
+	public void fillRoundedRect( float x, float y, float width, float height, float arcWidth, float arcHeight )
+	{
+		//g.fillRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
 	}
 
 }

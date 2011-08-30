@@ -135,6 +135,11 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 	{
 		this.g.setColor( new Color( (int)r, (int)g, (int)b, (int)a ) );
 	}
+	
+	public void color( Color color )
+	{
+		this.g.setColor( color );
+	}
 
 	public void line( float x1, float y1, float x2, float y2 )
 	{
@@ -307,5 +312,16 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 	{
 		g.setFont( font );
 	}
+	
+	@Override
+	public void drawRoundedRect( float x, float y, float width, float height, float arcWidth, float arcHeight )
+	{
+		g.drawRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
+	}
 
+	@Override
+	public void fillRoundedRect( float x, float y, float width, float height, float arcWidth, float arcHeight )
+	{
+		g.fillRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
+	}
 }
