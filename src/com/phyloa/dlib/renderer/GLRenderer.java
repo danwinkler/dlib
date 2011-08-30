@@ -28,7 +28,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 {
 	public Frame frame;
 	public GLCanvas canvas;
-	Animator animator;
+	public Animator animator;
 	
 	public KeyHandler k;
 	public MouseHandler m;
