@@ -10,17 +10,19 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 import javax.vecmath.Vector2f;
 
+import com.jogamp.opengl.util.Animator;
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 import com.phyloa.dlib.util.DGraphics;
 import com.phyloa.dlib.util.KeyHandler;
-import com.sun.opengl.util.Animator;
-import com.sun.opengl.util.texture.Texture;
-import com.sun.opengl.util.texture.TextureIO;
+import com.phyloa.dlib.util.MouseHandler;
 
 public abstract class GLRenderer implements Renderer, GLEventListener
 {
@@ -29,8 +31,9 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	Animator animator;
 	
 	public KeyHandler k;
+	public MouseHandler m;
 	
-	public GL g;
+	public GL2 g;
 	public GLU glu;
 	
 	float viewAngle = 30;
@@ -42,7 +45,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	
 	public void display( GLAutoDrawable g ) 
 	{
-		this.g = g.getGL();
+		this.g = g.getGL().getGL2();
 		render();
 		update();
 		this.g = null;
@@ -50,14 +53,14 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 
 	public void displayChanged( GLAutoDrawable g, boolean arg1, boolean arg2 ) 
 	{
-		this.g = g.getGL();
+		this.g = g.getGL().getGL2();
 		render();
 		this.g = null;
 	}
 
 	public void init( GLAutoDrawable g ) 
 	{
-		this.g = g.getGL();
+		this.g = g.getGL().getGL2();
 		glu = new GLU();
 		initialize();
 		render();
@@ -66,9 +69,15 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 
 	public void reshape( GLAutoDrawable g, int x, int y, int width, int height )
 	{
-		this.g = g.getGL();
+		this.g = g.getGL().getGL2();
 		render();
 		this.g = null;
+	}
+	
+	public void dispose( GLAutoDrawable arg0 ) 
+	{
+		// TODO Auto-generated method stub
+		
 	}
 	
 	public void begin() 
@@ -76,6 +85,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 		frame = new Frame( "GLRenderer Window" );
 	    canvas = new GLCanvas();
 	    k = KeyHandler.get( canvas );
+	    m = MouseHandler.get( canvas );
 
 	    canvas.addGLEventListener( this );
 	    frame.add(canvas);
@@ -131,8 +141,8 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 		case LINE_STRIP: g.glBegin( GL.GL_LINE_STRIP ); break;
 		case LINES: g.glBegin( GL.GL_LINES ); break;
 		case POINTS: g.glBegin( GL.GL_POINTS ); break;
-		case QUADS: g.glBegin( GL.GL_QUADS ); break;
-		case QUAD_STRIP: g.glBegin( GL.GL_QUAD_STRIP ); break;
+		case QUADS: g.glBegin( GL2.GL_QUADS ); break;
+		case QUAD_STRIP: g.glBegin( GL2.GL_QUAD_STRIP ); break;
 		case TRIANGLE_FAN: g.glBegin( GL.GL_TRIANGLE_FAN ); break;
 		case TRIANGLE_STRIP: g.glBegin( GL.GL_TRIANGLE_STRIP ); break;
 		case TRIANGLES: g.glBegin( GL.GL_TRIANGLES ); break;
@@ -145,41 +155,65 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	{
 		g.glPushMatrix();
 		g.glScalef( width/2, height/2, length/2 );
-		g.glBegin( GL.GL_QUADS );
+		g.glBegin( GL2.GL_QUADS );
 		//FRONT FACE
+		g.glNormal3f( 0, 0, -1 );
 		g.glVertex3f( -1, -1, -1 );
+		g.glNormal3f( 0, 0, -1 );
 		g.glVertex3f( 1, -1, -1 );
+		g.glNormal3f( 0, 0, -1 );
 		g.glVertex3f( 1, 1, -1 );
+		g.glNormal3f( 0, 0, -1 );
 		g.glVertex3f( -1, 1, -1 );
 		
 		//BACK FACE
+		g.glNormal3f( 0, 0, 1 );
 		g.glVertex3f( -1, -1, 1 );
+		g.glNormal3f( 0, 0, 1 );
 		g.glVertex3f( 1, -1, 1 );
+		g.glNormal3f( 0, 0, 1 );
 		g.glVertex3f( 1, 1, 1 );
+		g.glNormal3f( 0, 0, 1 );
 		g.glVertex3f( -1, 1, 1 );
 		
 		//TOP
+		g.glNormal3f( 0, 1, 0 );
 		g.glVertex3f( -1, 1, -1 );
+		g.glNormal3f( 0, 1, 0 );
 		g.glVertex3f( 1, 1, -1 );
+		g.glNormal3f( 0, 1, 0 );
 		g.glVertex3f( 1, 1, 1 );
+		g.glNormal3f( 0, 1, 0 );
 		g.glVertex3f( -1, 1, 1 );
 		
 		//BOTTOM
+		g.glNormal3f( 0, -1, 0 );
 		g.glVertex3f( -1, -1, -1 );
+		g.glNormal3f( 0, -1, 0 );
 		g.glVertex3f( 1, -1, -1 );
+		g.glNormal3f( 0, -1, 0 );
 		g.glVertex3f( 1, -1, 1 );
+		g.glNormal3f( 0, -1, 0 );
 		g.glVertex3f( -1, -1, 1 );
 		
 		//RIGHT
+		g.glNormal3f( 1, 0, 0 );
 		g.glVertex3f( 1, -1, -1 );
+		g.glNormal3f( 1, 0, 0 );
 		g.glVertex3f( 1, -1, 1 );
+		g.glNormal3f( 1, 0, 0 );
 		g.glVertex3f( 1, 1, 1 );
+		g.glNormal3f( 1, 0, 0 );
 		g.glVertex3f( 1, 1, -1 );
 		
 		//LEFT
+		g.glNormal3f( -1, 0, 0 );
 		g.glVertex3f( -1, -1, -1 );
+		g.glNormal3f( -1, 0, 0 );
 		g.glVertex3f( -1, -1, 1 );
+		g.glNormal3f( -1, 0, 0 );
 		g.glVertex3f( -1, 1, 1 );
+		g.glNormal3f( -1, 0, 0 );
 		g.glVertex3f( -1, 1, -1 );
 		g.glEnd();
 		g.glPopMatrix();
@@ -227,7 +261,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	
 	public void line( float x1, float y1, float x2, float y2 ) 
 	{
-		g.glBegin( GL.GL_LINE );
+		g.glBegin( GL2.GL_LINE );
 		g.glVertex2f( x1, y1 );
 		g.glVertex2f( x2, y2 );
 		g.glEnd();
@@ -236,7 +270,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	
 	public void line(float x1, float y1, float z1, float x2, float y2, float z2) 
 	{
-		g.glBegin( GL.GL_LINE );
+		g.glBegin( GL2.GL_LINE );
 		g.glVertex3f( x1, y1, z1 );
 		g.glVertex3f( x2, y2, z2 );
 		g.glEnd();
@@ -341,7 +375,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 		}
 		else
 		{
-			Texture t = TextureIO.newTexture( im, false );
+			Texture t = AWTTextureIO.newTexture( g.getGLProfile(), im, false );
 			textures.put( im, t );
 			t.bind();
 		}

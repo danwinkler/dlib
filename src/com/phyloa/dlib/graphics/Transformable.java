@@ -21,7 +21,7 @@ import javax.vecmath.Vector3f;
 public class Transformable
 {
 	Stack<Matrix4f> mats = new Stack<Matrix4f>();
-	Matrix4f mat = new Matrix4f();
+	public Matrix4f mat = new Matrix4f();
 	{
 		mat.setIdentity();
 	}

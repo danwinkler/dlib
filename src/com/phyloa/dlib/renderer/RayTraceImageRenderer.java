@@ -7,6 +7,9 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.vecmath.AxisAngle4f;
+import javax.vecmath.Matrix3f;
+import javax.vecmath.Matrix4f;
 import javax.vecmath.Point2f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector2f;
@@ -22,19 +25,27 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 {
 	ArrayList<Trianglef> tris = new ArrayList<Trianglef>();
 	ArrayList<Point3f> vertexBuffer = new ArrayList<Point3f>();
-	ArrayList<Point3f> lights = new ArrayList<Point3f>();
+	ArrayList<Light> lights = new ArrayList<Light>();
 	
 	ShapeType mode;
 	BufferedImage im;
+	Point3f[][] values;
+	float maxValue = 0;
+	int done = 0;
+	
 	int width;
 	int height;
 	
 	int color;
 	
-	int backgroundColor = DGraphics.rgb( 0, 0, 0 );
+	public boolean finished = false;
+	
+	Point3f backgroundColor = new Point3f();
 	
 	Point3f cameraLoc = new Point3f( 0, 0, 0 );
-	Point3f cameraLook = new Point3f();
+	Vector3f cameraLook = new Vector3f();
+	Vector3f cameraUp = new Vector3f();
+	Matrix3f camera = new Matrix3f();
 	float viewAngleY = 30.f;
 	float viewAngleX;
 	float lift = (float) Math.tan( Math.toRadians( viewAngleY ) );
@@ -53,11 +64,13 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 
 		
 		im = new BufferedImage( x, y, BufferedImage.TYPE_INT_ARGB );
+		values = new Point3f[x][y];
 	}
+	
+	int threadnum = 8;
 	
 	public void begin()
 	{
-		int threadnum = 8;
 		for( threadnum = 8; threadnum <= width; threadnum++ )
 		{
 			if( width % threadnum == 0 )
@@ -69,6 +82,34 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 			TracerThread t = new TracerThread( i*chunkwidth, chunkwidth );
 			new Thread( t ).start();
 		}
+		new Thread( new Runnable() {
+
+			@Override
+			public void run()
+			{
+				while( done < threadnum )
+				{
+					try
+					{
+						Thread.sleep( 100 );
+					} catch( InterruptedException e )
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				for( int x = 0; x < width; x++ )
+				{
+					for( int y = 0; y < height; y++ )
+					{
+						values[x][y].x = (values[x][y].x / maxValue) * 255;
+						values[x][y].y = (values[x][y].y / maxValue) * 255;
+						values[x][y].z = (values[x][y].z / maxValue) * 255;
+						im.setRGB( x, y, DGraphics.rgb( (int)values[x][y].x, (int)values[x][y].y, (int)values[x][y].z ) );
+					}
+				}
+				finished = true;
+			} } ).start();
 	}
 	
 	public class TracerThread implements Runnable
@@ -93,17 +134,21 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 				for( int y = 0; y < height; y++ )
 				{
 					Rayf ray = new Rayf( cameraLoc, getLookVector( i, y ) );
-					int col = trace( ray );
-					synchronized( im )
+					Point3f col = trace( ray );
+					if( col.x > maxValue ) maxValue = col.x;
+					if( col.y > maxValue ) maxValue = col.y;
+					if( col.z > maxValue ) maxValue = col.z;
+					synchronized( values )
 					{
-						im.setRGB( i, y, col );
+						im.setRGB( i, y, DGraphics.rgb( (int)Math.min( 255, col.x ), (int)Math.min( 255, col.y ), (int)Math.min( 255, col.z ) ) );
+						values[i][y] = col;
 					}
 				}
 			}
-			
+			done++;
 		}
 		
-		public int trace( Rayf ray )
+		public Point3f trace( Rayf ray )
 		{
 			//For all triangles
 			Intersection point = collideWithObject( ray );
@@ -111,17 +156,28 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 			{
 				//If object is found
 				int col = point.getGeom().getColor(0,0);
+				Point3f color = new Point3f( DGraphics.getRed( col ), DGraphics.getGreen( col ), DGraphics.getBlue( col ) );
+				Point3f rcolor = new Point3f();
 				for( int i = 0; i < lights.size(); i++ )
 				{
-					Vector3f lightVec = new Vector3f();
-					lightVec.sub( lights.get(i) );
+					Vector3f lightVec = new Vector3f( lights.get(i).loc );
+					lightVec.sub( point.getLoc() );
 					Intersection light = collideWithObject( new Rayf( point.getLoc(), lightVec ) );
+					float dist2 = (float)(1.f / Math.pow( lightVec.lengthSquared(), 1.f / lights.get( i ).b ));
 					if( light == null )
-						col = DGraphics.brighten( col );
+					{
+						rcolor.x += color.x * dist2;
+						rcolor.y += color.y * dist2;
+						rcolor.z += color.z * dist2;
+					}
 					else 
-						col = DGraphics.darken( col );
+					{
+						rcolor.x += color.x * dist2 * .5f;
+						rcolor.y += color.y * dist2 * .5f;
+						rcolor.z += color.z * dist2 * .5f;
+					}
 				}
-				return col;
+				return rcolor;
 			}
 			else 
 				return backgroundColor;
@@ -149,13 +205,44 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	{
 		float xNorm = (float)x / (float)width;
 		float yNorm = (float)y / (float)height;
-		Vector3f vec = new Vector3f( (breadth * xNorm) - (breadth/2), (lift * yNorm) - (lift/2), 1 );
+		Vector3f vec = new Vector3f( (breadth * xNorm) - (breadth/2), 1, (lift * yNorm) - (lift/2) );
+		camera.transform( vec );
 		return vec;
 	}
 	
 	public BufferedImage getImage()
 	{
 		return im;
+	}
+	
+	public void setCamera( float cx, float cy, float cz, float lx, float ly, float lz, float ux, float uy, float uz )
+	{
+		cameraLoc.x = cx;
+		cameraLoc.y = cy;
+		cameraLoc.z = cz;
+		cameraLook.x = lx - cx;
+		cameraLook.y = ly - cy;
+		cameraLook.z = lz - cz;
+		cameraUp.x = ux;
+		cameraUp.y = uy;
+		cameraUp.z = uz;
+		cameraUp.scale( -1 );
+		Vector3f cameraRight = new Vector3f();
+		cameraRight.cross( cameraLook, cameraUp );
+		
+		cameraUp.normalize();
+		cameraLook.normalize();
+		cameraRight.normalize();
+		camera.setIdentity();
+		camera.m00 = cameraRight.x;
+		camera.m10 = cameraRight.y;
+		camera.m20 = cameraRight.z;
+		camera.m01 = cameraLook.x;
+		camera.m11 = cameraLook.y;
+		camera.m21 = cameraLook.z;
+		camera.m02 = cameraUp.x;
+		camera.m12 = cameraUp.y;
+		camera.m22 = cameraUp.z;
 	}
 	
 	public void vertex( float x, float y )
@@ -249,11 +336,11 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 		tris.add( new Trianglef( new Point3f( x1, y1, z1 ),  new Point3f( x2, y2, z2 ),  new Point3f( x3, y3, z3 ) ) );
 	}
 	
-	public void addLight( float x, float y, float z )
+	public void addLight( float x, float y, float z, float i )
 	{
 		Point3f v = new Point3f( x, y, z );
 		transform( v );
-		lights.add( v );
+		lights.add( new Light( v, i ) );
 	}
 	
 	public void clear()
@@ -346,6 +433,7 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	{
 		
 	}
+<<<<<<< HEAD
 
 	@Override
 	public void color( Color color )
@@ -366,4 +454,18 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 		//g.fillRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
 	}
 
+=======
+	
+	public class Light
+	{
+		Point3f loc;
+		float b;
+		
+		public Light( Point3f loc, float b )
+		{
+			this.loc = loc;
+			this.b = b;
+		}
+	}
+>>>>>>> a2875f9252623438abc701a12ae776d0dacc24fa
 }
