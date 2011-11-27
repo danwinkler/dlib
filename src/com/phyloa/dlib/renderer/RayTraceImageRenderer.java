@@ -433,7 +433,6 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	{
 		
 	}
-<<<<<<< HEAD
 
 	@Override
 	public void color( Color color )
@@ -453,8 +452,6 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	{
 		//g.fillRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
 	}
-
-=======
 	
 	public class Light
 	{
@@ -467,5 +464,4 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 			this.b = b;
 		}
 	}
->>>>>>> a2875f9252623438abc701a12ae776d0dacc24fa
 }

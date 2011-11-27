@@ -240,5 +240,4 @@ public class Graphics2DIRenderer implements IRenderer
 	{
 		g.fillRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
 	}
-	
 }

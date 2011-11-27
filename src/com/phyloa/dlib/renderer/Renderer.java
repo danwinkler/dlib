@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyListener;
 
-import javax.vecmath.Point2f;
 import javax.vecmath.Vector2f;
 
 /**

@@ -1,5 +1,6 @@
 package com.phyloa.dlib.renderer;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
@@ -465,6 +466,27 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 
 	public void setFont( Font font )
 	{
+		
+	}
+	
+	public void color( Color color )
+	{
+		g.glColor3i( color.getRed(), color.getBlue(), color.getGreen() );
+	}
+
+	@Override
+	public void fillRoundedRect( float x, float y, float width, float height,
+			float arcWidth, float arcHeight )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drawRoundedRect( float x, float y, float width, float height,
+			float arcWidth, float arcHeight )
+	{
+		// TODO Auto-generated method stub
 		
 	}
 }
