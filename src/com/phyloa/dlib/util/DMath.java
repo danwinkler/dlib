@@ -78,6 +78,13 @@ public class DMath
 		return x;
 	}
 	
+	public static float bound( float v, float min, float max )
+	{
+		if( min > v ) return min;
+		if( max < v ) return max;
+		return v;
+	}
+	
 	public static float lerp( float t, float a, float b) 
 	{ 
 		return a + t * (b - a); 
@@ -149,6 +156,7 @@ public class DMath
 			return null;
 		
 		//SACRIFICING READABILITY...maybe find a slower, more readable version
+		//11/26/11...Why did I think it would be better to make it slower? if it works, it works!
 		float x1 = ((b1.x-b2.x)*(a1.x*a2.y-a1.y*a2.x)-(a1.x-a2.x)*(b1.x*b2.y-b1.y*b2.x))/d;
 		float y1 = ((b1.y-b2.y)*(a1.x*a2.y-a1.y*a2.x)-(a1.y-a2.y)*(b1.x*b2.y-b1.y*b2.x))/d;
 		return new Point2f( x1, y1 );
