@@ -22,14 +22,16 @@ import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 import com.phyloa.dlib.util.DGraphics;
 import com.phyloa.dlib.util.KeyHandler;
+import com.phyloa.dlib.util.MouseHandler;
 
 public abstract class GLRenderer implements Renderer, GLEventListener
 {
 	public Frame frame;
 	public GLCanvas canvas;
-	Animator animator;
+	public Animator animator;
 	
 	public KeyHandler k;
+	public MouseHandler m;
 	
 	public GL2 g;
 	public GLU glu;
@@ -83,6 +85,7 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 		frame = new Frame( "GLRenderer Window" );
 	    canvas = new GLCanvas();
 	    k = KeyHandler.get( canvas );
+	    m = MouseHandler.get( canvas );
 
 	    canvas.addGLEventListener( this );
 	    frame.add(canvas);

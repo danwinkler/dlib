@@ -1,5 +1,6 @@
 package com.phyloa.dlib.renderer;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyListener;
@@ -61,6 +62,8 @@ public interface Renderer
 	 */
 	public void color( float r, float g, float b, float a );
 	
+	public void color( Color color );
+	
 	/**
 	 * Draws a line from one point to another in two-space.
 	 * @param x1 the x location of the first point
@@ -98,6 +101,9 @@ public interface Renderer
 	 * @param height the height of the rectangle
 	 */
 	public void drawRect( float x, float y, float width, float height );
+	
+	public void fillRoundedRect( float x, float y, float width, float height, float arcWidth, float arcHeight );
+	public void drawRoundedRect( float x, float y, float width, float height, float arcWidth, float arcHeight );
 	
 	/**
 	 * Fills an ellipse in two-space.

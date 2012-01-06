@@ -222,5 +222,23 @@ public class Graphics2DIRenderer implements IRenderer
 	{
 		
 	}
+
+	@Override
+	public void color( Color color )
+	{
+		this.g.setColor( color );
+	}
+
+	@Override
+	public void drawRoundedRect( float x, float y, float width, float height, float arcWidth, float arcHeight )
+	{
+		g.drawRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
+	}
+
+	@Override
+	public void fillRoundedRect( float x, float y, float width, float height, float arcWidth, float arcHeight )
+	{
+		g.fillRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
+	}
 	
 }

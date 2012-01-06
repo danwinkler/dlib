@@ -1,6 +1,7 @@
 package com.phyloa.dlib.dui;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.vecmath.Vector2f;
 
