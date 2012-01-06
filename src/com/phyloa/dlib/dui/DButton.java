@@ -36,30 +36,33 @@ public class DButton extends DUIElement
 		float strX = (width / 2) - (float)(fontSize.x / 2);
 		float strY = (height / 2) - (float)(fontSize.y / 2);
 		r.translate( x, y );
+		int red = 0, blue = 0, green = 0, alpha = 0;
 		switch( state )
 		{
 		case RELEASED:
-			r.color( releaseColor.getRGB() );
-			r.fillRect( 0, 0, width-1, height-1 );
-			r.color( borderColor.getRGB() );
-			r.drawRect( 0, 0, width-1, height-1 );
-			r.text( text, strX, strY );
+			red = releaseColor.getRed();
+			green = releaseColor.getGreen();
+			blue = releaseColor.getBlue();
+			alpha = releaseColor.getAlpha();
 			break;
 		case HOVER:
-			r.color( hoverColor.getRGB() );
-			r.fillRect( 0, 0, width-1, height-1 );
-			r.color( borderColor.getRGB() );
-			r.drawRect( 0, 0, width-1, height-1 );
-			r.text( text, strX, strY );
+			red = hoverColor.getRed();
+			green = hoverColor.getGreen();
+			blue = hoverColor.getBlue();
+			alpha = hoverColor.getAlpha();
 			break;
 		case PRESSED:
-			r.color( pressedColor.getRGB() );
-			r.fillRect( 0, 0, width-1, height-1 );
-			r.color( borderColor.getRGB() );
-			r.drawRect( 0, 0, width-1, height-1 );
-			r.text( text, strX, strY );
+			red = pressedColor.getRed();
+			green = pressedColor.getGreen();
+			blue = pressedColor.getBlue();
+			alpha = pressedColor.getAlpha();
 			break;
 		}
+		r.color( red, green, blue, alpha );
+		r.fillRect( 0, 0, width-1, height-1 );
+		r.color( borderColor.getRed(), borderColor.getGreen(), borderColor.getBlue(), borderColor.getAlpha() );
+		r.drawRect( 0, 0, width-1, height-1 );
+		r.text( text, strX, strY );
 		
 		r.popMatrix();
 	}
