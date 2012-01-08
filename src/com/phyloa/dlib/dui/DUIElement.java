@@ -1,13 +1,18 @@
 package com.phyloa.dlib.dui;
 
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
 import com.phyloa.dlib.renderer.Renderer;
 
-public abstract class DUIElement
+public abstract class DUIElement implements MouseListener, MouseMotionListener, KeyListener
 {
 	int x, y, width, height;
 	String name;
 	
 	boolean visible = true;
+	DUI ui;
 	
 	public DUIElement( int x, int y, int width, int height )
 	{
@@ -55,5 +60,10 @@ public abstract class DUIElement
 	public boolean isInside( int mx, int my )
 	{
 		return mx >= x && my >= y && mx <= x + width && my <= y + height; 
+	}
+	
+	public void setUI( DUI ui )
+	{
+		this.ui = ui;
 	}
 }

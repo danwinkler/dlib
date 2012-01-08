@@ -3,6 +3,7 @@ package com.phyloa.dlib.dui;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 
 import javax.vecmath.Vector2f;
 
@@ -126,6 +127,55 @@ public class DTextBox extends DUIElement implements KeyListener
 	public void setText( String text )
 	{
 		this.text = text;
+	}
+
+	@Override
+	public void mouseClicked( MouseEvent e )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered( MouseEvent e )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited( MouseEvent e )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed( MouseEvent e )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased( MouseEvent e )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged( MouseEvent e )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved( MouseEvent e )
+	{
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

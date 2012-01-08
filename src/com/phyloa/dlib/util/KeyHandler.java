@@ -53,6 +53,7 @@ public class KeyHandler implements KeyListener
 	public boolean ctrl = false;
 	public boolean space = false;
 	public boolean alt = false;
+	public boolean delete = false;
 	
 	public int lastKeyCodePressed;
 	public int lastModifiersExPressed;
@@ -118,6 +119,7 @@ public class KeyHandler implements KeyListener
 		case KeyEvent.VK_DOWN: down = true; break;
 		case KeyEvent.VK_LEFT: left = true; break;
 		case KeyEvent.VK_RIGHT: right = true; break;
+		case KeyEvent.VK_DELETE: delete = true; break;
 		}
 	}
 	
@@ -161,6 +163,7 @@ public class KeyHandler implements KeyListener
 		case KeyEvent.VK_DOWN: down = false; break;
 		case KeyEvent.VK_LEFT: left = false; break;
 		case KeyEvent.VK_RIGHT: right = false; break;
+		case KeyEvent.VK_DELETE: delete = false; break;
 		}
 	}
 
