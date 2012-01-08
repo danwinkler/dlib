@@ -14,13 +14,12 @@ import com.phyloa.dlib.renderer.Renderer;
 import com.phyloa.dlib.util.KeyHandler;
 import com.phyloa.dlib.util.MouseHandler;
 
-public class DUI
+public class DUI implements MouseListener, MouseMotionListener, KeyListener
 {
 	ArrayList<DUIElement> elements = new ArrayList<DUIElement>();
+	Component c;
 	KeyHandler k;
 	MouseHandler m;
-	Component c;
-	
 	ArrayList<DUIListener> listeners = new ArrayList<DUIListener>();
 	
 	DUIElement focus = null;
@@ -28,8 +27,11 @@ public class DUI
 	public DUI( Component c )
 	{
 		this.c = c;
-		m = MouseHandler.get( c );
+		c.addMouseListener( this );
+		c.addMouseMotionListener( this );
+		c.addKeyListener( this );
 		k = KeyHandler.get( c );
+		m = MouseHandler.get( c );
 	}
 	
 	public void update()
@@ -56,6 +58,7 @@ public class DUI
 	public void add( DUIElement e )
 	{
 		elements.add( e );
+		e.setUI( this );
 	}
 	
 	public void event( DUIEvent e )
@@ -86,5 +89,66 @@ public class DUI
 			}
 		}
 		return false;
+	}
+
+	public void keyPressed( KeyEvent arg0 )
+	{
+		
+	}
+
+	@Override
+	public void keyReleased( KeyEvent arg0 )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void keyTyped( KeyEvent arg0 )
+	{
+		
+	}
+
+	public void mouseDragged( MouseEvent arg0 )
+	{
+		
+	}
+
+	public void mouseMoved( MouseEvent e )
+	{
+		for( int i = 0; i < elements.size(); i++ )
+		{
+			elements.get( i ).mouseMoved( e );
+		}
+	}
+
+	public void mouseClicked( MouseEvent arg0 )
+	{
+		
+	}
+
+	public void mouseEntered( MouseEvent arg0 )
+	{
+		
+	}
+
+	public void mouseExited( MouseEvent arg0 )
+	{
+		
+	}
+
+	public void mousePressed( MouseEvent e )
+	{
+		for( int i = 0; i < elements.size(); i++ )
+		{
+			elements.get( i ).mousePressed( e );
+		}
+	}
+
+	public void mouseReleased( MouseEvent e )
+	{
+		for( int i = 0; i < elements.size(); i++ )
+		{
+			elements.get( i ).mouseReleased( e );
+		}
 	}
 }
