@@ -452,11 +452,7 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	{
 		//g.fillRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
 	}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 5553a95de6249384f39fc94061ec5f9f6ffb4f81
 	public class Light
 	{
 		Point3f loc;

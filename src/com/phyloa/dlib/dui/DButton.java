@@ -33,9 +33,6 @@ public class DButton extends DUIElement
 	{
 		r.pushMatrix();
 		
-		Vector2f fontSize = r.getStringSize( text );
-		float strX = (width / 2) - (float)(fontSize.x / 2);
-		float strY = (height / 2) - (float)(fontSize.y / 2);
 		r.translate( x, y );
 		switch( state )
 		{
@@ -44,24 +41,34 @@ public class DButton extends DUIElement
 			r.fillRect( 0, 0, width-1, height-1 );
 			r.color( borderColor.getRGB() );
 			r.drawRect( 0, 0, width-1, height-1 );
-			r.text( text, strX, strY );
 			break;
 		case HOVER:
 			r.color( hoverColor.getRGB() );
 			r.fillRect( 0, 0, width-1, height-1 );
 			r.color( borderColor.getRGB() );
 			r.drawRect( 0, 0, width-1, height-1 );
-			r.text( text, strX, strY );
 			break;
 		case PRESSED:
 			r.color( pressedColor.getRGB() );
 			r.fillRect( 0, 0, width-1, height-1 );
 			r.color( borderColor.getRGB() );
 			r.drawRect( 0, 0, width-1, height-1 );
-			r.text( text, strX, strY );
 			break;
 		}
 		
+		String[] lines = text.split( "\n" );
+		Vector2f fontHeight = r.getStringSize( text );
+		float lineHeight = -fontHeight.y * 1.2f;
+		float totalHeight = lineHeight * lines.length;
+		float top = ((height / 2) - (totalHeight/2)) + (lineHeight*.75f);
+		for( int i = 0; i < lines.length; i++ )
+		{
+			Vector2f fontSize = r.getStringSize( lines[i] );
+			float strX = (width / 2) - (fontSize.x / 2);
+			float strY = top + (lineHeight * i);
+			
+			r.text( lines[i], strX, strY );
+		}
 		r.popMatrix();
 	}
 	
