@@ -478,16 +478,10 @@ public abstract class GLRenderer implements Renderer, GLEventListener
 	public void fillRoundedRect( float x, float y, float width, float height,
 			float arcWidth, float arcHeight )
 	{
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void drawRoundedRect( float x, float y, float width, float height,
 			float arcWidth, float arcHeight )
 	{
-		// TODO Auto-generated method stub
-		
-	}
 }
 

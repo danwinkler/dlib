@@ -154,27 +154,6 @@ public class DButton extends DUIElement
 		return textColor;
 	}
 
-	@Override
-	public void mouseClicked( MouseEvent e )
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered( MouseEvent e )
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited( MouseEvent e )
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void mousePressed( MouseEvent e )
 	{
 		if( isInside( e.getX(), e.getY() ) )
@@ -186,9 +165,9 @@ public class DButton extends DUIElement
 	}
 
 	@Override
-	public void mouseReleased( MouseEvent e )
+	public void mouseReleased( int x, int y )
 	{
-		if( isInside( e.getX(), e.getY() ) )
+		if( isInside( x, y ) )
 		{
 			state = HOVER;
 			ui.event( new DUIEvent( this, MOUSE_UP ) );
@@ -201,16 +180,16 @@ public class DButton extends DUIElement
 	}
 
 	@Override
-	public void mouseDragged( MouseEvent e )
+	public void mouseDragged( int x, int y )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseMoved( MouseEvent e )
+	public void mouseMoved( int x, int y )
 	{
-		if( isInside( e.getX(), e.getY() ) )
+		if( isInside( x, y ) )
 		{
 			state = HOVER;
 		}
@@ -236,6 +215,34 @@ public class DButton extends DUIElement
 
 	@Override
 	public void keyTyped( KeyEvent e )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseClicked( int x, int y )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered( int x, int y )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited( int x, int y )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed( int x, int y )
 	{
 		// TODO Auto-generated method stub
 		

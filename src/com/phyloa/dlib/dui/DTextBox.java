@@ -130,52 +130,51 @@ public class DTextBox extends DUIElement implements KeyListener
 	}
 
 	@Override
-	public void mouseClicked( MouseEvent e )
+	public void mouseClicked( int x, int y )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseEntered( MouseEvent e )
+	public void mouseEntered( int x, int y )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseExited( MouseEvent e )
+	public void mouseExited( int x, int y )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mousePressed( MouseEvent e )
+	public void mousePressed( int x, int y )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseReleased( MouseEvent e )
+	public void mouseReleased( int x, int y )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseDragged( MouseEvent e )
+	public void mouseMoved( int x, int y )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseMoved( MouseEvent e )
+	public void mouseDragged( int x, int y )
 	{
 		// TODO Auto-generated method stub
 		
 	}
-	
 }

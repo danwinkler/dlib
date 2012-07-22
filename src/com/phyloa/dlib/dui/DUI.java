@@ -16,13 +16,15 @@ import com.phyloa.dlib.util.MouseHandler;
 
 public class DUI implements MouseListener, MouseMotionListener, KeyListener
 {
-	ArrayList<DUIElement> elements = new ArrayList<DUIElement>();
 	Component c;
 	KeyHandler k;
 	MouseHandler m;
 	ArrayList<DUIListener> listeners = new ArrayList<DUIListener>();
 	
 	DUIElement focus = null;
+	DUIElement hover = null;
+	
+	DUIElement rootPane = new DPane( 0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE );
 	
 	public DUI( Component c )
 	{
@@ -34,20 +36,22 @@ public class DUI implements MouseListener, MouseMotionListener, KeyListener
 		m = MouseHandler.get( c );
 	}
 	
+	public DUI( Component c, int x, int y, int width, int height )
+	{
+		this( c );
+		rootPane = new DPane( x, y, width, height );
+	}
+	
 	public void update()
 	{
-		for( int i = 0; i < elements.size(); i++ )
-		{
-			elements.get( i ).update( this );
-		}
+		rootPane.update( this );
+		rootPane.updateChildren( this );
 	}
 	
 	public void render( Renderer r )
 	{
-		for( int i = 0; i < elements.size(); i++ )
-		{
-			elements.get( i ).render( r );
-		}
+		rootPane.render( r );
+		rootPane.renderChildren( r );
 	}
 	
 	public void addDUIListener( DUIListener l )
@@ -57,7 +61,7 @@ public class DUI implements MouseListener, MouseMotionListener, KeyListener
 	
 	public void add( DUIElement e )
 	{
-		elements.add( e );
+		rootPane.add( e );
 		e.setUI( this );
 	}
 	
@@ -77,18 +81,6 @@ public class DUI implements MouseListener, MouseMotionListener, KeyListener
 	public void setFocus( DUIElement focus )
 	{
 		this.focus = focus;
-	}
-
-	public boolean isHover()
-	{
-		for( int i = 0; i < elements.size(); i++ )
-		{
-			if( elements.get( i ).isInside( m.x, m.y ) )
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public void keyPressed( KeyEvent arg0 )
@@ -115,10 +107,8 @@ public class DUI implements MouseListener, MouseMotionListener, KeyListener
 
 	public void mouseMoved( MouseEvent e )
 	{
-		for( int i = 0; i < elements.size(); i++ )
-		{
-			elements.get( i ).mouseMoved( e );
-		}
+		rootPane.mouseMoved( e.getX(), e.getY() );
+		rootPane.handleChildrenMouseMoved( e.getX(), e.getY() );
 	}
 
 	public void mouseClicked( MouseEvent arg0 )
@@ -138,17 +128,13 @@ public class DUI implements MouseListener, MouseMotionListener, KeyListener
 
 	public void mousePressed( MouseEvent e )
 	{
-		for( int i = 0; i < elements.size(); i++ )
-		{
-			elements.get( i ).mousePressed( e );
-		}
+		rootPane.mousePressed( e.getX(), e.getY() );
+		rootPane.handleChildrenMousePressed( e.getX(), e.getY() );
 	}
 
 	public void mouseReleased( MouseEvent e )
 	{
-		for( int i = 0; i < elements.size(); i++ )
-		{
-			elements.get( i ).mouseReleased( e );
-		}
+		rootPane.mouseReleased( e.getX(), e.getY() );
+		rootPane.handleChildrenMouseReleased( e.getX(), e.getY() );
 	}
 }

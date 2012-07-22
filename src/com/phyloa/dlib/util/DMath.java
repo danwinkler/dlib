@@ -85,6 +85,13 @@ public class DMath
 		return v;
 	}
 	
+	public static int bound( int v, int min, int max )
+	{
+		if( min > v ) return min;
+		if( max < v ) return max;
+		return v;
+	}
+	
 	public static float lerp( float t, float a, float b) 
 	{ 
 		return a + t * (b - a); 
