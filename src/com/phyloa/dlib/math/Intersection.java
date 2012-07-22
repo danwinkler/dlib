@@ -20,6 +20,11 @@ public class Intersection
 		return loc.distance( ray.loc );
 	}
 	
+	public float getDist2()
+	{
+		return loc.distanceSquared( ray.loc );
+	}
+	
 	public Geom getGeom()
 	{
 		return g;

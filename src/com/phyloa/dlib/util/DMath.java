@@ -43,12 +43,46 @@ public class DMath
 	 */
 	public static int max( int... c )
 	{
-		int max = Integer.MIN_VALUE;
+		int max = -Integer.MAX_VALUE;
 		for( int i = 0; i < c.length; i++ )
 		{
 			max = max > c[i] ? max : c[i];
 		}
 		return max;
+	}
+	
+	/**
+	 * Returns the maximum float of all the values passed.
+	 * 
+	 * @param c
+	 *            the floats to find the max of
+	 * @return the maximum float
+	 */
+	public static float maxf( float... c )
+	{
+		float max = -Float.MAX_VALUE;
+		for( int i = 0; i < c.length; i++ )
+		{
+			max = max > c[i] ? max : c[i];
+		}
+		return max;
+	}
+	
+	/**
+	 * Returns the minimum float of all the values passed.
+	 * 
+	 * @param c
+	 *            the floats to find the max of
+	 * @return the maximum float
+	 */
+	public static float minf( float... c )
+	{
+		float min = Float.MAX_VALUE;
+		for( int i = 0; i < c.length; i++ )
+		{
+			min = min < c[i] ? min : c[i];
+		}
+		return min;
 	}
 	
 	/**
@@ -79,6 +113,13 @@ public class DMath
 	}
 	
 	public static float bound( float v, float min, float max )
+	{
+		if( min > v ) return min;
+		if( max < v ) return max;
+		return v;
+	}
+	
+	public static int bound( int v, int min, int max )
 	{
 		if( min > v ) return min;
 		if( max < v ) return max;
