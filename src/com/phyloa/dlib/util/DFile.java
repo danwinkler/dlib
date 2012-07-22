@@ -79,5 +79,28 @@ public class DFile
 		 File outputfile = new File( filename );
 		 ImageIO.write( image, type, outputfile );
 	}
+	
+	public static int[][] loadCSV( String filename, int x, int y, int width, int height ) throws IOException
+	{
+		String text = DFile.loadText( filename );
+		int[][] vals = new int[width][height];
+		String[] lines = text.split( "\n" );
+		String[][] svals = new String[lines.length][];
+		for( int i = 0; i < lines.length; i++ )
+		{
+			svals[i] = lines[i].split( "," );
+		}
+		
+		for( int xx = 0; xx < width; xx++ )
+		{
+			for( int yy = 0; yy < height; yy++ )
+			{
+				vals[xx][yy] = Integer.parseInt( svals[xx+x][yy+y] );
+				
+			}
+		}
+		
+		return vals;
+	}
 }
 

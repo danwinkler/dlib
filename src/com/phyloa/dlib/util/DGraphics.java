@@ -3,7 +3,10 @@ package com.phyloa.dlib.util;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 
 public class DGraphics
 {
@@ -142,6 +145,14 @@ public class DGraphics
 			}
 		}
 		return map;
+	}
+	
+	public static BufferedImage flip( BufferedImage im, boolean horizontal, boolean vertical )
+	{
+		AffineTransform tx = AffineTransform.getScaleInstance( horizontal ? -1 : 1, vertical ? -1 : 1 );
+		tx.translate( horizontal ? -im.getWidth() : 0, vertical ? -im.getHeight() : 0);
+		BufferedImageOp op = new AffineTransformOp( tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR );
+		return op.filter( im, null );
 	}
 	
 }

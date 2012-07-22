@@ -1,18 +1,22 @@
 package com.phyloa.dlib.dui;
 
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 import com.phyloa.dlib.renderer.Renderer;
 
-public abstract class DUIElement implements MouseListener, MouseMotionListener, KeyListener
+public abstract class DUIElement implements KeyListener
 {
 	int x, y, width, height;
 	String name;
 	
 	boolean visible = true;
 	DUI ui;
+	
+	ArrayList<DUIElement> children = new ArrayList<DUIElement>();
 	
 	public DUIElement( int x, int y, int width, int height )
 	{
@@ -65,5 +69,87 @@ public abstract class DUIElement implements MouseListener, MouseMotionListener, 
 	public void setUI( DUI ui )
 	{
 		this.ui = ui;
+	}
+	
+	public void handleChildrenMouseMoved( int x, int y )
+	{
+		int xx = x - this.x;
+		int yy = y - this.y;
+		for( int i = 0; i < children.size(); i++ )
+		{
+			DUIElement el = children.get( i );
+			if( el.isInside( xx, yy ) )
+			{
+				el.mouseMoved( xx, yy );
+				el.handleChildrenMouseMoved( xx, yy );
+			}
+		}
+	}
+	
+	public void handleChildrenMousePressed( int x, int y )
+	{
+		int xx = x - this.x;
+		int yy = y - this.y;
+		for( int i = 0; i < children.size(); i++ )
+		{
+			DUIElement el = children.get( i );
+			if( el.isInside( xx, yy ) )
+			{
+				el.mousePressed( xx, yy );
+				el.handleChildrenMousePressed( xx, yy );
+			}
+		}
+	}
+	
+	public void handleChildrenMouseReleased( int x, int y )
+	{
+		int xx = x - this.x;
+		int yy = y - this.y;
+		for( int i = 0; i < children.size(); i++ )
+		{
+			DUIElement el = children.get( i );
+			if( el.isInside( xx, yy ) )
+			{
+				el.mouseReleased( xx, yy );
+				el.handleChildrenMouseReleased( xx, yy );
+			}
+		}
+	}
+
+	public abstract void mouseClicked( int x, int y );
+
+	public abstract void mouseEntered( int x, int y );
+	
+	public abstract void mouseExited( int x, int y );
+
+	public abstract void mousePressed( int x, int y );
+
+	public abstract void mouseReleased( int x, int y );
+	
+	public abstract void mouseMoved( int x, int y );
+	
+	public abstract void mouseDragged( int x, int y );
+
+	public void add( DUIElement e )
+	{
+		children.add( e );
+	}
+
+	public void updateChildren( DUI dui )
+	{
+		for( int i = 0; i < children.size(); i++ )
+		{
+			children.get( i ).update( dui );
+			children.get( i ).updateChildren( dui );
+		}
+	}
+	
+	public void renderChildren( Renderer r )
+	{
+		for( int i = 0; i < children.size(); i++ )
+		{
+			children.get( i ).render( r );
+			children.get( i ).renderChildren( r );
+		}
 	}
 }
