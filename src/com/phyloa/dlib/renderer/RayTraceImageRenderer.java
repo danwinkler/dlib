@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.vecmath.AxisAngle4f;
 import javax.vecmath.Matrix3f;
@@ -16,6 +17,9 @@ import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3f;
 
 import com.phyloa.dlib.graphics.Transformable;
+import com.phyloa.dlib.math.Boxf;
+import com.phyloa.dlib.math.Geom;
+import com.phyloa.dlib.math.GeomOctTree;
 import com.phyloa.dlib.math.Intersection;
 import com.phyloa.dlib.math.Rayf;
 import com.phyloa.dlib.math.Trianglef;
@@ -23,7 +27,7 @@ import com.phyloa.dlib.util.DGraphics;
 
 public class RayTraceImageRenderer extends Transformable implements IRenderer
 {
-	ArrayList<Trianglef> tris = new ArrayList<Trianglef>();
+	public GeomOctTree oct = new GeomOctTree();
 	ArrayList<Point3f> vertexBuffer = new ArrayList<Point3f>();
 	ArrayList<Light> lights = new ArrayList<Light>();
 	
@@ -50,6 +54,9 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	float viewAngleX;
 	float lift = (float) Math.tan( Math.toRadians( viewAngleY ) );
 	float breadth = (float) Math.tan( Math.toRadians( viewAngleX ) );
+	
+	boolean scaleLight = false;
+	int cBoxSize = 50;
 	
 	public RayTraceImageRenderer( int x, int y )
 	{
@@ -102,9 +109,18 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 				{
 					for( int y = 0; y < height; y++ )
 					{
-						values[x][y].x = (values[x][y].x / maxValue) * 255;
-						values[x][y].y = (values[x][y].y / maxValue) * 255;
-						values[x][y].z = (values[x][y].z / maxValue) * 255;
+						if( scaleLight )
+						{
+							values[x][y].x = (values[x][y].x / maxValue) * 255;
+							values[x][y].y = (values[x][y].y / maxValue) * 255;
+							values[x][y].z = (values[x][y].z / maxValue) * 255;
+						}
+						else
+						{
+							values[x][y].x = Math.min( values[x][y].x, 255 );
+							values[x][y].y = Math.min( values[x][y].y, 255 );
+							values[x][y].z = Math.min( values[x][y].z, 255 );
+						}
 						im.setRGB( x, y, DGraphics.rgb( (int)values[x][y].x, (int)values[x][y].y, (int)values[x][y].z ) );
 					}
 				}
@@ -163,7 +179,8 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 					Vector3f lightVec = new Vector3f( lights.get(i).loc );
 					lightVec.sub( point.getLoc() );
 					Intersection light = collideWithObject( new Rayf( point.getLoc(), lightVec ) );
-					float dist2 = (float)(1.f / Math.pow( lightVec.lengthSquared(), 1.f / lights.get( i ).b ));
+					//float dist2 = (float)(1.f / Math.pow( lightVec.lengthSquared(), 1.f / lights.get( i ).b ));
+					float dist2 = (float)(1.f / ( lightVec.lengthSquared())) * lights.get( i ).b;
 					if( light == null )
 					{
 						rcolor.x += color.x * dist2;
@@ -187,17 +204,22 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	public Intersection collideWithObject( Rayf ray )
 	{
 		Intersection point = null;
-		for( int i = 0; i < tris.size(); i++ )
+		/*
+		for( int j = 0; j < geom.size(); j++ )
 		{
-			Intersection temp = tris.get(i).intersects( ray );
+			Intersection temp = geom.get(j).intersects( ray );
 			if( point != null && temp != null )
 			{
 				if( temp.getDist() < point.getDist() )
 					point = temp;
 			}
 			else if( point == null )
+			{
 				point = temp;
+			}
 		}
+		*/
+		point = oct.closestIntersect( ray );
 		return point;
 	}
 	
@@ -220,13 +242,14 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 		cameraLoc.x = cx;
 		cameraLoc.y = cy;
 		cameraLoc.z = cz;
-		cameraLook.x = lx - cx;
-		cameraLook.y = ly - cy;
-		cameraLook.z = lz - cz;
+		cameraLook.x = lx;
+		cameraLook.y = ly;
+		cameraLook.z = lz;
 		cameraUp.x = ux;
 		cameraUp.y = uy;
 		cameraUp.z = uz;
 		cameraUp.scale( -1 );
+		transform( cameraLoc );
 		Vector3f cameraRight = new Vector3f();
 		cameraRight.cross( cameraLook, cameraUp );
 		
@@ -311,14 +334,14 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 		case TRIANGLES:
 			for( int i = 0; i < vertexBuffer.size(); i += 3 )
 			{
-				tris.add( new Trianglef( vertexBuffer.get(i), vertexBuffer.get(i+1), vertexBuffer.get(i+2), color ) );
+				addTriangle( vertexBuffer.get(i), vertexBuffer.get(i+1), vertexBuffer.get(i+2), color );
 			}
 		break;
 		case QUADS:
 			for( int i = 0; i < vertexBuffer.size(); i += 4 )
 			{
-				tris.add( new Trianglef( vertexBuffer.get(i), vertexBuffer.get(i+1), vertexBuffer.get(i+2), color ) );
-				tris.add( new Trianglef( vertexBuffer.get(i), vertexBuffer.get(i+3), vertexBuffer.get(i+2), color ) );
+				addTriangle( vertexBuffer.get(i), vertexBuffer.get(i+1), vertexBuffer.get(i+2), color );
+				addTriangle( vertexBuffer.get(i), vertexBuffer.get(i+3), vertexBuffer.get(i+2), color );
 			}
 		break;
 		}
@@ -326,14 +349,25 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 		vertexBuffer.clear();
 	}
 	
+	public void addTriangle( Point3f p1, Point3f p2, Point3f p3, int color )
+	{
+		Trianglef t = new Trianglef( p1, p2, p3, color );
+		oct.addGeom( t );
+	}
+	
 	public void addTriangle( Point3f p1, Point3f p2, Point3f p3 )
 	{
-		tris.add( new Trianglef( p1, p2, p3 ) );
+		Trianglef t = new Trianglef( p1, p2, p3 );
+		oct.addGeom( t );
 	}
 	
 	public void addTriangle( float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3 )
 	{
-		tris.add( new Trianglef( new Point3f( x1, y1, z1 ),  new Point3f( x2, y2, z2 ),  new Point3f( x3, y3, z3 ) ) );
+		Point3f p1 = new Point3f( x1, y1, z1 );
+		Point3f p2 = new Point3f( x2, y2, z2 );
+		Point3f p3 = new Point3f( x3, y3, z3 );
+		Trianglef t = new Trianglef( p1, p2, p3 );
+		oct.addGeom( t );
 	}
 	
 	public void addLight( float x, float y, float z, float i )
@@ -345,7 +379,9 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	
 	public void clear()
 	{
-		tris.clear();
+		oct = new GeomOctTree();
+		lights.clear();
+		vertexBuffer.clear();
 	}
 	
 	public void fill( int c )
@@ -463,5 +499,31 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 			this.loc = loc;
 			this.b = b;
 		}
+	}
+	
+	public class ContainerBox extends Boxf
+	{
+		public ArrayList<Geom> geom = new ArrayList<Geom>();
+		
+		public ContainerBox( float x, float y, float z, float width, float height, float length )
+		{
+			super( x, y, z, width, height, length );
+		}
+		
+		public void addGeom( Geom g )
+		{
+			if( !contains( g ) )
+				geom.add( g );
+		}
+		
+		public boolean contains( Geom g )
+		{
+			return geom.contains( g );
+		}
+	}
+	
+	public void setScaleLight( boolean scaleLight )
+	{
+		this.scaleLight = scaleLight;
 	}
 }
