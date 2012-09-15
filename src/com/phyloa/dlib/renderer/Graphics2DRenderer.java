@@ -19,6 +19,7 @@ import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.vecmath.Point2f;
 import javax.vecmath.Vector2f;
 
@@ -293,8 +294,9 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 
 	public void componentResized( ComponentEvent e )
 	{
-		canvas.setBounds( 0, 0, container.getWidth(), container.getHeight() );
-		canvas.setSize( container.getWidth(), container.getHeight() );
+		JRootPane rp = container.getRootPane();
+		canvas.setBounds( 0, 0, rp.getWidth(), rp.getHeight() );
+		canvas.setSize( rp.getWidth(), rp.getHeight() );
 	}
 
 	public void componentShown( ComponentEvent arg0 )

@@ -205,6 +205,6 @@ public class DMath
 
 	public static int randomi( int min, int max )
 	{
-		return (int)DMath.randomf( min, max + 1 ); 
+		return (int)DMath.randomf( min, max ); 
 	}
 }
