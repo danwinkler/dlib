@@ -141,7 +141,7 @@ public class DMath
 		return (float)Math.sin( a );
 	}
 	
-	public static int turnTowards( float heading, float desiredHeading )
+	public static float turnTowards( float heading, float desiredHeading )
 	{
 		while( heading < 0 )
 			heading += Math.PI*2;
@@ -156,10 +156,7 @@ public class DMath
 			delta += Math.PI*2;
 		if( delta > Math.PI )
 			delta -= Math.PI*2;
-		if( delta < 0 )
-			return 1; //turn right
-		else
-			return -1; //turn left
+		return (float)-delta;
 		
 	}
 	
