@@ -195,6 +195,7 @@ public class DMath
 		
 		//SACRIFICING READABILITY...maybe find a slower, more readable version
 		//11/26/11...Why did I think it would be better to make it slower? if it works, it works!
+		//11/28/12 lol @ me
 		float x1 = ((b1.x-b2.x)*(a1.x*a2.y-a1.y*a2.x)-(a1.x-a2.x)*(b1.x*b2.y-b1.y*b2.x))/d;
 		float y1 = ((b1.y-b2.y)*(a1.x*a2.y-a1.y*a2.x)-(a1.y-a2.y)*(b1.x*b2.y-b1.y*b2.x))/d;
 		return new Point2f( x1, y1 );
