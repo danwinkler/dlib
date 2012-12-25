@@ -18,6 +18,8 @@ public abstract class DUIElement implements KeyListener
 	
 	ArrayList<DUIElement> children = new ArrayList<DUIElement>();
 	
+	boolean isInside = false;
+	
 	public DUIElement( int x, int y, int width, int height )
 	{
 		this.x = x;
@@ -78,8 +80,10 @@ public abstract class DUIElement implements KeyListener
 		for( int i = 0; i < children.size(); i++ )
 		{
 			DUIElement el = children.get( i );
-			if( el.isInside( xx, yy ) )
+			boolean inside = el.isInside( xx, yy );
+			if( inside || el.isInside )
 			{
+				el.isInside = inside;
 				el.mouseMoved( xx, yy );
 				el.handleChildrenMouseMoved( xx, yy );
 			}
@@ -146,10 +150,13 @@ public abstract class DUIElement implements KeyListener
 	
 	public void renderChildren( Renderer r )
 	{
-		for( int i = 0; i < children.size(); i++ )
+		if( visible )
 		{
-			children.get( i ).render( r );
-			children.get( i ).renderChildren( r );
+			for( int i = 0; i < children.size(); i++ )
+			{
+				children.get( i ).render( r );
+				children.get( i ).renderChildren( r );
+			}
 		}
 	}
 }
