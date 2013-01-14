@@ -11,35 +11,34 @@ import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 
 import com.phyloa.dlib.renderer.Renderer;
-import com.phyloa.dlib.util.KeyHandler;
+import com.phyloa.dlib.util.DKeyHandler;
 import com.phyloa.dlib.util.MouseHandler;
 
-public class DUI implements MouseListener, MouseMotionListener, KeyListener
+public class DUI implements DMouseListener, DKeyListener
 {
-	Component c;
-	KeyHandler k;
+	DEventMapper dem;
+	DKeyHandler k;
 	MouseHandler m;
 	ArrayList<DUIListener> listeners = new ArrayList<DUIListener>();
 	
 	DUIElement focus = null;
 	DUIElement hover = null;
 	
-	DUIElement rootPane = new DPane( 0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE );
+	DUIElement rootPane = new DPanel( 0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE );
 	
-	public DUI( Component c )
+	public DUI( DEventMapper dem )
 	{
-		this.c = c;
-		c.addMouseListener( this );
-		c.addMouseMotionListener( this );
-		c.addKeyListener( this );
-		k = KeyHandler.get( c );
-		m = MouseHandler.get( c );
+		this.dem = dem;
+		dem.addDKeyListener( this );
+		dem.addDMouseListener( this );
+		//k = DKeyHandler.get( c );
+		//m = MouseHandler.get( c );
 	}
 	
-	public DUI( Component c, int x, int y, int width, int height )
+	public DUI( DEventMapper dem, int x, int y, int width, int height )
 	{
-		this( c );
-		rootPane = new DPane( x, y, width, height );
+		this( dem );
+		rootPane = new DPanel( x, y, width, height );
 	}
 	
 	public void update()
@@ -83,58 +82,56 @@ public class DUI implements MouseListener, MouseMotionListener, KeyListener
 		this.focus = focus;
 	}
 
-	public void keyPressed( KeyEvent arg0 )
+	public void mouseMoved( DMouseEvent e )
 	{
-		
+		rootPane.mouseMoved( e );
+		rootPane.handleChildrenMouseMoved( e );
+	}
+
+	public void mousePressed( DMouseEvent e )
+	{
+		rootPane.mousePressed( e );
+		rootPane.handleChildrenMousePressed( e );
+	}
+
+	public void mouseReleased( DMouseEvent e )
+	{
+		rootPane.mouseReleased( e );
+		rootPane.handleChildrenMouseReleased( e );
 	}
 
 	@Override
-	public void keyReleased( KeyEvent arg0 )
+	public void keyPressed( DKeyEvent dke )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void keyTyped( KeyEvent arg0 )
+	@Override
+	public void keyReleased( DKeyEvent dke )
 	{
+		// TODO Auto-generated method stub
 		
 	}
 
-	public void mouseDragged( MouseEvent arg0 )
+	@Override
+	public void mouseEntered( DMouseEvent e )
 	{
+		// TODO Auto-generated method stub
 		
 	}
 
-	public void mouseMoved( MouseEvent e )
+	@Override
+	public void mouseExited( DMouseEvent e )
 	{
-		rootPane.mouseMoved( e.getX(), e.getY() );
-		rootPane.handleChildrenMouseMoved( e.getX(), e.getY() );
-	}
-
-	public void mouseClicked( MouseEvent arg0 )
-	{
+		// TODO Auto-generated method stub
 		
 	}
 
-	public void mouseEntered( MouseEvent arg0 )
+	@Override
+	public void mouseDragged( DMouseEvent e )
 	{
+		// TODO Auto-generated method stub
 		
-	}
-
-	public void mouseExited( MouseEvent arg0 )
-	{
-		
-	}
-
-	public void mousePressed( MouseEvent e )
-	{
-		rootPane.mousePressed( e.getX(), e.getY() );
-		rootPane.handleChildrenMousePressed( e.getX(), e.getY() );
-	}
-
-	public void mouseReleased( MouseEvent e )
-	{
-		rootPane.mouseReleased( e.getX(), e.getY() );
-		rootPane.handleChildrenMouseReleased( e.getX(), e.getY() );
 	}
 }

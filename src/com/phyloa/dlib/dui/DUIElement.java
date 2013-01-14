@@ -1,14 +1,10 @@
 package com.phyloa.dlib.dui;
 
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import com.phyloa.dlib.renderer.Renderer;
 
-public abstract class DUIElement implements KeyListener
+public abstract class DUIElement implements DKeyListener, DMouseListener
 {
 	int x, y, width, height;
 	String name;
@@ -73,10 +69,10 @@ public abstract class DUIElement implements KeyListener
 		this.ui = ui;
 	}
 	
-	public void handleChildrenMouseMoved( int x, int y )
+	public void handleChildrenMouseMoved( DMouseEvent e )
 	{
-		int xx = x - this.x;
-		int yy = y - this.y;
+		int xx = e.x - this.x;
+		int yy = e.y - this.y;
 		for( int i = 0; i < children.size(); i++ )
 		{
 			DUIElement el = children.get( i );
@@ -84,55 +80,41 @@ public abstract class DUIElement implements KeyListener
 			if( inside || el.isInside )
 			{
 				el.isInside = inside;
-				el.mouseMoved( xx, yy );
-				el.handleChildrenMouseMoved( xx, yy );
+				el.mouseMoved( e );
+				el.handleChildrenMouseMoved( e );
 			}
 		}
 	}
 	
-	public void handleChildrenMousePressed( int x, int y )
+	public void handleChildrenMousePressed( DMouseEvent e )
 	{
-		int xx = x - this.x;
-		int yy = y - this.y;
+		int xx = e.x - this.x;
+		int yy = e.y - this.y;
 		for( int i = 0; i < children.size(); i++ )
 		{
 			DUIElement el = children.get( i );
 			if( el.isInside( xx, yy ) )
 			{
-				el.mousePressed( xx, yy );
-				el.handleChildrenMousePressed( xx, yy );
+				el.mousePressed( e );
+				el.handleChildrenMousePressed( e );
 			}
 		}
 	}
 	
-	public void handleChildrenMouseReleased( int x, int y )
+	public void handleChildrenMouseReleased( DMouseEvent e )
 	{
-		int xx = x - this.x;
-		int yy = y - this.y;
+		int xx = e.x - this.x;
+		int yy = e.y - this.y;
 		for( int i = 0; i < children.size(); i++ )
 		{
 			DUIElement el = children.get( i );
 			if( el.isInside( xx, yy ) )
 			{
-				el.mouseReleased( xx, yy );
-				el.handleChildrenMouseReleased( xx, yy );
+				el.mouseReleased( e );
+				el.handleChildrenMouseReleased( e );
 			}
 		}
 	}
-
-	public abstract void mouseClicked( int x, int y );
-
-	public abstract void mouseEntered( int x, int y );
-	
-	public abstract void mouseExited( int x, int y );
-
-	public abstract void mousePressed( int x, int y );
-
-	public abstract void mouseReleased( int x, int y );
-	
-	public abstract void mouseMoved( int x, int y );
-	
-	public abstract void mouseDragged( int x, int y );
 
 	public void add( DUIElement e )
 	{

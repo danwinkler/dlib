@@ -23,7 +23,7 @@ import javax.swing.JRootPane;
 import javax.vecmath.Point2f;
 import javax.vecmath.Vector2f;
 
-import com.phyloa.dlib.util.KeyHandler;
+import com.phyloa.dlib.util.DKeyHandler;
 import com.phyloa.dlib.util.MouseHandler;
 
 public abstract class Graphics2DRenderer implements Renderer, ComponentListener
@@ -35,7 +35,7 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 	public Graphics2D g;
 	BufferStrategy bs;
 
-	public KeyHandler k;
+	public DKeyHandler k;
 	public MouseHandler m;
 
 	//Drawing vars
@@ -68,7 +68,7 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 		canvas.createBufferStrategy( 2 );
 		bs = canvas.getBufferStrategy();
 	
-		k = KeyHandler.get( canvas );
+		k = DKeyHandler.get( canvas );
 		m = MouseHandler.get( canvas );
 	}
 

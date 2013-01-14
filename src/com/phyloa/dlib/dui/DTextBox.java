@@ -26,11 +26,9 @@ public class DTextBox extends DUIElement implements KeyListener
 	
 	int blinkRate = 30;
 	
-	public DTextBox( DUI ui, int x, int y, int width, int height )
+	public DTextBox( int x, int y, int width, int height )
 	{
 		super( x, y, width, height );
-		this.ui = ui;
-		ui.c.addKeyListener( this );
 	}
 	
 	public void render( Renderer r )
@@ -63,11 +61,11 @@ public class DTextBox extends DUIElement implements KeyListener
 		}
 	}
 
-	public void keyPressed( KeyEvent e )
+	public void keyPressed( DKeyEvent e )
 	{
 		if( ui.focus == this )
 		{
-			int keyCode = e.getKeyCode();
+			int keyCode = e.keyCode;
 			if( keyCode == KeyEvent.VK_BACK_SPACE )
 			{
 				if( text != null )
@@ -82,21 +80,11 @@ public class DTextBox extends DUIElement implements KeyListener
 			{
 				
 			}
-			else if( !e.isActionKey() )
+			else if( !e.isActionKey )
 			{
-				text += e.getKeyChar();
+				text += e.keyChar;
 			}
 		}
-	}
-
-	public void keyReleased( KeyEvent e )
-	{
-		
-	}
-
-	public void keyTyped( KeyEvent e )
-	{
-		
 	}
 
 	public Color getBgColor()
@@ -130,49 +118,70 @@ public class DTextBox extends DUIElement implements KeyListener
 	}
 
 	@Override
-	public void mouseClicked( int x, int y )
+	public void keyReleased( DKeyEvent dke )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseEntered( int x, int y )
+	public void mouseEntered( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseExited( int x, int y )
+	public void mouseExited( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mousePressed( int x, int y )
+	public void mousePressed( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseReleased( int x, int y )
+	public void mouseReleased( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseMoved( int x, int y )
+	public void mouseMoved( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseDragged( int x, int y )
+	public void mouseDragged( DMouseEvent e )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed( KeyEvent arg0 )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased( KeyEvent arg0 )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped( KeyEvent arg0 )
 	{
 		// TODO Auto-generated method stub
 		

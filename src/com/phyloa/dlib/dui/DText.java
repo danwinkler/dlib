@@ -68,70 +68,56 @@ public class DText extends DUIElement
 	}
 
 	@Override
-	public void keyPressed( KeyEvent e )
+	public void keyPressed( DKeyEvent dke )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyReleased( KeyEvent e )
+	public void keyReleased( DKeyEvent dke )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyTyped( KeyEvent e )
+	public void mouseEntered( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseClicked( int x, int y )
+	public void mouseExited( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseEntered( int x, int y )
+	public void mousePressed( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseExited( int x, int y )
+	public void mouseReleased( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mousePressed( int x, int y )
+	public void mouseMoved( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseReleased( int x, int y )
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseMoved( int x, int y )
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseDragged( int x, int y )
+	public void mouseDragged( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		

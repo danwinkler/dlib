@@ -154,9 +154,9 @@ public class DButton extends DUIElement
 		return textColor;
 	}
 
-	public void mousePressed( MouseEvent e )
+	public void mousePressed( DMouseEvent e )
 	{
-		if( isInside( e.getX(), e.getY() ) )
+		if( isInside( e.x, e.y ) )
 		{
 			state = PRESSED;
 			ui.event( new DUIEvent( this, MOUSE_DOWN ) );
@@ -165,9 +165,9 @@ public class DButton extends DUIElement
 	}
 
 	@Override
-	public void mouseReleased( int x, int y )
+	public void mouseReleased( DMouseEvent e )
 	{
-		if( isInside( x, y ) )
+		if( isInside( e.x, e.y ) )
 		{
 			state = HOVER;
 			ui.event( new DUIEvent( this, MOUSE_UP ) );
@@ -180,16 +180,16 @@ public class DButton extends DUIElement
 	}
 
 	@Override
-	public void mouseDragged( int x, int y )
+	public void mouseDragged( DMouseEvent e )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseMoved( int x, int y )
+	public void mouseMoved( DMouseEvent e )
 	{
-		if( isInside( x, y ) )
+		if( isInside( e.x, e.y ) )
 		{
 			state = HOVER;
 		}
@@ -200,49 +200,26 @@ public class DButton extends DUIElement
 	}
 
 	@Override
-	public void keyPressed( KeyEvent e )
+	public void mouseEntered( DMouseEvent e )
+	{
+		state = HOVER;
+	}
+
+	@Override
+	public void mouseExited( DMouseEvent e )
+	{
+		state = RELEASED;
+	}
+
+	@Override
+	public void keyPressed( DKeyEvent dke )
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyReleased( KeyEvent e )
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped( KeyEvent e )
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseClicked( int x, int y )
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered( int x, int y )
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited( int x, int y )
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed( int x, int y )
+	public void keyReleased( DKeyEvent dke )
 	{
 		// TODO Auto-generated method stub
 		

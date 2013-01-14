@@ -5,9 +5,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 
-public class KeyHandler implements KeyListener
+public class DKeyHandler implements KeyListener
 {
-	static HashMap<Component, KeyHandler> keyHandlers = new HashMap<Component, KeyHandler>();
+	static HashMap<Component, DKeyHandler> keyHandlers = new HashMap<Component, DKeyHandler>();
 	
 	public boolean k1 = false;
 	public boolean k2 = false;
@@ -63,17 +63,17 @@ public class KeyHandler implements KeyListener
 	
 	public int lastChar = 0;
 	
-	private KeyHandler( Component c )
+	private DKeyHandler( Component c )
 	{
 		c.addKeyListener( this );
 	}
 	
-	public static KeyHandler get( Component c )
+	public static DKeyHandler get( Component c )
 	{
-		KeyHandler k = keyHandlers.get( c );
+		DKeyHandler k = keyHandlers.get( c );
 		if( k == null )
 		{
-			k = new KeyHandler( c );
+			k = new DKeyHandler( c );
 			keyHandlers.put( c, k );
 		}
 		return k;
