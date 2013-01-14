@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 
 import javax.vecmath.Vector2f;
 
-import com.phyloa.dlib.renderer.Renderer;
+import com.phyloa.dlib.renderer.Renderer2D;
 
 public class DText extends DUIElement
 {
@@ -21,7 +21,7 @@ public class DText extends DUIElement
 		this.text = text;
 	}
 
-	public void render( Renderer r )
+	public void render( Renderer2D r )
 	{
 		if( font != null )
 		{

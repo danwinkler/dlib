@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 
 import javax.vecmath.Vector2f;
 
-import com.phyloa.dlib.renderer.Renderer;
+import com.phyloa.dlib.renderer.Renderer2D;
 
 public class DButton extends DUIElement
 {
@@ -36,7 +36,7 @@ public class DButton extends DUIElement
 		this.name = text;
 	}
 
-	public void render( Renderer r ) 
+	public void render( Renderer2D r ) 
 	{
 		r.pushMatrix();
 		

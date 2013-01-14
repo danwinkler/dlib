@@ -3,7 +3,7 @@ package com.phyloa.dlib.dui;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import com.phyloa.dlib.renderer.Renderer;
+import com.phyloa.dlib.renderer.Renderer2D;
 
 public class DPanel extends DUIElement
 {
@@ -13,7 +13,7 @@ public class DPanel extends DUIElement
 		
 	}
 
-	public void render( Renderer r )
+	public void render( Renderer2D r )
 	{
 		
 	}

@@ -2,7 +2,7 @@ package com.phyloa.dlib.dui;
 
 import java.util.ArrayList;
 
-import com.phyloa.dlib.renderer.Renderer;
+import com.phyloa.dlib.renderer.Renderer2D;
 
 public abstract class DUIElement implements DKeyListener, DMouseListener
 {
@@ -24,7 +24,7 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 		this.height = height;
 	}
 	
-	public abstract void render( Renderer r );
+	public abstract void render( Renderer2D r );
 	public abstract void update( DUI ui );
 	
 	public String getName() 
@@ -130,7 +130,7 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 		}
 	}
 	
-	public void renderChildren( Renderer r )
+	public void renderChildren( Renderer2D r )
 	{
 		if( visible )
 		{

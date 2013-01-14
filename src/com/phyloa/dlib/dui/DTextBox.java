@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 
 import javax.vecmath.Vector2f;
 
-import com.phyloa.dlib.renderer.Renderer;
+import com.phyloa.dlib.renderer.Renderer2D;
 
 public class DTextBox extends DUIElement implements KeyListener
 {
@@ -17,8 +17,6 @@ public class DTextBox extends DUIElement implements KeyListener
 	String text = "";
 	
 	boolean hasFocus = false;
-	
-	DUI ui;
 	
 	int cursorBlink = 0;
 	
@@ -31,7 +29,7 @@ public class DTextBox extends DUIElement implements KeyListener
 		super( x, y, width, height );
 	}
 	
-	public void render( Renderer r )
+	public void render( Renderer2D r )
 	{
 		r.pushMatrix();
 			r.translate( x, y );

@@ -24,9 +24,9 @@ import javax.vecmath.Point2f;
 import javax.vecmath.Vector2f;
 
 import com.phyloa.dlib.util.DKeyHandler;
-import com.phyloa.dlib.util.MouseHandler;
+import com.phyloa.dlib.util.DMouseHandler;
 
-public abstract class Graphics2DRenderer implements Renderer, ComponentListener
+public abstract class Graphics2DRenderer implements Renderer2D, ComponentListener
 {
 	public JFrame container;
 	public JPanel panel;
@@ -36,7 +36,7 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 	BufferStrategy bs;
 
 	public DKeyHandler k;
-	public MouseHandler m;
+	public DMouseHandler m;
 
 	//Drawing vars
 	long frameTime = 1000000000 / 30; //30 frames per second
@@ -69,7 +69,7 @@ public abstract class Graphics2DRenderer implements Renderer, ComponentListener
 		bs = canvas.getBufferStrategy();
 	
 		k = DKeyHandler.get( canvas );
-		m = MouseHandler.get( canvas );
+		m = DMouseHandler.get( canvas );
 	}
 
 	public void size( int x, int y )

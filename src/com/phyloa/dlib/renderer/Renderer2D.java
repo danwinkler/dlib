@@ -8,13 +8,13 @@ import java.awt.event.KeyListener;
 import javax.vecmath.Vector2f;
 
 /**
- * All Renderers implement the Renderer interface. The Renderer methods are both for 
- * 2D and 3D drawing. 
+ * All Renderers implement the Renderer interface. The Renderer methods are for 
+ * 2D drawing. 
  * 
  * @author Daniel Winkler
  *
  */
-public interface Renderer
+public interface Renderer2D
 {
 	/**
 	 * begin is called to either start the render, or, if the renderer uses a
@@ -73,17 +73,6 @@ public interface Renderer
 	public void line( float x1, float y1, float x2, float y2 );
 	
 	/**
-	 * Draws a line from one point to another in three-space.
-	 * @param x1 the x location of the first point
-	 * @param y1 the y location of the first point
-	 * @param z1 the z location of the first point
-	 * @param x2 the x location of the second point
-	 * @param y2 the y location of the second point
-	 * @param z2 the z location of the second point
-	 */
-	public void line( float x1, float y1, float z1, float x2, float y2, float z2 );
-	
-	/**
 	 * Fills a rectangle in two-space.
 	 * @param x the x location of the center of the rectangle
 	 * @param y the y location of the center of the rectangle
@@ -123,7 +112,7 @@ public interface Renderer
 	public void drawOval( float x, float y, float width, float height );
 	
 	/**
-	 * Draws a string in two-space.
+	 * Draws a string.
 	 * 
 	 * NOTE: there is currently no standard on how the string renders relative to 
 	 * the location
@@ -134,89 +123,16 @@ public interface Renderer
 	public void text( String text, float x, float y );
 	
 	/**
-	 * Renders a box at the origin in three-space.
-	 * @param width the width of the box (x-space)
-	 * @param height the height of the box (y-space)
-	 * @param length the length of the box (z-space)
-	 */
-	public void box( float width, float height, float length );
-	
-	/**
-	 * Begins recording points. Record points with vertex().
-	 * 
-	 * Similar to GL_Begin.
-	 * 
-	 * @param type The ShapeType denoting what type of shape should be rendered.
-	 */
-	public void beginShape( ShapeType type );
-	
-	/**
-	 * Ends recording points.
-	 */
-	public void endShape();
-	
-	/**
-	 * Records a point in two-space. Always call beginShape() first.
-	 * @param x the x location of the point
-	 * @param y the y location of the point
-	 */
-	public void vertex( float x, float y );
-	
-	/**
-	 * Records a point in three-space. Always call beginShape() first.
-	 * @param x the x location of the point
-	 * @param y the y location of the point
-	 * @param z the z location of the point
-	 */
-	public void vertex( float x, float y, float z );
-	
-	/**
-	 * Sets the u, v coordinates of the texture for the next vertex.
-	 * @param u
-	 * @param v
-	 */
-	public void textureCoords( float u, float v );
-	
-	/**
-	 * Called immediately after beginShape() to texture the shape begin rendered.
-	 * @param img the Image to use for texturing
-	 */
-	public void texture( Image img );
-	
-	/**
 	 * Translates the origin in two-space.
 	 * @param x the amount to translate in x-space
 	 * @param y the amount to translate in y-space
 	 */
 	public void translate( float x, float y );
 	
-	/**
-	 * Translates the origin in three-space.
-	 * @param x the amount to translate in x-space
-	 * @param y the amount to translate in y-space
-	 * @param z the amount to translate in z-space
-	 */
-	public void translate( float x, float y, float z );
-	
-	public void scale( float s );
 	public void scale( float x, float y );
-	public void scale( float x, float y, float z );
-	
-	/**
-	 * Rotates the current space about a vector through the origin.
-	 * @param angle the angle to rotate in radians
-	 * @param vx x component of the vector to rotate around
-	 * @param vy y component of the vector to rotate around
-	 * @param vz z component of the vector to rotate around
-	 */
-	public void rotate( float angle, float vx, float vy, float vz );
 	
 	public void rotate( float angle );
-	
-	public void rotateX( float angle );
-	public void rotateY( float angle );
-	public void rotateZ( float angle );
-	
+
 	/**
 	 * Pushes the current transformation matrix onto the stack.
 	 */
@@ -248,8 +164,6 @@ public interface Renderer
 	public void drawImage( Image img, float x, float y, float width, float height );
 	
 	public void drawImage( Image img, float dx1, float dy1, float dx2, float dy2, float sx1, float sy1, float sx2, float sy2 );
-	
-	public void addKeyListener( KeyListener listener );
 	
 	public int getWidth();
 	

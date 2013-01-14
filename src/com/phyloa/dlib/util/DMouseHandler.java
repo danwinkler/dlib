@@ -8,9 +8,9 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.HashMap;
 
-public class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener
+public class DMouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener
 {
-	static HashMap<Component, MouseHandler> mouseHandlers = new HashMap<Component, MouseHandler>();
+	static HashMap<Component, DMouseHandler> mouseHandlers = new HashMap<Component, DMouseHandler>();
 	
 	public int x;
 	public int y;
@@ -18,19 +18,19 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
 	public boolean rightClicked = false;
 	public boolean inside = true;
 	
-	private MouseHandler( Component c )
+	private DMouseHandler( Component c )
 	{
 		c.addMouseListener( this );
 		c.addMouseMotionListener( this );
 		c.addMouseWheelListener( this );
 	}
 	
-	public static MouseHandler get( Component c )
+	public static DMouseHandler get( Component c )
 	{
-		MouseHandler m = mouseHandlers.get( c );
+		DMouseHandler m = mouseHandlers.get( c );
 		if( m == null )
 		{
-			m = new MouseHandler( c );
+			m = new DMouseHandler( c );
 			mouseHandlers.put( c, m );
 		}
 		return m;
