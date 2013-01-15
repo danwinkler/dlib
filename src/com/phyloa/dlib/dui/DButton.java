@@ -70,9 +70,9 @@ public class DButton extends DUIElement
 		
 		String[] lines = text.split( "\n" );
 		Vector2f fontHeight = r.getStringSize( text );
-		float lineHeight = -fontHeight.y * 1.2f;
+		float lineHeight = fontHeight.y * 1.2f;
 		float totalHeight = lineHeight * lines.length;
-		float top = ((height / 2) - (totalHeight/2)) + (lineHeight*.75f);
+		float top = ((height / 2) - (totalHeight/2)) + (lineHeight*.25f);
 		for( int i = 0; i < lines.length; i++ )
 		{
 			Vector2f fontSize = r.getStringSize( lines[i] );
@@ -214,8 +214,7 @@ public class DButton extends DUIElement
 	@Override
 	public void keyPressed( DKeyEvent dke )
 	{
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override

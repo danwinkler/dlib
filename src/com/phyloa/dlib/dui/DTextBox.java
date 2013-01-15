@@ -10,7 +10,7 @@ import javax.vecmath.Vector2f;
 import com.phyloa.dlib.renderer.Renderer2D;
 
 public class DTextBox extends DUIElement implements KeyListener
-{
+{	
 	Color bgColor = new Color( 128, 128, 255 );
 	Color borderColor = new Color( 32, 32, 128 );
 	
@@ -75,6 +75,7 @@ public class DTextBox extends DUIElement implements KeyListener
 			{
 				text += e.keyChar;
 			}
+			ui.event( new DUIEvent( this, keyCode ) );
 		}
 	}
 
