@@ -49,14 +49,7 @@ public class DTextBox extends DUIElement implements KeyListener
 
 	public void update( DUI ui )
 	{
-		if( isInside( ui.m.x, ui.m.y ) )
-		{
-			if( !hasFocus )
-			{
-				ui.setFocus( this );
-				hasFocus = true;
-			}
-		}
+		
 	}
 
 	public void keyPressed( DKeyEvent e )

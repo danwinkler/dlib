@@ -39,4 +39,9 @@ public class DScreenHandler<E, F>
 		if( d != null )
 			d.render( e, f );
 	}
+
+	public void message( String string, Object o )
+	{
+		get( string ).message( o );
+	}
 }

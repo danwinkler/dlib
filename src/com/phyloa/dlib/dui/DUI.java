@@ -21,9 +21,9 @@ public class DUI implements DMouseListener, DKeyListener
 	
 	DUIElement focus = null;
 	DUIElement hover = null;
-	DKeyHandler k;
-	DMouseHandler m;
 	DUIElement rootPane = new DPanel( 0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE );
+	
+	boolean enabled = true;
 	
 	public DUI( DEventMapper dem )
 	{
@@ -40,14 +40,20 @@ public class DUI implements DMouseListener, DKeyListener
 	
 	public void update()
 	{
-		rootPane.update( this );
-		rootPane.updateChildren( this );
+		if( enabled )
+		{
+			rootPane.update( this );
+			rootPane.updateChildren( this );
+		}
 	}
 	
 	public void render( Renderer2D r )
 	{
-		rootPane.render( r );
-		rootPane.renderChildren( r );
+		if( enabled )
+		{
+			rootPane.render( r );
+			rootPane.renderChildren( r );
+		}
 	}
 	
 	public void addDUIListener( DUIListener l )
@@ -81,34 +87,47 @@ public class DUI implements DMouseListener, DKeyListener
 
 	public void mouseMoved( DMouseEvent e )
 	{
-		rootPane.mouseMoved( e );
-		rootPane.handleChildrenMouseMoved( e );
+		if( enabled )
+		{
+			rootPane.mouseMoved( e );
+			rootPane.handleChildrenMouseMoved( e );
+		}
 	}
 
 	public void mousePressed( DMouseEvent e )
 	{
-		rootPane.mousePressed( e );
-		rootPane.handleChildrenMousePressed( e );
+		if( enabled )
+		{
+			rootPane.mousePressed( e );
+			rootPane.handleChildrenMousePressed( e );
+		}
 	}
 
 	public void mouseReleased( DMouseEvent e )
 	{
-		rootPane.mouseReleased( e );
-		rootPane.handleChildrenMouseReleased( e );
+		if( enabled )
+		{
+			rootPane.mouseReleased( e );
+			rootPane.handleChildrenMouseReleased( e );
+		}
 	}
 
 	@Override
 	public void keyPressed( DKeyEvent dke )
 	{
-		// TODO Auto-generated method stub
-		
+		if( enabled && focus != null )
+		{
+			focus.keyPressed( dke );
+		}
 	}
 
 	@Override
 	public void keyReleased( DKeyEvent dke )
 	{
-		// TODO Auto-generated method stub
-		
+		if( enabled && focus != null )
+		{
+			focus.keyReleased( dke );
+		}
 	}
 
 	@Override
@@ -130,5 +149,19 @@ public class DUI implements DMouseListener, DKeyListener
 	{
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void setEnabled( boolean enabled )
+	{
+		this.enabled = enabled;
+		if( enabled )
+		{
+			dem.addDKeyListener( this );
+			dem.addDMouseListener( this );
+		} else
+		{
+			dem.removeDKeyListener( this );
+			dem.removeDMouseListener( this );
+		}
 	}
 }

@@ -142,5 +142,16 @@ public class AWTComponentEventMapper implements KeyListener, MouseListener, Mous
 			l.mouseReleased( dme );
 		}
 	}
-	
+
+	@Override
+	public void removeDKeyListener( DKeyListener l )
+	{
+		keyListeners.remove( l );
+	}
+
+	@Override
+	public void removeDMouseListener( DMouseListener l )
+	{
+		mouseListeners.remove( l );
+	}
 }

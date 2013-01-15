@@ -13,12 +13,19 @@ public class DText extends DUIElement
 {
 	String text;
 	Font font;
-	Color color = Color.black;
+	Color color = new Color( 128, 128, 255 );
+	boolean centered;
 	
 	public DText( String text, int x, int y )
 	{
 		super( x, y, 0, 0 );
 		this.text = text;
+	}
+
+	public DText( String string, int x, int y, boolean centered )
+	{
+		this( string, x, y );
+		this.centered = centered;
 	}
 
 	public void render( Renderer2D r )
@@ -29,7 +36,7 @@ public class DText extends DUIElement
 		}
 		r.color( color.getRGB() );
 		Vector2f size = r.getStringSize( text );
-		r.text( text, x, y + size.y );
+		r.text( text, x - (centered ? size.x/2 : 0), y + size.y );
 	}
 
 	public void update( DUI ui )
@@ -65,6 +72,11 @@ public class DText extends DUIElement
 	public void setColor( Color color )
 	{
 		this.color = color;
+	}
+	
+	public void setCentered( boolean centered )
+	{
+		this.centered = centered;
 	}
 
 	@Override
