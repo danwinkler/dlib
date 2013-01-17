@@ -27,8 +27,6 @@ public class DButton extends DUIElement
 	Color pressedColor = new Color( 64, 64, 255 );
 	Color textColor = new Color( 0, 0, 0 );
 	
-	Component c;
-	
 	public DButton( String text, int x, int y, int width, int height )
 	{
 		super( x, y, width, height );

@@ -67,51 +67,64 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 	public void setUI( DUI ui )
 	{
 		this.ui = ui;
+		for( int i = 0; i < children.size(); i++ )
+		{
+			children.get( i ).setUI( ui );
+		}
 	}
 	
 	public void handleChildrenMouseMoved( DMouseEvent e )
 	{
-		int xx = e.x - this.x;
-		int yy = e.y - this.y;
-		for( int i = 0; i < children.size(); i++ )
+		if( visible )
 		{
-			DUIElement el = children.get( i );
-			boolean inside = el.isInside( xx, yy );
-			if( inside || el.isInside )
+			e.x = e.x - this.x;
+			e.y = e.y - this.y;
+			for( int i = 0; i < children.size(); i++ )
 			{
-				el.isInside = inside;
-				el.mouseMoved( e );
-				el.handleChildrenMouseMoved( e );
+				DUIElement el = children.get( i );
+				boolean inside = el.isInside( e.x, e.y );
+				if( inside || el.isInside )
+				{
+					el.isInside = inside;
+					el.mouseMoved( e );
+					el.handleChildrenMouseMoved( e );
+				}
 			}
 		}
 	}
 	
 	public void handleChildrenMousePressed( DMouseEvent e )
 	{
-		int xx = e.x - this.x;
-		int yy = e.y - this.y;
-		for( int i = 0; i < children.size(); i++ )
+		if( visible )
 		{
-			DUIElement el = children.get( i );
-			if( el.isInside( xx, yy ) )
+			e.x = e.x - this.x;
+			e.y = e.y - this.y;
+			for( int i = 0; i < children.size(); i++ )
 			{
-				el.mousePressed( e );
-				el.handleChildrenMousePressed( e );
+				DUIElement el = children.get( i );
+				if( el.isInside( e.x, e.y ) )
+				{
+					el.mousePressed( e );
+					el.handleChildrenMousePressed( e );
+				}
 			}
 		}
 	}
 	
 	public void handleChildrenMouseReleased( DMouseEvent e )
 	{
-		int xx = e.x - this.x;
-		int yy = e.y - this.y;
-		for( int i = 0; i < children.size(); i++ )
+		if( visible )
 		{
-			DUIElement el = children.get( i );
-			if( el.isInside( xx, yy ) )
+			e.x = e.x - this.x;
+			e.y = e.y - this.y;
+			for( int i = 0; i < children.size(); i++ )
 			{
-				el.mouseReleased( e );
-				el.handleChildrenMouseReleased( e );
+				DUIElement el = children.get( i );
+				if( el.isInside( e.x, e.y ) )
+				{
+					el.mouseReleased( e );
+					el.handleChildrenMouseReleased( e );
+				}
 			}
 		}
 	}
@@ -119,14 +132,18 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 	public void add( DUIElement e )
 	{
 		children.add( e );
+		e.setUI( ui );
 	}
 
 	public void updateChildren( DUI dui )
 	{
-		for( int i = 0; i < children.size(); i++ )
+		if( visible )
 		{
-			children.get( i ).update( dui );
-			children.get( i ).updateChildren( dui );
+			for( int i = 0; i < children.size(); i++ )
+			{
+				children.get( i ).update( dui );
+				children.get( i ).updateChildren( dui );
+			}
 		}
 	}
 	
@@ -134,11 +151,14 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 	{
 		if( visible )
 		{
+			r.pushMatrix();
+			r.translate( x, y );
 			for( int i = 0; i < children.size(); i++ )
 			{
 				children.get( i ).render( r );
 				children.get( i ).renderChildren( r );
 			}
+			r.popMatrix();
 		}
 	}
 }
