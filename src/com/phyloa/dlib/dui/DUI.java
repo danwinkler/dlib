@@ -30,12 +30,14 @@ public class DUI implements DMouseListener, DKeyListener
 		this.dem = dem;
 		dem.addDKeyListener( this );
 		dem.addDMouseListener( this );
+		rootPane.ui = this;
 	}
 	
 	public DUI( DEventMapper dem, int x, int y, int width, int height )
 	{
 		this( dem );
 		rootPane = new DPanel( x, y, width, height );
+		rootPane.ui = this;
 	}
 	
 	public void update()

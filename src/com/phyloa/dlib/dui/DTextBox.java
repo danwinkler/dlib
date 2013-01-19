@@ -130,10 +130,8 @@ public class DTextBox extends DUIElement implements KeyListener
 		
 	}
 
-	@Override
 	public void mousePressed( DMouseEvent e )
 	{
-		// TODO Auto-generated method stub
 		
 	}
 

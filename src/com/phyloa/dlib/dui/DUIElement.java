@@ -97,6 +97,7 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 	{
 		if( visible )
 		{
+			ui.setFocus( this );
 			e.x = e.x - this.x;
 			e.y = e.y - this.y;
 			for( int i = 0; i < children.size(); i++ )
