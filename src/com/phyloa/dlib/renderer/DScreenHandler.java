@@ -20,9 +20,12 @@ public class DScreenHandler<E, F>
 			d.onExit();
 		}
 		d = screens.get( s );
-		d.dsh = this;
-		d.gc = e;
-		d.onActivate( e, this );
+		synchronized( d )
+		{
+			d.dsh = this;
+			d.gc = e;
+			d.onActivate( e, this );
+		}
 	}
 	
 	public DScreen<E, F> get( String s )
@@ -32,14 +35,20 @@ public class DScreenHandler<E, F>
 	
 	public void update( E e, int delta )
 	{
-		if( d != null )
-			d.update( e, delta );
+		synchronized( d )
+		{
+			if( d != null )
+				d.update( e, delta );
+		}
 	}
 	
 	public void render( E e, F f )
 	{
-		if( d != null )
-			d.render( e, f );
+		synchronized( d )
+		{
+			if( d != null )
+				d.render( e, f );
+		}
 	}
 
 	public void message( String string, Object o )
