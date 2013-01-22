@@ -20,6 +20,8 @@ public class DScreenHandler<E, F>
 			d.onExit();
 		}
 		d = screens.get( s );
+		d.dsh = this;
+		d.gc = e;
 		d.onActivate( e, this );
 	}
 	

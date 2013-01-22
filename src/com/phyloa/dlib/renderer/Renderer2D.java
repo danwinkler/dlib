@@ -172,5 +172,9 @@ public interface Renderer2D
 	public Vector2f getStringSize( String text );
 	
 	public void setFont( Font font );
+	
+	public void setClip( int x, int y, int width, int height );
+	
+	public void clearClip();
 }
 

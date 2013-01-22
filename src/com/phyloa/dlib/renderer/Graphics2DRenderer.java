@@ -326,4 +326,14 @@ public abstract class Graphics2DRenderer implements Renderer2D, ComponentListene
 	{
 		g.fillRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
 	}
+	
+	public void setClip( int x, int y, int width, int height )
+	{
+		g.setClip( x, y, width, height );
+	}
+	
+	public void clearClip()
+	{
+		g.setClip( null );
+	}
 }

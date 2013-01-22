@@ -4,4 +4,5 @@ public class DMouseEvent
 {
 	public int x, y;
 	public int button;
+	public int wheel;
 }

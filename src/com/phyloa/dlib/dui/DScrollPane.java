@@ -1,5 +1,7 @@
 package com.phyloa.dlib.dui;
 
+import javax.vecmath.Point2i;
+
 import com.phyloa.dlib.renderer.Renderer2D;
 
 public class DScrollPane extends DUIElement
@@ -73,6 +75,8 @@ public class DScrollPane extends DUIElement
 	{
 		if( visible )
 		{
+			Point2i pos = getScreenLocation();
+			r.setClip( pos.x, pos.y, width, height );
 			r.pushMatrix();
 			r.translate( x, y );
 			r.translate( -scrollx, -scrolly );
@@ -82,6 +86,70 @@ public class DScrollPane extends DUIElement
 				children.get( i ).renderChildren( r );
 			}
 			r.popMatrix();
+			r.clearClip();
 		}
+	}
+	
+	public void handleChildrenMouseMoved( DMouseEvent e )
+	{
+		if( visible )
+		{
+			e.x = e.x - this.x + scrollx;
+			e.y = e.y - this.y + scrolly;
+			for( int i = 0; i < children.size(); i++ )
+			{
+				DUIElement el = children.get( i );
+				boolean inside = el.isInside( e.x, e.y );
+				if( inside || el.isInside )
+				{
+					el.isInside = inside;
+					el.mouseMoved( e );
+					el.handleChildrenMouseMoved( e );
+				}
+			}
+		}
+	}
+	
+	public void handleChildrenMousePressed( DMouseEvent e )
+	{
+		if( visible )
+		{
+			ui.setFocus( this );
+			e.x = e.x - this.x;
+			e.y = e.y - this.y;
+			for( int i = 0; i < children.size(); i++ )
+			{
+				DUIElement el = children.get( i );
+				if( el.isInside( e.x, e.y ) )
+				{
+					el.mousePressed( e );
+					el.handleChildrenMousePressed( e );
+				}
+			}
+		}
+	}
+	
+	public void handleChildrenMouseReleased( DMouseEvent e )
+	{
+		if( visible )
+		{
+			e.x = e.x - this.x;
+			e.y = e.y - this.y;
+			for( int i = 0; i < children.size(); i++ )
+			{
+				DUIElement el = children.get( i );
+				if( el.isInside( e.x, e.y ) )
+				{
+					el.mouseReleased( e );
+					el.handleChildrenMouseReleased( e );
+				}
+			}
+		}
+	}
+
+	@Override
+	public void mouseWheel( DMouseEvent dme )
+	{
+		scrolly -= dme.wheel * .5f;
 	}
 }

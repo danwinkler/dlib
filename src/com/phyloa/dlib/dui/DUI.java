@@ -166,4 +166,14 @@ public class DUI implements DMouseListener, DKeyListener
 			dem.removeDMouseListener( this );
 		}
 	}
+
+	@Override
+	public void mouseWheel( DMouseEvent dme )
+	{
+		if( enabled )
+		{
+			rootPane.mouseWheel( dme );
+			rootPane.handleChildrenMouseWheel( dme );
+		}
+	}
 }

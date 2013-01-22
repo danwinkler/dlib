@@ -2,6 +2,8 @@ package com.phyloa.dlib.dui;
 
 import java.util.ArrayList;
 
+import javax.vecmath.Point2i;
+
 import com.phyloa.dlib.renderer.Renderer2D;
 
 public abstract class DUIElement implements DKeyListener, DMouseListener
@@ -13,6 +15,8 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 	DUI ui;
 	
 	ArrayList<DUIElement> children = new ArrayList<DUIElement>();
+	
+	DUIElement parent;
 	
 	boolean isInside = false;
 	
@@ -62,6 +66,21 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 	public boolean isInside( int mx, int my )
 	{
 		return mx >= x && my >= y && mx <= x + width && my <= y + height; 
+	}
+	
+	public Point2i getScreenLocation()
+	{
+		if( parent != null )
+		{
+			Point2i p = parent.getScreenLocation();
+			p.x += x;
+			p.y += y;
+			return p;
+		}
+		else
+		{
+			return new Point2i( x, y );
+		}
 	}
 	
 	public void setUI( DUI ui )
@@ -160,6 +179,22 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 				children.get( i ).renderChildren( r );
 			}
 			r.popMatrix();
+		}
+	}
+
+	public void handleChildrenMouseWheel( DMouseEvent e )
+	{
+		if( visible )
+		{
+			for( int i = 0; i < children.size(); i++ )
+			{
+				DUIElement el = children.get( i );
+				if( el.isInside( e.x, e.y ) )
+				{
+					el.mouseWheel( e );
+					el.handleChildrenMouseWheel( e );
+				}
+			}
 		}
 	}
 }

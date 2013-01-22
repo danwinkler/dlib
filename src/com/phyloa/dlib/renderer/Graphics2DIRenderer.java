@@ -240,4 +240,18 @@ public class Graphics2DIRenderer implements IRenderer
 	{
 		g.fillRoundRect( (int)x, (int)y, (int)width, (int)height, (int)arcWidth, (int)arcHeight );
 	}
+
+	@Override
+	public void setClip( int x, int y, int width, int height )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearClip()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

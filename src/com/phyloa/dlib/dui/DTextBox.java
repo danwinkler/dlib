@@ -176,4 +176,11 @@ public class DTextBox extends DUIElement implements KeyListener
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void mouseWheel( DMouseEvent dme )
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

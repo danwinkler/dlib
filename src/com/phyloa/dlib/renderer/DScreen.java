@@ -1,10 +1,13 @@
 package com.phyloa.dlib.renderer;
 
-public interface DScreen<E, F>
+public abstract class DScreen<E, F>
 {	
-	public void update( E e, int delta );
-	public void render( E e, F f );
-	public void onActivate( E e, DScreenHandler<E, F> dsh );
-	public void onExit();
-	public void message( Object o );
+	public DScreenHandler<E, F> dsh;
+	public E gc;
+	
+	public abstract void update( E gc, int delta );
+	public abstract void render( E gc, F g );
+	public abstract void onActivate( E gc, DScreenHandler<E, F> dsh );
+	public abstract void onExit();
+	public abstract void message( Object o );
 }

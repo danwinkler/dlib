@@ -526,4 +526,18 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	{
 		this.scaleLight = scaleLight;
 	}
+
+	@Override
+	public void setClip( int x, int y, int width, int height )
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearClip()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
