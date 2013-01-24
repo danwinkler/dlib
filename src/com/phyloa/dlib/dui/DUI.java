@@ -71,7 +71,10 @@ public class DUI implements DMouseListener, DKeyListener
 	
 	public void event( DUIEvent e )
 	{
-		new Thread( new EventNotifier( e ) ).start();
+		for( DUIListener l : listeners )
+		{
+			l.event( e );
+		}
 	}
 
 	public DUIElement getFocus()
@@ -150,6 +153,7 @@ public class DUI implements DMouseListener, DKeyListener
 	public void setEnabled( boolean enabled )
 	{
 		this.enabled = enabled;
+		dem.setEnabled( enabled );
 		if( enabled )
 		{
 			dem.addDKeyListener( this );
@@ -169,24 +173,6 @@ public class DUI implements DMouseListener, DKeyListener
 		{
 			rootPane.mouseWheel( dme );
 			rootPane.handleChildrenMouseWheel( dme );
-		}
-	}
-	
-	class EventNotifier implements Runnable
-	{
-		DUIEvent e;
-		
-		public EventNotifier( DUIEvent e )
-		{
-			this.e = e;
-		}
-		
-		public void run()
-		{
-			for( DUIListener l : listeners )
-			{
-				l.event( e );
-			}
 		}
 	}
 }

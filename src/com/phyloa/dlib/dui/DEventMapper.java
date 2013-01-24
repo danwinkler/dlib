@@ -7,4 +7,6 @@ public interface DEventMapper
 	
 	public void removeDKeyListener( DKeyListener l );
 	public void removeDMouseListener( DMouseListener l );
+	
+	public void setEnabled( boolean enabled );
 }

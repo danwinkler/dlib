@@ -13,6 +13,7 @@ public class AWTComponentEventMapper implements KeyListener, MouseListener, Mous
 {
 	ArrayList<DKeyListener> keyListeners = new ArrayList<DKeyListener>();
 	ArrayList<DMouseListener> mouseListeners = new ArrayList<DMouseListener>();
+	private boolean enabled;
 	
 	public void register( Component c )
 	{
@@ -153,5 +154,11 @@ public class AWTComponentEventMapper implements KeyListener, MouseListener, Mous
 	public void removeDMouseListener( DMouseListener l )
 	{
 		mouseListeners.remove( l );
+	}
+
+	@Override
+	public void setEnabled( boolean enabled )
+	{
+		this.enabled = enabled;
 	}
 }
