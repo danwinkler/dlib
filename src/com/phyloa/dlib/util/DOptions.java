@@ -5,10 +5,10 @@ import java.util.HashMap;
 
 public class DOptions
 {
-	String filename;
-	String file;
+	public String filename;
+	public String file;
 	
-	HashMap<String, String> options;
+	public HashMap<String, String> options;
 	
 	public DOptions( String filename )
 	{
