@@ -115,8 +115,8 @@ public class DScrollPane extends DUIElement
 		if( visible )
 		{
 			ui.setFocus( this );
-			e.x = e.x - this.x;
-			e.y = e.y - this.y;
+			e.x = e.x - this.x + scrollx;
+			e.y = e.y - this.y + scrolly;
 			for( int i = 0; i < children.size(); i++ )
 			{
 				DUIElement el = children.get( i );
@@ -133,8 +133,8 @@ public class DScrollPane extends DUIElement
 	{
 		if( visible )
 		{
-			e.x = e.x - this.x;
-			e.y = e.y - this.y;
+			e.x = e.x - this.x + scrollx;
+			e.y = e.y - this.y + scrolly;
 			for( int i = 0; i < children.size(); i++ )
 			{
 				DUIElement el = children.get( i );
