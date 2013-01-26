@@ -9,7 +9,7 @@ import com.phyloa.dlib.renderer.Renderer2D;
 public abstract class DUIElement implements DKeyListener, DMouseListener
 {
 	int x, y, width, height;
-	String name;
+	public String name;
 	
 	boolean visible = true;
 	DUI ui;
