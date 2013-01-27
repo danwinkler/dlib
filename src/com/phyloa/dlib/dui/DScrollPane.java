@@ -1,23 +1,28 @@
 package com.phyloa.dlib.dui;
 
+import java.awt.Color;
+
 import javax.vecmath.Point2i;
 
 import com.phyloa.dlib.renderer.Renderer2D;
 
 public class DScrollPane extends DUIElement
 {
-	DPanel innerPane;
+	Color borderColor = new Color( 32, 32, 128 );
+	Color barColor = new Color( 128, 128, 255 );
 	int scrollx;
 	int scrolly;
+	
+	int innerPaneHeight;
 	
 	public DScrollPane( int x, int y, int width, int height )
 	{
 		super( x, y, width, height );
 	}
 	
-	public void setInnerPane( DPanel innerPane )
+	public void setInnerPaneHeight( int height )
 	{
-		this.innerPane = innerPane;
+		this.innerPaneHeight = height;
 	}
 
 	public void keyPressed( DKeyEvent dke )
@@ -62,7 +67,16 @@ public class DScrollPane extends DUIElement
 
 	public void render( Renderer2D r )
 	{
+		r.pushMatrix();
+		r.translate( x, y );
+		r.color( barColor );
+		r.fillRect( width-10, 0, 10, height );
+		r.color( borderColor );
+		float barsize = Math.min( Math.max( (height / (float)innerPaneHeight) * height, 20 ), height);
+		r.fillRect( width-10, scrolly/(float)(innerPaneHeight) * height, 10, barsize );
 		
+		r.drawRect( 0, 0, width, height );
+		r.popMatrix();
 	}
 
 	public void update( DUI ui )
@@ -151,5 +165,7 @@ public class DScrollPane extends DUIElement
 	public void mouseWheel( DMouseEvent dme )
 	{
 		scrolly -= dme.wheel * .5f;
+		if( scrolly > innerPaneHeight-height ) scrolly = innerPaneHeight-height;
+		if( scrolly < 0 ) scrolly = 0;
 	}
 }
