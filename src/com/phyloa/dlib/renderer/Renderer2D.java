@@ -176,5 +176,7 @@ public interface Renderer2D
 	public void setClip( int x, int y, int width, int height );
 	
 	public void clearClip();
+	
+	public void setLineWidth( float width );
 }
 

@@ -1,5 +1,6 @@
 package com.phyloa.dlib.renderer;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -253,5 +254,11 @@ public class Graphics2DIRenderer implements IRenderer
 	{
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void setLineWidth( float width )
+	{
+		g.setStroke( new BasicStroke( width ) );
 	}
 }

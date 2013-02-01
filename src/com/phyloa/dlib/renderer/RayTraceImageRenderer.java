@@ -540,4 +540,11 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void setLineWidth( float width )
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
