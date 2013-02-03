@@ -167,6 +167,7 @@ public class DLinePlot extends DUIElement
 		for( int i = 0; i < colors.size(); i++ )
 		{
 			float[] vals = values.get( i );
+			if( vals.length <= 1 ) continue;
 			float xScale = width / (vals.length-1);
 			for( int j = 0; j < vals.length; j++ )
 			{
