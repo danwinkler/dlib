@@ -51,6 +51,11 @@ public class DScreenHandler<E, F>
 		return screens.get( s );
 	}
 	
+	public DScreen<E, F> get()
+	{
+		return d;
+	}
+	
 	public void update( E e, int delta )
 	{
 		synchronized( d )
