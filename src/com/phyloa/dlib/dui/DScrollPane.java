@@ -10,6 +10,7 @@ public class DScrollPane extends DUIElement
 {
 	Color borderColor = new Color( 32, 32, 128 );
 	Color barColor = new Color( 128, 128, 255 );
+	Color bgColor = new Color( 40, 40, 80 );
 	int scrollx;
 	int scrolly;
 	
@@ -69,6 +70,8 @@ public class DScrollPane extends DUIElement
 	{
 		r.pushMatrix();
 		r.translate( x, y );
+		r.color( bgColor );
+		r.fillRect( 0, 0, width, height );
 		r.color( barColor );
 		r.fillRect( width-10, 0, 10, height );
 		r.color( borderColor );
