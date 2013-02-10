@@ -25,6 +25,8 @@ public class DUI implements DMouseListener, DKeyListener
 	
 	boolean enabled = true;
 	
+	public DUITheme theme = DUITheme.defaultTheme;
+	
 	public DUI( DEventMapper dem )
 	{
 		this.dem = dem;
@@ -147,7 +149,11 @@ public class DUI implements DMouseListener, DKeyListener
 	@Override
 	public void mouseDragged( DMouseEvent e )
 	{
-		
+		if( enabled )
+		{
+			rootPane.mouseDragged( e );
+			rootPane.handleChildrenMouseDragged( e );
+		}
 	}
 	
 	public void setEnabled( boolean enabled )

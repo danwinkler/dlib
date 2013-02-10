@@ -148,6 +148,26 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 			}
 		}
 	}
+	
+	public void handleChildrenMouseDragged( DMouseEvent e )
+	{
+		if( visible )
+		{
+			e.x = e.x - this.x;
+			e.y = e.y - this.y;
+			for( int i = 0; i < children.size(); i++ )
+			{
+				DUIElement el = children.get( i );
+				boolean inside = el.isInside( e.x, e.y );
+				if( inside || el.isInside && el.isVisible() )
+				{
+					el.isInside = inside;
+					el.mouseDragged( e );
+					el.handleChildrenMouseDragged( e );
+				}
+			}
+		}
+	}
 
 	public void add( DUIElement e )
 	{

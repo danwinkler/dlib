@@ -131,6 +131,11 @@ public class DMath
 		return a + t * (b - a); 
 	}
 	
+	public static float map( float v, float inmin, float inmax, float outmin, float outmax )
+	{
+		return lerp( (v - inmin) / inmax, outmin, outmax );
+	}
+	
 	public static float cosf( float a )
 	{
 		return (float)Math.cos( a );
