@@ -24,6 +24,8 @@ public class DTextBox extends DUIElement implements KeyListener
 	
 	int blinkRate = 30;
 	
+	boolean isPassword = false;
+	
 	public DTextBox( int x, int y, int width, int height )
 	{
 		super( x, y, width, height );
@@ -39,10 +41,20 @@ public class DTextBox extends DUIElement implements KeyListener
 			r.drawRect( 0, 0, width-1, height-1 );
 			if( text != null )
 			{
-				Vector2f fontSize = r.getStringSize( text );
-				float strX = (width / 2) - (float)(fontSize.x / 2);
-				float strY = (height / 2) - (float)(fontSize.y / 2);
-				r.text( text, 3, strY );
+				if( isPassword )
+				{
+					for( int i = 0; i < text.length(); i++ )
+					{
+						r.fillOval( 10 + i*10, height/2 - 4, 8, 8 );
+					}
+				}
+				else
+				{
+					Vector2f fontSize = r.getStringSize( text );
+					float strX = (width / 2) - (float)(fontSize.x / 2);
+					float strY = (height / 2) - (float)(fontSize.y / 2);
+					r.text( text, 3, strY );
+				}
 			}
 		r.popMatrix();
 	}
@@ -107,6 +119,11 @@ public class DTextBox extends DUIElement implements KeyListener
 	public void setText( String text )
 	{
 		this.text = text;
+	}
+	
+	public void setPasswordInput( boolean isPassword )
+	{
+		this.isPassword = isPassword;
 	}
 
 	@Override

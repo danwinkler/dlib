@@ -109,6 +109,8 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 					el.handleChildrenMouseMoved( e );
 				}
 			}
+			e.x += this.x;
+			e.y += this.y;
 		}
 	}
 	
@@ -128,6 +130,8 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 					el.handleChildrenMousePressed( e );
 				}
 			}
+			e.x += this.x;
+			e.y += this.y;
 		}
 	}
 	
@@ -146,6 +150,8 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 					el.handleChildrenMouseReleased( e );
 				}
 			}
+			e.x += this.x;
+			e.y += this.y;
 		}
 	}
 	
@@ -166,6 +172,8 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 					el.handleChildrenMouseDragged( e );
 				}
 			}
+			e.x += this.x;
+			e.y += this.y;
 		}
 	}
 
