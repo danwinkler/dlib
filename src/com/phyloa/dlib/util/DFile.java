@@ -41,6 +41,7 @@ public class DFile
 		{
 			sb.append( scanner.nextLine() + "\n" );
 		}
+		scanner.close();
 		return sb.toString();
 	}
 	
