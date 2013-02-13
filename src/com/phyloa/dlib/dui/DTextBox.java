@@ -1,9 +1,18 @@
 package com.phyloa.dlib.dui;
 
 import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.CharBuffer;
+import java.util.ArrayList;
 
 import javax.vecmath.Vector2f;
 
@@ -54,6 +63,19 @@ public class DTextBox extends DUIElement implements KeyListener
 					float strX = (width / 2) - (float)(fontSize.x / 2);
 					float strY = (height / 2) - (float)(fontSize.y / 2);
 					r.text( text, 3, strY );
+					
+					Vector2f cursorVec = r.getStringSize( substring( 0, cursorLocation ) );
+					if( cursorBlink % blinkRate*2 < blinkRate )
+					{
+				    	r.line( cursorVec.x + 3, height/2 - 6, cursorVec.x + 3, height/2 + 6 );
+					}
+				}
+			}
+			else
+			{
+				if( cursorBlink % blinkRate*2 < blinkRate )
+				{
+					r.line( 3, height/2 - 6, 3, height/2 + 6 );
 				}
 			}
 		r.popMatrix();
@@ -61,7 +83,7 @@ public class DTextBox extends DUIElement implements KeyListener
 
 	public void update( DUI ui )
 	{
-		
+		cursorBlink++;
 	}
 
 	public void keyPressed( DKeyEvent e )
@@ -75,7 +97,11 @@ public class DTextBox extends DUIElement implements KeyListener
 				{
 					if( text.length() > 0 )
 					{
-						text = text.substring( 0, text.length()-1 );
+						text = substring( 0, cursorLocation-1 ) + substring( cursorLocation, text.length() );
+						if( cursorLocation > 0 )
+						{
+							cursorLocation--;
+						}
 					}
 				}
 			}
@@ -83,14 +109,55 @@ public class DTextBox extends DUIElement implements KeyListener
 			{
 				
 			}
+			else if( keyCode == KeyEvent.VK_RIGHT )
+			{
+				if( cursorLocation < text.length() )
+				{
+					cursorLocation++;
+				}
+			}
+			else if( keyCode == KeyEvent.VK_LEFT )
+			{
+				if( cursorLocation > 0 )
+				{
+					cursorLocation--;
+				}
+			}
+			else if( e.lctrl && e.keyCode == KeyEvent.VK_V )
+			{
+				//TODO READ FROM FUCKING CLIPBOARD
+			}
 			else if( !e.isActionKey )
 			{
-				text += e.keyChar;
+				text = substring( 0, cursorLocation ) + e.keyChar + substring( cursorLocation, text.length() );
+				cursorLocation++;
 			}
 			ui.event( new DUIEvent( this, keyCode ) );
 		}
 	}
 
+	private String substring( int f, int l )
+	{
+		if( f >= text.length() )
+		{
+			f = text.length();
+		}
+		if( f < 0 )
+		{
+			f = 0;
+		}
+		if( l >= text.length() )
+		{
+			l = text.length();
+		}
+		if( l < 0 )
+		{
+			l = 0;
+		}
+		
+		return text.substring( f, l );
+	}
+	
 	public Color getBgColor()
 	{
 		return bgColor;
