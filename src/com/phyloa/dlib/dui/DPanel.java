@@ -7,6 +7,8 @@ import com.phyloa.dlib.renderer.Renderer2D;
 
 public class DPanel extends DUIElement
 {
+	boolean renderBackground = false;
+	
 	public DPanel( int x, int y, int width, int height )
 	{
 		super( x, y, width, height );
@@ -15,7 +17,13 @@ public class DPanel extends DUIElement
 
 	public void render( Renderer2D r )
 	{
-		
+		if( renderBackground )
+		{
+			r.color( ui.theme.backgroundColor );
+			r.fillRect( x, y, width, height );
+			r.color(  ui.theme.borderColor );
+			r.drawRect( x, y, width, height );
+		}
 	}
 
 	public void update( DUI ui )

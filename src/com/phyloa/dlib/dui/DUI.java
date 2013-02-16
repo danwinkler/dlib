@@ -23,6 +23,9 @@ public class DUI implements DMouseListener, DKeyListener
 	DUIElement hover = null;
 	DUIElement rootPane = new DPanel( 0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE );
 	
+	DUIElement topPanelOwner = rootPane;
+	DUIElement topPanel = new DPanel( 0, 0, 0, 0 );
+	
 	boolean enabled = true;
 	
 	public DUITheme theme = DUITheme.defaultTheme;
@@ -33,6 +36,7 @@ public class DUI implements DMouseListener, DKeyListener
 		dem.addDKeyListener( this );
 		dem.addDMouseListener( this );
 		rootPane.ui = this;
+		topPanel.visible = false;
 	}
 	
 	public DUI( DEventMapper dem, int x, int y, int width, int height )
@@ -42,10 +46,23 @@ public class DUI implements DMouseListener, DKeyListener
 		rootPane.ui = this;
 	}
 	
+	public void setTopPanel( DUIElement owner, DUIElement topPanel )
+	{
+		topPanelOwner.losingTopPanel( this.topPanel );
+		topPanelOwner = owner;
+		this.topPanel = topPanel;
+		topPanel.setUI( this );
+	}
+	
 	public void update()
 	{
 		if( enabled )
 		{
+			if( topPanel.visible )
+			{
+				topPanel.update( this );
+				topPanel.updateChildren( this );
+			}
 			rootPane.update( this );
 			rootPane.updateChildren( this );
 		}
@@ -57,6 +74,11 @@ public class DUI implements DMouseListener, DKeyListener
 		{
 			rootPane.render( r );
 			rootPane.renderChildren( r );
+			if( topPanel.visible )
+			{
+				topPanel.render( r );
+				topPanel.renderChildren( r );
+			}
 		}
 	}
 	
@@ -93,8 +115,16 @@ public class DUI implements DMouseListener, DKeyListener
 	{
 		if( enabled )
 		{
-			rootPane.mouseMoved( e );
-			rootPane.handleChildrenMouseMoved( e );
+			if( topPanel.visible && topPanel.isInside( e.x, e.y ) )
+			{
+				topPanel.mouseMoved( e );
+				topPanel.handleChildrenMouseMoved( e );
+			}
+			else
+			{
+				rootPane.mouseMoved( e );
+				rootPane.handleChildrenMouseMoved( e );
+			}
 		}
 	}
 
@@ -102,8 +132,16 @@ public class DUI implements DMouseListener, DKeyListener
 	{
 		if( enabled )
 		{
-			rootPane.mousePressed( e );
-			rootPane.handleChildrenMousePressed( e );
+			if( topPanel.visible && topPanel.isInside( e.x, e.y ) )
+			{
+				topPanel.mousePressed( e );
+				topPanel.handleChildrenMousePressed( e );
+			}
+			else
+			{
+				rootPane.mousePressed( e );
+				rootPane.handleChildrenMousePressed( e );
+			}
 		}
 	}
 
@@ -111,8 +149,16 @@ public class DUI implements DMouseListener, DKeyListener
 	{
 		if( enabled )
 		{
-			rootPane.mouseReleased( e );
-			rootPane.handleChildrenMouseReleased( e );
+			if( topPanel.visible && topPanel.isInside( e.x, e.y ) )
+			{
+				topPanel.mouseReleased( e );
+				topPanel.handleChildrenMouseReleased( e );
+			}
+			else
+			{
+				rootPane.mouseReleased( e );
+				rootPane.handleChildrenMouseReleased( e );
+			}
 		}
 	}
 
@@ -151,8 +197,16 @@ public class DUI implements DMouseListener, DKeyListener
 	{
 		if( enabled )
 		{
-			rootPane.mouseDragged( e );
-			rootPane.handleChildrenMouseDragged( e );
+			if( topPanel.visible && topPanel.isInside( e.x, e.y ) )
+			{
+				topPanel.mouseDragged( e );
+				topPanel.handleChildrenMouseDragged( e );
+			}
+			else
+			{
+				rootPane.mouseDragged( e );
+				rootPane.handleChildrenMouseDragged( e );
+			}
 		}
 	}
 	

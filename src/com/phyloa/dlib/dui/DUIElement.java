@@ -231,4 +231,9 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 			}
 		}
 	}
+	
+	public void losingTopPanel( DUIElement e )
+	{
+		
+	}
 }
