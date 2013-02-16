@@ -36,7 +36,7 @@ public class DText extends DUIElement
 		}
 		r.color( color.getRGB() );
 		Vector2f size = r.getStringSize( text );
-		r.text( text, x - (centered ? size.x/2 : 0), y + size.y );
+		r.text( text, x - (centered ? size.x/2 : 0), y );
 	}
 
 	public void update( DUI ui )

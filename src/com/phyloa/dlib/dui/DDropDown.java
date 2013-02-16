@@ -32,7 +32,12 @@ public class DDropDown extends DUIElement
 		topPanel.height = (int)getExpandedHeight();
 	}
 	
-	public float getExpandedHeight()
+	public String getSelected()
+	{
+		return items.get( selected );
+	}
+	
+	float getExpandedHeight()
 	{
 		return Math.max( height, height*items.size() );
 	}
@@ -178,7 +183,7 @@ public class DDropDown extends DUIElement
 				r.fillRect( 0, hover*ddd.height, width, ddd.height );
 			}
 			
-			r.color(  ui.theme.borderColor );
+			r.color( ui.theme.borderColor );
 			r.drawRect( 0, 0, width, height );
 			
 			for( int i = 0; i < ddd.items.size(); i++ )
@@ -220,6 +225,7 @@ public class DDropDown extends DUIElement
 			ddd.selected = i;
 			this.visible = false;
 			ddd.expanded = false;
+			ui.event( new DUIEvent( ddd, ddd.selected ) );
 		}
 
 		public void mouseMoved( DMouseEvent e )
