@@ -87,6 +87,11 @@ public class DDropDown extends DUIElement
 	{
 		
 	}
+	
+	public void setSelected( int i )
+	{
+		selected = i;
+	}
 
 	public void keyPressed( DKeyEvent dke )
 	{
@@ -222,7 +227,7 @@ public class DDropDown extends DUIElement
 		{
 			float my = e.y - y;
 			int i = (int)(my / ddd.height);
-			ddd.selected = i;
+			ddd.setSelected( i );
 			this.visible = false;
 			ddd.expanded = false;
 			ui.event( new DUIEvent( ddd, ddd.selected ) );
@@ -247,5 +252,10 @@ public class DDropDown extends DUIElement
 		{
 			
 		}		
+	}
+
+	public int getSelectedOrdinal()
+	{
+		return selected;
 	}
 }
