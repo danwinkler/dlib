@@ -30,7 +30,12 @@ public class DPanel extends DUIElement
 	{
 		
 	}
-
+	
+	public void setDrawBackground( boolean sdb )
+	{
+		this.renderBackground = sdb;
+	}
+	
 	@Override
 	public void keyPressed( DKeyEvent dke )
 	{

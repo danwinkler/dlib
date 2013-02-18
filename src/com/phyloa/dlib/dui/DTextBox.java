@@ -65,7 +65,7 @@ public class DTextBox extends DUIElement implements KeyListener
 					r.text( text, 3, strY );
 					
 					Vector2f cursorVec = r.getStringSize( substring( 0, cursorLocation ) );
-					if( cursorBlink % blinkRate*2 < blinkRate )
+					if( hasFocus && cursorBlink % blinkRate*2 < blinkRate )
 					{
 				    	r.line( cursorVec.x + 3, height/2 - 6, cursorVec.x + 3, height/2 + 6 );
 					}
@@ -73,7 +73,7 @@ public class DTextBox extends DUIElement implements KeyListener
 			}
 			else
 			{
-				if( cursorBlink % blinkRate*2 < blinkRate )
+				if( hasFocus && cursorBlink % blinkRate*2 < blinkRate )
 				{
 					r.line( 3, height/2 - 6, 3, height/2 + 6 );
 				}
@@ -91,6 +91,7 @@ public class DTextBox extends DUIElement implements KeyListener
 		if( ui.focus == this )
 		{
 			int keyCode = e.keyCode;
+			ui.event( new DUIEvent( this, keyCode ) );
 			if( keyCode == KeyEvent.VK_BACK_SPACE )
 			{
 				if( text != null )
@@ -186,6 +187,7 @@ public class DTextBox extends DUIElement implements KeyListener
 	public void setText( String text )
 	{
 		this.text = text;
+		cursorLocation = text.length();
 	}
 	
 	public void setPasswordInput( boolean isPassword )

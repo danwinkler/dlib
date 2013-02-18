@@ -258,4 +258,10 @@ public class DDropDown extends DUIElement
 	{
 		return selected;
 	}
+
+	public void clearItems()
+	{
+		items.clear();
+		selected = 0;
+	}
 }
