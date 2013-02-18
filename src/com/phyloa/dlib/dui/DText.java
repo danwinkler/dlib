@@ -34,7 +34,7 @@ public class DText extends DUIElement
 		{
 			
 		}
-		r.color( color.getRGB() );
+		r.color( ui.theme.borderColor );
 		Vector2f size = r.getStringSize( text );
 		r.text( text, x - (centered ? size.x/2 : 0), y );
 	}
