@@ -65,7 +65,7 @@ public class DTextBox extends DUIElement implements KeyListener
 					r.text( text, 3, strY );
 					
 					Vector2f cursorVec = r.getStringSize( substring( 0, cursorLocation ) );
-					if( hasFocus && cursorBlink % blinkRate*2 < blinkRate )
+					if( ui.focus == this && cursorBlink % blinkRate*2 < blinkRate )
 					{
 				    	r.line( cursorVec.x + 3, height/2 - 6, cursorVec.x + 3, height/2 + 6 );
 					}
@@ -73,7 +73,7 @@ public class DTextBox extends DUIElement implements KeyListener
 			}
 			else
 			{
-				if( hasFocus && cursorBlink % blinkRate*2 < blinkRate )
+				if( ui.focus == this && cursorBlink % blinkRate*2 < blinkRate )
 				{
 					r.line( 3, height/2 - 6, 3, height/2 + 6 );
 				}
