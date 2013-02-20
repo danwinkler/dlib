@@ -1,30 +1,34 @@
 package com.phyloa.dlib.particle;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class ParticleSystem<R>
 {
-	ArrayList<Particle<R>> particles = new ArrayList<Particle<R>>();
+	LinkedList<Particle<R>> particles = new LinkedList<Particle<R>>();
 	
 	public void update( float d )
 	{
-		for( int i = 0; i < particles.size(); i++ )
+		Iterator<Particle<R>> i = particles.iterator();
+		
+		while( i.hasNext() )
 		{
-			Particle<R> p = particles.get( i );
+			Particle<R> p = i.next();
 			p.update( d );
 			if( !p.alive )
 			{
-				particles.remove( i );
-				i--;
+				i.remove();
 			}
 		}
 	}
 	
 	public void render( R r )
 	{
-		for( int i = 0; i < particles.size(); i++ )
+		Iterator<Particle<R>> i = particles.iterator();
+		while( i.hasNext() )
 		{
-			Particle<R> p = particles.get( i );
+			Particle<R> p = i.next();
 			p.render( r );
 		}
 	}
