@@ -1,12 +1,14 @@
 package com.phyloa.dlib.particle;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ParticleSystem<R>
 {
-	LinkedList<Particle<R>> particles = new LinkedList<Particle<R>>();
+	public LinkedList<Particle<R>> particles = new LinkedList<Particle<R>>();
 	
 	public void update( float d )
 	{
@@ -36,5 +38,10 @@ public class ParticleSystem<R>
 	public void add( Particle<R> p )
 	{
 		particles.add( p );
+	}
+	
+	public void sort( Comparator<Particle<R>> c )
+	{
+		Collections.sort( particles, c );
 	}
 }
