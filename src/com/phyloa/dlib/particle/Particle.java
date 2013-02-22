@@ -1,8 +1,12 @@
 package com.phyloa.dlib.particle;
 
+import javax.vecmath.Point3f;
+import javax.vecmath.Vector3f;
+
 public abstract class Particle<R>
 {
-	public float x, y, dx, dy;
+	public Point3f pos;
+	public Vector3f speed;
 	
 	public float timeleft;
 	
@@ -10,21 +14,19 @@ public abstract class Particle<R>
 	
 	public boolean alive = true;
 	
-	public Particle( float x, float y, float dx, float dy, float duration )
+	public Particle( float x, float y, float z, float dx, float dy, float dz, float duration )
 	{
-		this.x = x;
-		this.y = y;
-		this.dx = dx;
-		this.dy = dy;
+		pos = new Point3f( x, y, z );
+		speed = new Vector3f( dx, dy, dz );
 		this.timeleft = duration;
 	}
 	
 	public void update( float time )
 	{
-		dx -= dx*friction;
-		dy -= dy*friction;
-		x += dx * time;
-		y += dy * time;
+		speed.scale( 1-friction );
+		pos.x += speed.x * time;
+		pos.y += speed.y * time;
+		pos.z += speed.z * time;
 		
 		timeleft -= time;
 		
