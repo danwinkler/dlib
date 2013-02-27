@@ -138,7 +138,7 @@ public class Transformable
 	public void scale( float x, float y, float z )
 	{
 		Matrix4f opMat = new Matrix4f();
-		opMat.setScale( x );
+		opMat.set( x );
 		mat.mul( opMat );
 	}
 	
