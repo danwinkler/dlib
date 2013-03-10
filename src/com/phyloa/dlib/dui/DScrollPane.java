@@ -110,6 +110,8 @@ public class DScrollPane extends DUIElement
 	{
 		if( visible )
 		{
+			int tx = e.x;
+			int ty = e.y;
 			e.x = e.x - this.x + scrollx;
 			e.y = e.y - this.y + scrolly;
 			for( int i = 0; i < children.size(); i++ )
@@ -123,6 +125,8 @@ public class DScrollPane extends DUIElement
 					el.handleChildrenMouseMoved( e );
 				}
 			}
+			e.x = tx;
+			e.y = ty;
 		}
 	}
 	
@@ -130,6 +134,8 @@ public class DScrollPane extends DUIElement
 	{
 		if( visible )
 		{
+			int tx = e.x;
+			int ty = e.y;
 			ui.setFocus( this );
 			e.x = e.x - this.x + scrollx;
 			e.y = e.y - this.y + scrolly;
@@ -142,6 +148,8 @@ public class DScrollPane extends DUIElement
 					el.handleChildrenMousePressed( e );
 				}
 			}
+			e.x = tx;
+			e.y = ty;
 		}
 	}
 	
@@ -149,6 +157,8 @@ public class DScrollPane extends DUIElement
 	{
 		if( visible )
 		{
+			int tx = e.x;
+			int ty = e.y;
 			e.x = e.x - this.x + scrollx;
 			e.y = e.y - this.y + scrolly;
 			for( int i = 0; i < children.size(); i++ )
@@ -160,6 +170,8 @@ public class DScrollPane extends DUIElement
 					el.handleChildrenMouseReleased( e );
 				}
 			}
+			e.x = tx;
+			e.y = ty;
 		}
 	}
 

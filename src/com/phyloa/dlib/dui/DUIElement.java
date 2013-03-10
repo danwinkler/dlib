@@ -180,6 +180,7 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 	public void add( DUIElement e )
 	{
 		children.add( e );
+		e.parent = this;
 		e.setUI( ui );
 	}
 
@@ -220,6 +221,8 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 	{
 		if( visible )
 		{
+			e.x = e.x - this.x;
+			e.y = e.y - this.y;
 			for( int i = 0; i < children.size(); i++ )
 			{
 				DUIElement el = children.get( i );
@@ -229,6 +232,8 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 					el.handleChildrenMouseWheel( e );
 				}
 			}
+			e.x += this.x;
+			e.y += this.y;
 		}
 	}
 	
