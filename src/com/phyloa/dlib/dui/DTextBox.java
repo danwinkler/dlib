@@ -1,6 +1,7 @@
 package com.phyloa.dlib.dui;
 
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -91,7 +92,6 @@ public class DTextBox extends DUIElement implements KeyListener
 		if( ui.focus == this )
 		{
 			int keyCode = e.keyCode;
-			ui.event( new DUIEvent( this, keyCode ) );
 			if( keyCode == KeyEvent.VK_BACK_SPACE )
 			{
 				if( text != null )
@@ -126,7 +126,19 @@ public class DTextBox extends DUIElement implements KeyListener
 			}
 			else if( e.lctrl && e.keyCode == KeyEvent.VK_V )
 			{
-				//TODO READ FROM FUCKING CLIPBOARD
+				try
+				{
+					text += (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData( DataFlavor.stringFlavor );
+				} catch( HeadlessException e1 )
+				{
+					e1.printStackTrace();
+				} catch( UnsupportedFlavorException e1 )
+				{
+					e1.printStackTrace();
+				} catch( IOException e1 )
+				{
+					e1.printStackTrace();
+				}
 			}
 			else if( !e.isActionKey )
 			{

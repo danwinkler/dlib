@@ -241,4 +241,9 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 	{
 		
 	}
+	
+	public void clearChildren()
+	{
+		children.clear();
+	}
 }
