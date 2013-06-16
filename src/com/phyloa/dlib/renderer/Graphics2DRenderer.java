@@ -1,5 +1,6 @@
 package com.phyloa.dlib.renderer;
 
+import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -335,5 +336,10 @@ public abstract class Graphics2DRenderer implements Renderer2D, ComponentListene
 	public void clearClip()
 	{
 		g.setClip( null );
+	}
+	
+	public void setLineWidth( float w )
+	{
+		g.setStroke( new BasicStroke( w ) );
 	}
 }
