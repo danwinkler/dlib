@@ -192,6 +192,18 @@ public class DMath
 		return new Vector2f( p );
 	}
 	
+	public static float posOnLineByPerpPoint( Point2f p0, Vector2f dir, Point2f p )
+	{
+		p0 = new Point2f( p0 );
+		dir = new Vector2f( dir );
+		p = new Point2f( p );
+		Vector2f pMinusP0 = new Vector2f( p );
+		pMinusP0.sub( p0 );
+		float denom = dir.dot(dir);
+		float t = dir.dot( pMinusP0 ) / denom;
+		return t;
+	}
+	
 	public static Point2f lineLineIntersection( Tuple2f a1, Tuple2f a2, Tuple2f b1, Tuple2f b2 )
 	{
 		float d = (a1.x-a2.x)*(b1.y-b2.y) - (a1.y-a2.y)*(b1.x-b2.x);

@@ -338,8 +338,8 @@ public abstract class Graphics2DRenderer implements Renderer2D, ComponentListene
 		g.setClip( null );
 	}
 	
-	public void setLineWidth( float width )
+	public void setLineWidth( float w )
 	{
-		g.setStroke( new BasicStroke( width ) );
+		g.setStroke( new BasicStroke( w ) );
 	}
 }
