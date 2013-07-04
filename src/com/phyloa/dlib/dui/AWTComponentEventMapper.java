@@ -8,7 +8,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-
 public class AWTComponentEventMapper implements KeyListener, MouseListener, MouseMotionListener, DEventMapper
 {
 	ArrayList<DKeyListener> keyListeners = new ArrayList<DKeyListener>();
