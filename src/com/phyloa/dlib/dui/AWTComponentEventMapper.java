@@ -107,9 +107,9 @@ public class AWTComponentEventMapper implements KeyListener, MouseListener, Mous
 	public void mouseEntered( MouseEvent e )
 	{
 		DMouseEvent dme = createFromMouseEvent( e );
-		for( DMouseListener l : mouseListeners )
+		for( int i = 0; i < mouseListeners.size(); i++ )
 		{
-			l.mouseEntered( dme );
+			mouseListeners.get( i ).mouseEntered( dme );
 		}
 	}
 
@@ -117,9 +117,9 @@ public class AWTComponentEventMapper implements KeyListener, MouseListener, Mous
 	public void mouseExited( MouseEvent e )
 	{
 		DMouseEvent dme = createFromMouseEvent( e );
-		for( DMouseListener l : mouseListeners )
+		for( int i = 0; i < mouseListeners.size(); i++ )
 		{
-			l.mouseExited( dme );
+			mouseListeners.get( i ).mouseExited( dme );
 		}
 	}
 
@@ -127,9 +127,9 @@ public class AWTComponentEventMapper implements KeyListener, MouseListener, Mous
 	public void mousePressed( MouseEvent e )
 	{
 		DMouseEvent dme = createFromMouseEvent( e );
-		for( DMouseListener l : mouseListeners )
+		for( int i = 0; i < mouseListeners.size(); i++ )
 		{
-			l.mousePressed( dme );
+			mouseListeners.get( i ).mousePressed( dme );
 		}
 	}
 
@@ -137,9 +137,10 @@ public class AWTComponentEventMapper implements KeyListener, MouseListener, Mous
 	public void mouseReleased( MouseEvent e )
 	{
 		DMouseEvent dme = createFromMouseEvent( e );
-		for( DMouseListener l : mouseListeners )
+		
+		for( int i = 0; i < mouseListeners.size(); i++ )
 		{
-			l.mouseReleased( dme );
+			mouseListeners.get( i ).mouseReleased( dme );
 		}
 	}
 

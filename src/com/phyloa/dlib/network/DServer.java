@@ -56,10 +56,6 @@ public class DServer<E> implements ClassRegister
 			{
 				DMessage<E> m = new DMessage<E>( e, DMessageType.DATA, -1 );
 				c.sendTCP( m );
-				if( DEBUG )
-				{
-					messageCount[m.messageType.ordinal()]++;
-				}
 			}
 		}
 	}
@@ -73,10 +69,32 @@ public class DServer<E> implements ClassRegister
 			{
 				if( connectionsArr.get( i ) == null ) break;
 				connectionsArr.get( i ).sendTCP( m );
-				if( DEBUG )
-				{
-					messageCount[m.messageType.ordinal()]++;
-				}
+			}
+		}
+	}
+	
+	public void sendToClientUDP( int id, E e )
+	{
+		synchronized( connectionsArr )
+		{
+			Connection c = connections.get( id );
+			if( c != null )
+			{
+				DMessage<E> m = new DMessage<E>( e, DMessageType.DATA, -1 );
+				c.sendUDP( m );
+			}
+		}
+	}
+
+	public void sendToAllClientsUDP( E e ) 
+	{
+		synchronized( connectionsArr )
+		{
+			DMessage<E> m = new DMessage<E>( e, DMessageType.DATA, -1 );
+			for( int i = 0; i < connectionsArr.size(); i++ )
+			{
+				if( connectionsArr.get( i ) == null ) break;
+				connectionsArr.get( i ).sendUDP( m );
 			}
 		}
 	}

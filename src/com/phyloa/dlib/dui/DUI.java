@@ -84,7 +84,7 @@ public class DUI implements DMouseListener, DKeyListener
 	
 	public void addDUIListener( DUIListener l )
 	{
-		listeners.add( l );
+		if( !listeners.contains( l ) ) listeners.add( l );
 	}
 	
 	public void add( DUIElement e )
@@ -212,6 +212,7 @@ public class DUI implements DMouseListener, DKeyListener
 	
 	public void setEnabled( boolean enabled )
 	{
+		if( this.enabled == enabled ) return;
 		this.enabled = enabled;
 		dem.setEnabled( enabled );
 		if( enabled )

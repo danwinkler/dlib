@@ -24,7 +24,7 @@ public class DClient<E> implements ClassRegister
 	public void start( String address, int timeout, int portTCP, int portUDP ) throws IOException
 	{
 		running = true;
-		client.start();
+		new Thread( client ).start();
 		client.connect( timeout, address, portTCP, portUDP );
 		
 		
@@ -50,6 +50,11 @@ public class DClient<E> implements ClassRegister
 	public void sendToServer( E m ) 
 	{
 		client.sendTCP( new DMessage<E>( m, DMessageType.DATA, client.getID() ) );
+	}
+	
+	public void sendUDP( E m )
+	{
+		client.sendUDP( new DMessage<E>( m, DMessageType.DATA, client.getID() ) );
 	}
 	
 	public void register( Class c )
