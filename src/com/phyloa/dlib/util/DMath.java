@@ -226,9 +226,9 @@ public class DMath
 	public static String humanReadableNumber( long i )
 	{
 		if( i < 10000 ) return Long.toString( i );
-		if( i < 1000000 ) return Math.round( (i / 1000) * 10.0 ) / 10.0 + " Thousand";
-		if( i < 1000000000 ) return Math.round( (i / 1000000) * 10.0 ) / 10.0 + " Million";
-		if( i < 1000000000000l ) return Math.round( (i / 1000000000) * 10.0 ) / 10.0 + " Billion";
+		if( i < 1000000 ) return Math.round( (i*10.0 / 1000) ) / 10.0 + " Thousand";
+		if( i < 1000000000 ) return Math.round( (i*10.0 / 1000000) ) / 10.0 + " Million";
+		if( i < 1000000000000l ) return Math.round( (i*10.0 / 1000000000) ) / 10.0 + " Billion";
 		return Long.toString( i );
 	}
 }
