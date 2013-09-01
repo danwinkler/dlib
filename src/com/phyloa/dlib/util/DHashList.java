@@ -44,4 +44,14 @@ public class DHashList<K,V> implements Iterable<V>
 	{
 		return list.iterator();
 	}
+	
+	public ArrayList<V> getArrayList()
+	{
+		return list;
+	}
+	
+	public HashMap<K,V> getHashMap()
+	{
+		return map;
+	}
 }
