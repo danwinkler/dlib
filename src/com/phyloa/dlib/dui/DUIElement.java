@@ -183,6 +183,11 @@ public abstract class DUIElement implements DKeyListener, DMouseListener
 		e.parent = this;
 		e.setUI( ui );
 	}
+	
+	public void remove( DUIElement e )
+	{
+		children.remove( e );
+	}
 
 	public void updateChildren( DUI dui )
 	{

@@ -89,8 +89,16 @@ public class DUI implements DMouseListener, DKeyListener
 	
 	public void add( DUIElement e )
 	{
-		rootPane.add( e );
-		e.setUI( this );
+		if( !rootPane.children.contains( e ) )
+		{
+			rootPane.add( e );
+			e.setUI( this );
+		}
+	}
+	
+	public void remove( DUIElement e )
+	{
+		rootPane.remove( e );
 	}
 	
 	public void event( DUIEvent e )
