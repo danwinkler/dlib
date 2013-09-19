@@ -18,6 +18,7 @@ public class DUI implements DMouseListener, DKeyListener
 {
 	DEventMapper dem;
 	ArrayList<DUIListener> listeners = new ArrayList<DUIListener>();
+	ArrayList<DDialog> dialogs = new ArrayList<DDialog>();
 	
 	DUIElement focus = null;
 	DUIElement hover = null;
@@ -65,6 +66,18 @@ public class DUI implements DMouseListener, DKeyListener
 			}
 			rootPane.update( this );
 			rootPane.updateChildren( this );
+			
+			if( dialogs.size() > 0 )
+			{
+				DDialog d = dialogs.get( dialogs.size()-1 );
+				d.update( this );
+				if( d.isComplete() )
+				{
+					dialogs.remove( d );
+					listeners.remove( d );
+					event( new DUIEvent( d ) );
+				}
+			}
 		}
 	}
 	
@@ -78,6 +91,12 @@ public class DUI implements DMouseListener, DKeyListener
 			{
 				topPanel.render( r );
 				topPanel.renderChildren( r );
+			}
+			
+			for( int i = 0; i < dialogs.size(); i++ )
+			{
+				dialogs.get( i ).render( r );
+				dialogs.get( i ).renderChildren( r );
 			}
 		}
 	}
@@ -96,6 +115,13 @@ public class DUI implements DMouseListener, DKeyListener
 		}
 	}
 	
+	public void showDialog( DDialog d, int x, int y )
+	{
+		d.setLocation( x, y );
+		dialogs.add( d );
+		d.setUI( this );
+	}
+	
 	public void remove( DUIElement e )
 	{
 		rootPane.remove( e );
@@ -103,8 +129,9 @@ public class DUI implements DMouseListener, DKeyListener
 	
 	public void event( DUIEvent e )
 	{
-		for( DUIListener l : listeners )
+		for( int i = 0; i < listeners.size(); i++ )
 		{
+			DUIListener l = listeners.get( i );
 			l.event( e );
 		}
 	}
@@ -133,6 +160,12 @@ public class DUI implements DMouseListener, DKeyListener
 				rootPane.mouseMoved( e );
 				rootPane.handleChildrenMouseMoved( e );
 			}
+			
+			if( dialogs.size() > 0 )
+			{
+				DDialog d = dialogs.get( dialogs.size()-1 );
+				d.handleChildrenMouseMoved( e );
+			}
 		}
 	}
 
@@ -150,6 +183,12 @@ public class DUI implements DMouseListener, DKeyListener
 				rootPane.mousePressed( e );
 				rootPane.handleChildrenMousePressed( e );
 			}
+			
+			if( dialogs.size() > 0 )
+			{
+				DDialog d = dialogs.get( dialogs.size()-1 );
+				d.handleChildrenMousePressed( e );
+			}
 		}
 	}
 
@@ -166,6 +205,12 @@ public class DUI implements DMouseListener, DKeyListener
 			{
 				rootPane.mouseReleased( e );
 				rootPane.handleChildrenMouseReleased( e );
+			}
+			
+			if( dialogs.size() > 0 )
+			{
+				DDialog d = dialogs.get( dialogs.size()-1 );
+				d.handleChildrenMouseReleased( e );
 			}
 		}
 	}
@@ -215,6 +260,12 @@ public class DUI implements DMouseListener, DKeyListener
 				rootPane.mouseDragged( e );
 				rootPane.handleChildrenMouseDragged( e );
 			}
+			
+			if( dialogs.size() > 0 )
+			{
+				DDialog d = dialogs.get( dialogs.size()-1 );
+				d.handleChildrenMouseDragged( e );
+			}
 		}
 	}
 	
@@ -242,6 +293,12 @@ public class DUI implements DMouseListener, DKeyListener
 		{
 			rootPane.mouseWheel( dme );
 			rootPane.handleChildrenMouseWheel( dme );
+		}
+		
+		if( dialogs.size() > 0 )
+		{
+			DDialog d = dialogs.get( dialogs.size()-1 );
+			d.handleChildrenMouseWheel( dme );
 		}
 	}
 }
