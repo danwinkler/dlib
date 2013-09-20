@@ -125,4 +125,14 @@ public class DDialog extends DPanel implements DUIListener
 			confirmed = true;
 		}
 	}
+
+	public boolean isConfirmed()
+	{
+		return confirmed;
+	}
+	
+	public boolean isCacnceled()
+	{
+		return canceled;
+	}
 }

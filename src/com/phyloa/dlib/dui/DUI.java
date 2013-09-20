@@ -87,16 +87,17 @@ public class DUI implements DMouseListener, DKeyListener
 		{
 			rootPane.render( r );
 			rootPane.renderChildren( r );
-			if( topPanel.visible )
-			{
-				topPanel.render( r );
-				topPanel.renderChildren( r );
-			}
 			
 			for( int i = 0; i < dialogs.size(); i++ )
 			{
 				dialogs.get( i ).render( r );
 				dialogs.get( i ).renderChildren( r );
+			}
+			
+			if( topPanel.visible )
+			{
+				topPanel.render( r );
+				topPanel.renderChildren( r );
 			}
 		}
 	}
@@ -167,6 +168,11 @@ public class DUI implements DMouseListener, DKeyListener
 				d.handleChildrenMouseMoved( e );
 			}
 		}
+	}
+	
+	public boolean dialogPresent()
+	{
+		return dialogs.size() > 0;
 	}
 
 	public void mousePressed( DMouseEvent e )
