@@ -2,6 +2,7 @@ package com.phyloa.dlib.dui;
 
 import java.util.ArrayList;
 
+import javax.vecmath.Point2i;
 import javax.vecmath.Vector2f;
 
 import com.phyloa.dlib.renderer.Renderer2D;
@@ -128,6 +129,9 @@ public class DDropDown extends DUIElement
 			if( mx > width-height )
 			{
 				expanded = true;
+				Point2i loc = getScreenLocation();
+				topPanel.x = loc.x;
+				topPanel.y = loc.y;
 				topPanel.reset();
 				ui.setTopPanel( this, topPanel );
 			}
@@ -193,6 +197,10 @@ public class DDropDown extends DUIElement
 			
 			for( int i = 0; i < ddd.items.size(); i++ )
 			{
+				//For some reason I added ddd.height to the text location when I was doing something with Dropdowns in Dialogs
+				//It breaks DDropDowns for tacticshooter though so I'm removing it for now.
+				//r.text( ddd.items.get( i ), 10, ddd.height + i*ddd.height + r.getStringSize( ddd.items.get( i ) ).y/2 );
+				
 				r.text( ddd.items.get( i ), 10, i*ddd.height + r.getStringSize( ddd.items.get( i ) ).y/2 );
 			}
 			r.popMatrix();

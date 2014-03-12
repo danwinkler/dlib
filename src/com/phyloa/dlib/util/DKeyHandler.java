@@ -110,6 +110,7 @@ public class DKeyHandler implements KeyListener
 		case KeyEvent.VK_W: w = true; break;
 		case KeyEvent.VK_X: x = true; break;
 		case KeyEvent.VK_Y: y = true; break;
+		case KeyEvent.VK_Z: z = true; break;
 		case KeyEvent.VK_SPACE: space = true; break;
 		case KeyEvent.VK_ENTER: enter = true; break;
 		case KeyEvent.VK_ALT: alt = true; break;
@@ -154,6 +155,7 @@ public class DKeyHandler implements KeyListener
 		case KeyEvent.VK_W: w = false; break;
 		case KeyEvent.VK_X: x = false; break;
 		case KeyEvent.VK_Y: y = false; break;
+		case KeyEvent.VK_Z: z = false; break;
 		case KeyEvent.VK_SPACE: space = false; break;
 		case KeyEvent.VK_ENTER: enter = false; break;
 		case KeyEvent.VK_ALT: alt = false; break;

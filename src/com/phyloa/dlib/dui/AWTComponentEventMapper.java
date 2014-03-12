@@ -12,7 +12,7 @@ public class AWTComponentEventMapper implements KeyListener, MouseListener, Mous
 {
 	ArrayList<DKeyListener> keyListeners = new ArrayList<DKeyListener>();
 	ArrayList<DMouseListener> mouseListeners = new ArrayList<DMouseListener>();
-	private boolean enabled;
+	private boolean enabled = true;
 	
 	public void register( Component c )
 	{
