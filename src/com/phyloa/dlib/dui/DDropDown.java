@@ -197,7 +197,11 @@ public class DDropDown extends DUIElement
 			
 			for( int i = 0; i < ddd.items.size(); i++ )
 			{
-				r.text( ddd.items.get( i ), 10, ddd.height + i*ddd.height + r.getStringSize( ddd.items.get( i ) ).y/2 );
+				//For some reason I added ddd.height to the text location when I was doing something with Dropdowns in Dialogs
+				//It breaks DDropDowns for tacticshooter though so I'm removing it for now.
+				//r.text( ddd.items.get( i ), 10, ddd.height + i*ddd.height + r.getStringSize( ddd.items.get( i ) ).y/2 );
+				
+				r.text( ddd.items.get( i ), 10, i*ddd.height + r.getStringSize( ddd.items.get( i ) ).y/2 );
 			}
 			r.popMatrix();
 		}
