@@ -6,6 +6,9 @@ import com.phyloa.dlib.renderer.Renderer2D;
 
 public class DCheckBox extends DUIElement
 {
+	public static final int CHECKED = 0;
+	public static final int UNCHECKED = 1;
+	
 	Color borderColor = new Color( 32, 32, 128 );
 	Color color = new Color( 128, 128, 255 );
 	
@@ -39,6 +42,7 @@ public class DCheckBox extends DUIElement
 	public void mousePressed( DMouseEvent e )
 	{
 		checked = !checked;
+		ui.event( new DUIEvent( this, checked ? CHECKED : UNCHECKED ) );
 	}
 
 	public void mouseReleased( DMouseEvent e )
