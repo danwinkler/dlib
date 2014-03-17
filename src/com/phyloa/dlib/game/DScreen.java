@@ -1,4 +1,4 @@
-package com.phyloa.dlib.renderer;
+package com.phyloa.dlib.game;
 
 public abstract class DScreen<E, F>
 {	

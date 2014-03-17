@@ -1,6 +1,8 @@
-package com.phyloa.dlib.renderer;
+package com.phyloa.dlib.game;
 
 import java.util.HashMap;
+
+import com.phyloa.dlib.renderer.DScreenTransition;
 
 public class DScreenHandler<E, F>
 {

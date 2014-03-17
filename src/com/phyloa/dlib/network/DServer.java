@@ -175,20 +175,6 @@ public class DServer<E> implements ClassRegister
 			}
 		}
 	}
-	
-	public void printDebug()
-	{
-		if( DEBUG )
-		{
-			System.out.println( "MESSAGETYPE BREAKDOWN" );
-			for( DMessageType t : DMessageType.values() )
-			{
-				System.out.println( t.name() + " " + messageCount[t.ordinal()] );
-			}
-			System.out.println( "-------------------------" );
-			System.out.println( "" );
-		}
-	}
 
 	public void stop()
 	{
