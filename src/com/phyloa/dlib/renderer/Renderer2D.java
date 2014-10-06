@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyListener;
 
-import javax.vecmath.Vector2f;
+import jp.objectclub.vecmath.Vector2f;
 
 /**
  * All Renderers implement the Renderer interface. The Renderer methods are for 

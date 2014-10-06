@@ -2,14 +2,14 @@ package com.phyloa.dlib.graphics;
 
 import java.util.Stack;
 
-import javax.vecmath.AxisAngle4f;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Point3f;
-import javax.vecmath.Tuple3f;
-import javax.vecmath.Vector3f;
+import jp.objectclub.vecmath.AxisAngle4f;
+import jp.objectclub.vecmath.Matrix4f;
+import jp.objectclub.vecmath.Point3f;
+import jp.objectclub.vecmath.Tuple3f;
+import jp.objectclub.vecmath.Vector3f;
 
 /**
- * Basically a layer over javax.vecmath.Matrix4f to include pushMatrix() and popMatrix().
+ * Basically a layer over jp.objectclub.vecmath.Matrix4f to include pushMatrix() and popMatrix().
  * 
  * Designed to be subclassed.
  * 

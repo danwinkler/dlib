@@ -8,13 +8,13 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.vecmath.AxisAngle4f;
-import javax.vecmath.Matrix3f;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Point2f;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector2f;
-import javax.vecmath.Vector3f;
+import jp.objectclub.vecmath.AxisAngle4f;
+import jp.objectclub.vecmath.Matrix3f;
+import jp.objectclub.vecmath.Matrix4f;
+import jp.objectclub.vecmath.Point2f;
+import jp.objectclub.vecmath.Point3f;
+import jp.objectclub.vecmath.Vector2f;
+import jp.objectclub.vecmath.Vector3f;
 
 import com.phyloa.dlib.graphics.Transformable;
 import com.phyloa.dlib.math.Boxf;

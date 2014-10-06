@@ -1,8 +1,8 @@
 package com.phyloa.dlib.util;
 
-import javax.vecmath.Point2f;
-import javax.vecmath.Tuple2f;
-import javax.vecmath.Vector2f;
+import jp.objectclub.vecmath.Point2f;
+import jp.objectclub.vecmath.Tuple2f;
+import jp.objectclub.vecmath.Vector2f;
 
 public class DMath
 {
