@@ -1,6 +1,6 @@
 package com.phyloa.dlib.dui;
 
-import javax.vecmath.Vector2f;
+import jp.objectclub.vecmath.Vector2f;
 
 import com.phyloa.dlib.renderer.Renderer2D;
 import com.phyloa.dlib.util.DMath;

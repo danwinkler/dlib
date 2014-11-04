@@ -1,7 +1,7 @@
 package com.phyloa.dlib.math;
 
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
+import jp.objectclub.vecmath.Point3f;
+import jp.objectclub.vecmath.Vector3f;
 
 public class Trianglef implements Geom
 {

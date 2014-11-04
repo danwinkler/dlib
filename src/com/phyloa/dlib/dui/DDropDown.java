@@ -2,8 +2,8 @@ package com.phyloa.dlib.dui;
 
 import java.util.ArrayList;
 
-import javax.vecmath.Point2i;
-import javax.vecmath.Vector2f;
+import com.phyloa.dlib.math.Point2i;
+import jp.objectclub.vecmath.Vector2f;
 
 import com.phyloa.dlib.renderer.Renderer2D;
 

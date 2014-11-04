@@ -1,6 +1,6 @@
 package com.phyloa.dlib.math;
 
-import javax.vecmath.Point3f;
+import jp.objectclub.vecmath.Point3f;
 
 import com.phyloa.dlib.renderer.ShapeType;
 import com.phyloa.dlib.util.DGraphics;

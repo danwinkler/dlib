@@ -8,13 +8,13 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.vecmath.AxisAngle4f;
-import javax.vecmath.Matrix3f;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Point2f;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector2f;
-import javax.vecmath.Vector3f;
+import jp.objectclub.vecmath.AxisAngle4f;
+import jp.objectclub.vecmath.Matrix3f;
+import jp.objectclub.vecmath.Matrix4f;
+import jp.objectclub.vecmath.Point2f;
+import jp.objectclub.vecmath.Point3f;
+import jp.objectclub.vecmath.Vector2f;
+import jp.objectclub.vecmath.Vector3f;
 
 import com.phyloa.dlib.graphics.Transformable;
 import com.phyloa.dlib.math.Boxf;
@@ -30,6 +30,7 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	public GeomOctTree oct = new GeomOctTree();
 	ArrayList<Point3f> vertexBuffer = new ArrayList<Point3f>();
 	ArrayList<Light> lights = new ArrayList<Light>();
+	ArrayList<Geom> geom = new ArrayList<Geom>();
 	
 	ShapeType mode;
 	BufferedImage im;
@@ -204,7 +205,7 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	public Intersection collideWithObject( Rayf ray )
 	{
 		Intersection point = null;
-		/*
+		
 		for( int j = 0; j < geom.size(); j++ )
 		{
 			Intersection temp = geom.get(j).intersects( ray );
@@ -218,8 +219,8 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 				point = temp;
 			}
 		}
-		*/
-		point = oct.closestIntersect( ray );
+		
+		//point = oct.closestIntersect( ray );
 		return point;
 	}
 	
@@ -353,12 +354,14 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 	{
 		Trianglef t = new Trianglef( p1, p2, p3, color );
 		oct.addGeom( t );
+		geom.add( t );
 	}
 	
 	public void addTriangle( Point3f p1, Point3f p2, Point3f p3 )
 	{
 		Trianglef t = new Trianglef( p1, p2, p3 );
 		oct.addGeom( t );
+		geom.add( t );
 	}
 	
 	public void addTriangle( float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3 )
@@ -368,6 +371,7 @@ public class RayTraceImageRenderer extends Transformable implements IRenderer
 		Point3f p3 = new Point3f( x3, y3, z3 );
 		Trianglef t = new Trianglef( p1, p2, p3 );
 		oct.addGeom( t );
+		geom.add( t );
 	}
 	
 	public void addLight( float x, float y, float z, float i )

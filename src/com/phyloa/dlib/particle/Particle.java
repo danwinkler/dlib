@@ -1,7 +1,7 @@
 package com.phyloa.dlib.particle;
 
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
+import jp.objectclub.vecmath.Point3f;
+import jp.objectclub.vecmath.Vector3f;
 
 public abstract class Particle<R>
 {

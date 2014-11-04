@@ -3,7 +3,7 @@ package com.phyloa.dlib.dui;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import javax.vecmath.Vector2f;
+import jp.objectclub.vecmath.Vector2f;
 
 import com.phyloa.dlib.renderer.Renderer2D;
 import com.phyloa.dlib.util.DMath;

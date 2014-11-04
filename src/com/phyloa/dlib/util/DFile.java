@@ -35,7 +35,12 @@ public class DFile
 	
 	public static String loadText( String filename ) throws FileNotFoundException
 	{
-		Scanner scanner = new Scanner( new File( filename ) );
+		return loadText( new File( filename ) );
+	}
+	
+	public static String loadText( File file ) throws FileNotFoundException
+	{
+		Scanner scanner = new Scanner( file );
 		StringBuilder sb = new StringBuilder();
 		while( scanner.hasNext() )
 		{
@@ -47,10 +52,15 @@ public class DFile
 	
 	public static void saveText( String filename, String text ) throws FileNotFoundException
 	{
+		saveText( new File( filename ), text );
+	}
+	
+	public static void saveText( File file, String text ) throws FileNotFoundException
+	{
 		FileWriter outFile = null;
 		try
 		{
-			outFile = new FileWriter( filename );
+			outFile = new FileWriter( file );
 		} catch( IOException e )
 		{
 			// TODO Auto-generated catch block

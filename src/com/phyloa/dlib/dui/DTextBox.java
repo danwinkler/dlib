@@ -15,7 +15,7 @@ import java.io.Reader;
 import java.nio.CharBuffer;
 import java.util.ArrayList;
 
-import javax.vecmath.Vector2f;
+import jp.objectclub.vecmath.Vector2f;
 
 import com.phyloa.dlib.renderer.Renderer2D;
 

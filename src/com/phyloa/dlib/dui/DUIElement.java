@@ -2,7 +2,7 @@ package com.phyloa.dlib.dui;
 
 import java.util.ArrayList;
 
-import javax.vecmath.Point2i;
+import com.phyloa.dlib.math.Point2i;
 
 import com.phyloa.dlib.renderer.Renderer2D;
 

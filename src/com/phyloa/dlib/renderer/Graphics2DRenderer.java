@@ -21,8 +21,8 @@ import java.util.Stack;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
-import javax.vecmath.Point2f;
-import javax.vecmath.Vector2f;
+import jp.objectclub.vecmath.Point2f;
+import jp.objectclub.vecmath.Vector2f;
 
 import com.phyloa.dlib.util.DKeyHandler;
 import com.phyloa.dlib.util.DMouseHandler;
