@@ -33,6 +33,15 @@ public class DDropDown extends DUIElement
 		topPanel.height = (int)getExpandedHeight();
 	}
 	
+	public void addItems( Object... items )
+	{
+		for( Object s : items )
+		{
+			this.items.add( s.toString() );
+		}
+		topPanel.height = (int)getExpandedHeight();
+	}
+	
 	public String getSelected()
 	{
 		return items.get( selected );

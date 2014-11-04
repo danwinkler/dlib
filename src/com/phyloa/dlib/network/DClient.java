@@ -57,6 +57,7 @@ public class DClient<E> implements ClassRegister
 		client.sendUDP( new DMessage<E>( m, DMessageType.DATA, client.getID() ) );
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void register( Class c )
 	{
 		client.getKryo().register( c );
