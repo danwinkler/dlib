@@ -58,7 +58,7 @@ public class DScreenHandler<E, F>
 		return d;
 	}
 	
-	public void update( E e, int delta )
+	public void update( E e, float delta )
 	{
 		synchronized( d )
 		{
