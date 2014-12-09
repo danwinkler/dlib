@@ -202,7 +202,16 @@ public abstract class Graphics2DRenderer implements Renderer2D, ComponentListene
 
 	public void text( String text, float x, float y )
 	{
-		g.drawString( text, x, y );
+		text( text, x, y, false, false );
+	}
+	
+	public void text( String text, float x, float y, boolean centerX, boolean centerY )
+	{
+		Vector2f p = getStringSize( text );
+		float dx = centerX ? x - p.x*.5f : x;
+		float dy = centerY ? y - p.y*.5f : y;
+		
+		g.drawString( text, dx, dy );
 	}
 
 	public void drawImage( Image im, float x, float y )
