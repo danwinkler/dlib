@@ -14,7 +14,19 @@ public class DUITheme
 		defaultTheme.hoverColor = new Color( 96, 96, 200 );
 	}
 	
-	Color borderColor;
-	Color backgroundColor;
-	Color hoverColor;
+	public Color borderColor;
+	public Color backgroundColor;
+	public Color hoverColor;
+	
+	public DUITheme()
+	{
+		
+	}
+	
+	public DUITheme( DUITheme theme )
+	{
+		this.borderColor = theme.borderColor;
+		this.backgroundColor = theme.backgroundColor;
+		this.hoverColor = theme.hoverColor;
+	}
 }

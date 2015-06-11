@@ -307,4 +307,9 @@ public class DUI implements DMouseListener, DKeyListener
 			d.handleChildrenMouseWheel( dme );
 		}
 	}
+
+	public void setTheme( DUITheme theme )
+	{
+		this.theme = theme;
+	}
 }

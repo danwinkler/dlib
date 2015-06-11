@@ -89,6 +89,10 @@ public class DTextBox extends DUIElement implements KeyListener
 
 	public void keyPressed( DKeyEvent e )
 	{
+		if( ui == null ) 
+		{
+			System.out.println( ui );
+		}
 		if( ui.focus == this )
 		{
 			int keyCode = e.keyCode;
