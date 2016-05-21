@@ -54,4 +54,9 @@ public class DHashList<K,V> implements Iterable<V>
 	{
 		return map;
 	}
+	
+	public boolean containsKey( K k )
+	{
+		return map.containsKey( k );
+	}
 }
